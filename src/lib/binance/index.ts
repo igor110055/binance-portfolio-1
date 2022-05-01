@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { HmacSHA256 } from "crypto-js";
 
-const API_URL = "https://api.binance.com/api/v3";
+const API_URL = "https://api.binance.com/api";
 
 function encodeSignature(params: AxiosRequestConfig["params"]): string {
   if (process.env.REACT_APP_API_SECRET === undefined) {
@@ -14,7 +14,7 @@ function encodeSignature(params: AxiosRequestConfig["params"]): string {
   ).toString();
 }
 
-function appendHeaders(
+function applyHeaders(
   headers: AxiosRequestConfig["headers"]
 ): AxiosRequestConfig["headers"] {
   if (process.env.REACT_APP_API_KEY === undefined) {
@@ -37,15 +37,22 @@ function appendParams(
   };
 }
 
-export function makeRequest<T>(path: string, config: AxiosRequestConfig = {}) {
+export function applyBinanceRequestConfig(
+  path: string,
+  config: AxiosRequestConfig = {},
+  signed: boolean
+): AxiosRequestConfig {
   const url = API_URL + path;
-  const headers = appendHeaders(config.headers);
-  const params = appendParams(config.params);
-  const signature = encodeSignature(params);
-  return axios.request<T>({
-    ...config,
-    url,
-    headers,
-    params: { ...params, signature },
-  });
+  if (signed) {
+    const headers = applyHeaders(config.headers);
+    const params = appendParams(config.params);
+    const signature = encodeSignature(params);
+    return {
+      ...config,
+      url,
+      headers,
+      params: { ...params, signature },
+    };
+  }
+  return { ...config, url };
 }

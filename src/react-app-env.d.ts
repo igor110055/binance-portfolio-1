@@ -1,9 +1,4 @@
 /// <reference types="react-scripts" />
-interface Balance {
-  asset: string;
-  free: string;
-  locked: string;
-}
 
 interface Account {
   makerCommission: number;
@@ -17,4 +12,14 @@ interface Account {
   accountType: string;
   balances: Balance[];
   permissions: string[];
+}
+interface Balance {
+  asset: string;
+  free: string;
+  locked: string;
+}
+
+interface TickerPrice {
+  price: string;
+  symbol: string;
 }

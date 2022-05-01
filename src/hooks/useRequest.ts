@@ -1,22 +1,29 @@
-import { AxiosPromise, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { useEffect, useMemo, useState } from "react";
+import { setupCache } from "axios-cache-adapter";
 
-export function useRequest<T>(
-  f: (params: AxiosRequestConfig["params"]) => AxiosPromise<T>,
-  params?: AxiosRequestConfig["params"]
-) {
+const cache = setupCache({
+  maxAge: 15 * 60 * 1000,
+});
+
+const api = axios.create({
+  adapter: cache.adapter,
+});
+
+export function useRequest<T>(config: AxiosRequestConfig) {
   const [data, setData] = useState<T>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    f(params)
+    api
+      .request<T>(config)
       .then((response) => {
         console.log(response);
         setData(response.data);
       })
       .catch(console.warn)
       .finally(() => setLoading(false));
-  }, [f, params]);
+  }, [config]);
 
   return useMemo(() => ({ data, loading }), [data, loading]);
 }
