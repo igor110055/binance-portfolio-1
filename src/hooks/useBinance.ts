@@ -1,11 +1,6 @@
-import { useContext, useMemo } from "react";
-import { BinanceContext } from "../contexts/BinanceContext";
+import { useMemo } from "react";
 import { applyBinanceRequestConfig } from "../lib/binance";
 import { useRequest } from "./useRequest";
-
-export function useBinance() {
-  return useContext(BinanceContext);
-}
 
 export function useBinanceAccount(recvWindow?: number) {
   const config = useMemo(() => {

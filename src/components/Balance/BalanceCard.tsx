@@ -1,38 +1,28 @@
+import _ from "lodash";
 import React from "react";
-import { Card, Spinner } from "react-bootstrap";
-import { useBinance, useBinanceKlines } from "../../hooks/useBinance";
-import { Chart } from "../Chart/Chart";
+import { Card } from "react-bootstrap";
+import { useOHLCContext } from "../../contexts/useOHLCContext";
+import { BalanceChart } from "./BalanceChart";
 
-function BalanceCardChart(props: { symbol: string }) {
-  const klines = useBinanceKlines(props.symbol, "1d", 30);
-  if (klines.loading) {
-    return <Spinner animation="grow" />;
-  }
-  if (!klines.data) {
-    throw new Error(`Klines not found for symbol "${props.symbol}".`);
-  }
-  return <Chart klines={klines.data} />;
+function BalanceCardPrice() {
+  const ohlc = useOHLCContext();
+  const latestPrice = _.last(ohlc)?.close;
+  return (
+    <>
+      {latestPrice?.toFixed(2)}
+      <small>{process.env.REACT_APP_CURRENCY}</small>
+    </>
+  );
 }
 
 export function BalanceCard(props: { balance: AccountBalance }) {
-  const { tickerPrices } = useBinance();
-  const symbol = props.balance.asset + process.env.REACT_APP_CURRENCY;
-  const tickerPrice = tickerPrices.find(
-    (tickerPrice) => tickerPrice.symbol === symbol
-  );
-
-  if (!tickerPrice) {
-    throw new Error(`Ticker Price not found for symbol "${symbol}".`);
-  }
-
   return (
     <Card>
-      <BalanceCardChart symbol={symbol} />
+      <BalanceChart />
       <Card.Body>
         <Card.Title>{props.balance.asset}</Card.Title>
         <Card.Text>
-          {Number(tickerPrice.price).toFixed(2)}
-          <small>{process.env.REACT_APP_CURRENCY}</small>
+          <BalanceCardPrice />
         </Card.Text>
       </Card.Body>
     </Card>

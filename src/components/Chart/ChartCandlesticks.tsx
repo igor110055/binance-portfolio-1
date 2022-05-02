@@ -2,12 +2,12 @@ import React, { ReactNode, useMemo } from "react";
 import { Bar, RectangleProps, ComposedChart } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
 
-export interface CandlestickData {
+export type CandlestickData = {
   open?: number;
   high?: number;
   low?: number;
   close?: number;
-}
+};
 
 export function CandlestickShape({
   x,
@@ -61,10 +61,10 @@ export function ChartCandlesticks({
   data,
   ...props
 }: CategoricalChartProps & {
-  children: ReactNode;
+  children?: ReactNode;
   data: CandlestickData[];
 }) {
-  const rangedData = useMemo(
+  const rangeData = useMemo(
     () =>
       data.map(({ high, low, ...ohlc }) => ({
         high,
@@ -75,7 +75,7 @@ export function ChartCandlesticks({
     [data]
   );
   return (
-    <ComposedChart {...props} data={rangedData}>
+    <ComposedChart {...props} data={rangeData}>
       <Bar
         dataKey="range"
         isAnimationActive={false}
