@@ -1,5 +1,6 @@
 import React, { ReactNode, useMemo } from "react";
 import { Bar, RectangleProps, ComposedChart } from "recharts";
+import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
 
 export interface CandlestickData {
   open?: number;
@@ -55,11 +56,11 @@ export function CandlestickShape({
   );
 }
 
-export function CandlestickChart({
+export function ChartCandlesticks({
   children,
   data,
   ...props
-}: {
+}: CategoricalChartProps & {
   children: ReactNode;
   data: CandlestickData[];
 }) {

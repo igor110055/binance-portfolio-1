@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { CandlestickChart } from "../Chart/ChartCandlestick";
+import { ChartCandlesticks } from "./ChartCandlesticks";
 
 export function Chart(props: {
   klines: Kline[];
@@ -27,7 +27,7 @@ export function Chart(props: {
 
   return (
     <ResponsiveContainer className="AnalysisBollinger" height={320}>
-      <CandlestickChart {...props} data={data}>
+      <ChartCandlesticks {...props} data={data}>
         <XAxis dataKey="time" tickFormatter={props.tickFormatter} />
         <YAxis
           domain={yDomain}
@@ -35,7 +35,7 @@ export function Chart(props: {
           ticks={ticks}
           type="number"
         />
-      </CandlestickChart>
+      </ChartCandlesticks>
     </ResponsiveContainer>
   );
 }
