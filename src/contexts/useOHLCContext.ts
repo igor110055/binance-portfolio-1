@@ -18,8 +18,18 @@ export type OHLCData = {
   ignore: number;
 };
 
-export const OHLCContext = createContext([] as OHLCData[]);
+export type OHLCContextData = {
+  asset: string;
+  ohlc: OHLCData[];
+}[];
+
+export const OHLCContext = createContext([] as OHLCContextData);
 
 export function useOHLCContext() {
   return useContext(OHLCContext);
+}
+
+export function useOHLC(asset: string) {
+  return useOHLCContext().find((ohlc) => ohlc.asset === asset)
+    ?.ohlc as OHLCData[];
 }

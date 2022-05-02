@@ -1,13 +1,7 @@
 import React, { ReactNode, useMemo } from "react";
 import { Bar, RectangleProps, ComposedChart } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
-
-export type CandlestickData = {
-  open?: number;
-  high?: number;
-  low?: number;
-  close?: number;
-};
+import { OHLCData } from "../../contexts/useOHLCContext";
 
 export function CandlestickShape({
   x,
@@ -18,19 +12,14 @@ export function CandlestickShape({
   high,
   low,
   close,
-}: RectangleProps & CandlestickData) {
+}: RectangleProps & OHLCData) {
   if (
     x === undefined ||
     y === undefined ||
     width === undefined ||
-    height === undefined ||
-    open === undefined ||
-    high === undefined ||
-    low === undefined ||
-    close === undefined ||
-    high <= low
+    height === undefined
   ) {
-    return null;
+    return <></>;
   }
   const bullish = open < close;
   const ratio = height / (high - low);
@@ -62,7 +51,7 @@ export function ChartCandlesticks({
   ...props
 }: CategoricalChartProps & {
   children?: ReactNode;
-  data: CandlestickData[];
+  data: OHLCData[];
 }) {
   const rangeData = useMemo(
     () =>
@@ -76,11 +65,7 @@ export function ChartCandlesticks({
   );
   return (
     <ComposedChart {...props} data={rangeData}>
-      <Bar
-        dataKey="range"
-        isAnimationActive={false}
-        shape={<CandlestickShape />}
-      />
+      <Bar dataKey="range" isAnimationActive={false} shape={CandlestickShape} />
       {children}
     </ComposedChart>
   );

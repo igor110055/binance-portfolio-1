@@ -1,17 +1,9 @@
-import React, { ReactNode, useMemo } from "react";
+import React, { ReactNode } from "react";
 import { Line } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
-import { BollingerBands } from "technicalindicators";
-import { CandlestickData, ChartCandlesticks } from "./ChartCandlesticks";
-
-const BOLLINGER_BANDS_PERIOD = 14;
-const BOLLINGER_BANDS_STANDARD_DEVIATION = 2;
-
-export type BollingerBandsData = CandlestickData & {
-  upper: number;
-  middle: number;
-  lower: number;
-};
+import { OHLCData } from "../../contexts/useOHLCContext";
+import { useBollingerBands } from "../../hooks/useBollingerBands";
+import { ChartCandlesticks } from "./ChartCandlesticks";
 
 export function ChartBollingerBands({
   children,
@@ -19,28 +11,9 @@ export function ChartBollingerBands({
   ...props
 }: CategoricalChartProps & {
   children?: ReactNode;
-  data: CandlestickData[];
+  data: OHLCData[];
 }) {
-  const bollingerBands = useMemo(
-    () => [
-      ...BollingerBands.calculate({
-        period: BOLLINGER_BANDS_PERIOD,
-        stdDev: BOLLINGER_BANDS_STANDARD_DEVIATION,
-        values: data.map((d) => d.close),
-      }),
-    ],
-    [data]
-  );
-  const bollingerBandsData = useMemo(() => {
-    const offset = data.length - bollingerBands.length;
-    return data.map((d, index) => {
-      const bollingerBandsIndex = index - offset;
-      if (bollingerBandsIndex >= 0) {
-        return { ...d, ...bollingerBands[bollingerBandsIndex] };
-      }
-      return d;
-    });
-  }, [bollingerBands, data]);
+  const bollingerBandsData = useBollingerBands(data);
   return (
     <ChartCandlesticks data={bollingerBandsData} {...props}>
       {children}

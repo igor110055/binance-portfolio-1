@@ -18,13 +18,15 @@ export function useBinanceKlines(
   interval: string,
   limit: number
 ) {
-  const config = useMemo(() => {
-    return applyBinanceRequestConfig(
-      "/v3/klines",
-      { method: "get", params: { symbol, interval, limit } },
-      false
-    );
-  }, [symbol, interval, limit]);
+  const config = useMemo(
+    () =>
+      applyBinanceRequestConfig(
+        "/v3/klines",
+        { method: "get", params: { symbol, interval, limit } },
+        false
+      ),
+    [symbol, interval, limit]
+  );
   return useRequest<Kline[]>(config);
 }
 

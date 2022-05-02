@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { useOHLCContext } from "../../contexts/useOHLCContext";
+import { useOHLC } from "../../contexts/useOHLCContext";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 
-export function BalanceChart() {
-  const ohlc = useOHLCContext();
+export function BalanceChart(props: { asset: string }) {
+  const ohlc = useOHLC(props.asset);
   const yDomain = useMemo<[number, number]>(() => {
     const extremes = ohlc.reduce<number[]>(
       (values, { high, low }) => [...values, high, low],

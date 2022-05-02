@@ -1,11 +1,11 @@
 import _ from "lodash";
 import React from "react";
 import { Card } from "react-bootstrap";
-import { useOHLCContext } from "../../contexts/useOHLCContext";
+import { useOHLC } from "../../contexts/useOHLCContext";
 import { BalanceChart } from "./BalanceChart";
 
-function BalanceCardPrice() {
-  const ohlc = useOHLCContext();
+function BalanceCardPrice(props: { asset: string }) {
+  const ohlc = useOHLC(props.asset);
   const latestPrice = _.last(ohlc)?.close;
   return (
     <>
@@ -15,14 +15,14 @@ function BalanceCardPrice() {
   );
 }
 
-export function BalanceCard(props: { balance: AccountBalance }) {
+export function BalanceCard(props: { asset: string }) {
   return (
     <Card>
-      <BalanceChart />
+      <BalanceChart asset={props.asset} />
       <Card.Body>
-        <Card.Title>{props.balance.asset}</Card.Title>
+        <Card.Title>{props.asset}</Card.Title>
         <Card.Text>
-          <BalanceCardPrice />
+          <BalanceCardPrice asset={props.asset} />
         </Card.Text>
       </Card.Body>
     </Card>

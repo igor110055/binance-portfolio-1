@@ -2,11 +2,13 @@ import axios, { AxiosRequestConfig } from "axios";
 import { useEffect, useMemo, useState } from "react";
 import { setupCache } from "axios-cache-adapter";
 
+export const CACHE_MAX_AGE = 15 * 60 * 1000;
+
 const cache = setupCache({
-  maxAge: 15 * 60 * 1000,
+  maxAge: CACHE_MAX_AGE,
 });
 
-const api = axios.create({
+export const API = axios.create({
   adapter: cache.adapter,
 });
 
@@ -15,8 +17,7 @@ export function useRequest<T>(config: AxiosRequestConfig) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    api
-      .request<T>(config)
+    API.request<T>(config)
       .then((response) => {
         if (response.request.fromCache !== true) {
           console.warn(response);
