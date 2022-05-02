@@ -18,7 +18,11 @@ export function useRequest<T>(config: AxiosRequestConfig) {
     api
       .request<T>(config)
       .then((response) => {
-        console.log(response);
+        if (response.request.fromCache !== true) {
+          console.warn(response);
+        } else {
+          console.log(response);
+        }
         setData(response.data);
       })
       .catch(console.warn)

@@ -10,14 +10,29 @@ interface Account {
   canDeposit: boolean;
   updateTime: number;
   accountType: string;
-  balances: Balance[];
+  balances: AccountBalance[];
   permissions: string[];
 }
-interface Balance {
+interface AccountBalance {
   asset: string;
   free: string;
   locked: string;
 }
+
+type Kline = [
+  openTime: number,
+  open: string,
+  high: string,
+  low: string,
+  close: string,
+  volume: string,
+  closeTime: number,
+  quoteAssetVolume: string,
+  numberOfTrades: number,
+  takerBuyBaseAssetVolume: string,
+  takerBuyQuoteAssetVolume: string,
+  ignore: string
+];
 
 interface TickerPrice {
   price: string;

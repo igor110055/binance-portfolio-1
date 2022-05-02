@@ -1,25 +1,45 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { BinanceContext } from "../contexts/BinanceContext";
 import { applyBinanceRequestConfig } from "../lib/binance";
 import { useRequest } from "./useRequest";
 
-export function useBinanceAccount(params?: { recvWindow?: number }) {
+export function useBinance() {
+  return useContext(BinanceContext);
+}
+
+export function useBinanceAccount(recvWindow?: number) {
   const config = useMemo(() => {
     return applyBinanceRequestConfig(
       "/v3/account",
-      { method: "get", params },
+      { method: "get", params: { recvWindow } },
       true
     );
-  }, [params]);
+  }, [recvWindow]);
   return useRequest<Account>(config);
 }
 
-export function useBinanceTickerPrice(params: { symbol: string }) {
+export function useBinanceKlines(
+  symbol: string,
+  interval: string,
+  limit: number
+) {
+  const config = useMemo(() => {
+    return applyBinanceRequestConfig(
+      "/v3/klines",
+      { method: "get", params: { symbol, interval, limit } },
+      false
+    );
+  }, [symbol, interval, limit]);
+  return useRequest<Kline[]>(config);
+}
+
+export function useBinanceTickerPrices() {
   const config = useMemo(() => {
     return applyBinanceRequestConfig(
       "/v3/ticker/price",
-      { method: "get", params },
+      { method: "get" },
       false
     );
-  }, [params]);
-  return useRequest<TickerPrice>(config);
+  }, []);
+  return useRequest<TickerPrice[]>(config);
 }

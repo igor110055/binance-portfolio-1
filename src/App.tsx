@@ -1,11 +1,14 @@
 import React from "react";
-import { Account } from "./components/Account/Account";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BinanceProvider } from "./contexts/BinanceProvider";
+import { BalanceGrid } from "./components/Balance/BalanceGrid";
 
 function App() {
   return (
-    <div className="App">
-      <Account />
+    <div className="App p-4">
+      <BinanceProvider>
+        <BalanceGrid />
+      </BinanceProvider>
     </div>
   );
 }
