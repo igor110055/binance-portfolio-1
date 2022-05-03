@@ -78,13 +78,14 @@ export function OHLCProvider(props: { children: ReactNode }) {
                 ),
               };
             })
-            .catch(console.warn);
+            .catch(console.error);
         })
       )
         .then((ohlc) => setData(ohlc as OHLCContextData))
         .finally(() => setLoading(false));
     }
-  }, [assets]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...assets]);
 
   if (loading) {
     return <Spinner animation="grow" />;

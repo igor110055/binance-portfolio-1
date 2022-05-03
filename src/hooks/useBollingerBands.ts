@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { BollingerBands } from "technicalindicators";
 import { OHLCData } from "../contexts/useOHLCContext";
 
-const BOLLINGER_BANDS_PERIOD = 14;
-const BOLLINGER_BANDS_STANDARD_DEVIATION = 2;
+export const BOLLINGER_BANDS_PERIOD = 21;
+export const BOLLINGER_BANDS_STANDARD_DEVIATION = 2;
 
 export function useBollingerBands(data: OHLCData[]) {
   return useMemo(() => {
@@ -13,12 +13,8 @@ export function useBollingerBands(data: OHLCData[]) {
       values: data.map((d) => d.close),
     });
     const offset = data.length - bollingerBands.length;
-    return data.map((d, index) => {
-      const bollingerBandsIndex = index - offset;
-      if (bollingerBandsIndex >= 0) {
-        return { ...d, ...bollingerBands[bollingerBandsIndex] };
-      }
-      return d;
+    return bollingerBands.map((d, index) => {
+      return { ...d, ...data[index + offset] };
     });
   }, [data]);
 }

@@ -1,28 +1,31 @@
 import _ from "lodash";
 import React from "react";
 import { Card } from "react-bootstrap";
-import { useOHLC } from "../../contexts/useOHLCContext";
+import { useCrossOHLC } from "../../contexts/useOHLCContext";
 import { BalanceChart } from "./BalanceChart";
 
-function BalanceCardPrice(props: { asset: string }) {
-  const ohlc = useOHLC(props.asset);
-  const latestPrice = _.last(ohlc)?.close;
+function BalanceCardPrice(props: { price?: number; currency: string }) {
   return (
     <>
-      {latestPrice?.toFixed(2)}
-      <small>{process.env.REACT_APP_CURRENCY}</small>
+      {props.price?.toFixed(2)}
+      <small>{props.currency}</small>
     </>
   );
 }
 
-export function BalanceCard(props: { asset: string }) {
+export function BalanceCard(props: { asset: string; currency: string }) {
+  const ohlc = useCrossOHLC(props.asset, props.currency);
+  const price = _.last(ohlc)?.close;
   return (
     <Card>
-      <BalanceChart asset={props.asset} />
+      <BalanceChart ohlc={ohlc} />
       <Card.Body>
-        <Card.Title>{props.asset}</Card.Title>
+        <Card.Title>
+          {props.asset}
+          <small>-{props.currency}</small>
+        </Card.Title>
         <Card.Text>
-          <BalanceCardPrice asset={props.asset} />
+          <BalanceCardPrice price={price} currency={props.currency} />
         </Card.Text>
       </Card.Body>
     </Card>
