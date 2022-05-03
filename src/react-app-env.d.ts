@@ -1,5 +1,15 @@
 /// <reference types="react-scripts" />
 
+type OHLCData = {
+  time: Date;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+};
+
+// Binance
+
 interface Account {
   makerCommission: number;
   takerCommission: number;

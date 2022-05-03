@@ -1,7 +1,6 @@
 import React, { ReactNode, useMemo } from "react";
 import { Bar, RectangleProps, ComposedChart } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
-import { OHLCData } from "../../contexts/useOHLCContext";
 
 export function CandlestickShape({
   x,

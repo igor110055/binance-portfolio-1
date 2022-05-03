@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { BollingerBands } from "technicalindicators";
-import { OHLCData } from "../contexts/useOHLCContext";
 
 export const BOLLINGER_BANDS_PERIOD = 21;
 export const BOLLINGER_BANDS_STANDARD_DEVIATION = 2;

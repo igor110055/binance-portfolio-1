@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import { Line } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
-import { OHLCData } from "../../contexts/useOHLCContext";
 import { useBollingerBands } from "../../hooks/useBollingerBands";
 import { ChartCandlesticks } from "./ChartCandlesticks";
 

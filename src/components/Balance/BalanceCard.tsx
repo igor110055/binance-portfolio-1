@@ -1,7 +1,6 @@
 import _ from "lodash";
 import React from "react";
 import { Card } from "react-bootstrap";
-import { useCrossOHLC } from "../../contexts/useOHLCContext";
 import { BalanceChart } from "./BalanceChart";
 
 function BalanceCardPrice(props: { price?: number; currency: string }) {
@@ -13,20 +12,15 @@ function BalanceCardPrice(props: { price?: number; currency: string }) {
   );
 }
 
-export function BalanceCard(props: { asset: string; currency: string }) {
-  const ohlc = useCrossOHLC(props.asset, props.currency);
-  const price = _.last(ohlc)?.close;
+export function BalanceCard(props: { currency: string; ohlc: OHLCData[] }) {
+  const price = _.last(props.ohlc)?.close;
   return (
     <Card>
-      <BalanceChart ohlc={ohlc} />
+      <BalanceChart ohlc={props.ohlc} />
       <Card.Body>
         <Card.Title>
-          {props.asset}
-          <small>-{props.currency}</small>
-        </Card.Title>
-        <Card.Text>
           <BalanceCardPrice price={price} currency={props.currency} />
-        </Card.Text>
+        </Card.Title>
       </Card.Body>
     </Card>
   );

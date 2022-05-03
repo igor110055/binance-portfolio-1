@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { OHLCData } from "../../contexts/useOHLCContext";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 
 export function BalanceChart(props: { ohlc: OHLCData[] }) {
@@ -17,13 +16,12 @@ export function BalanceChart(props: { ohlc: OHLCData[] }) {
   );
 
   return (
-    <ResponsiveContainer className="AnalysisBollinger" height={320}>
+    <ResponsiveContainer className="AnalysisBollinger" height={240}>
       <ChartBollingerBands data={props.ohlc}>
         <XAxis
-          dataKey="closeTime"
-          tickFormatter={(closeTime) => {
-            const date = new Date(closeTime);
-            return date.toLocaleDateString();
+          dataKey="time"
+          tickFormatter={(time) => {
+            return time.toLocaleDateString();
           }}
         />
         <YAxis

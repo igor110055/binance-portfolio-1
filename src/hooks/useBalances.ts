@@ -3,7 +3,6 @@ import { useAccountContext } from "../contexts/useAccountContext";
 
 export function useBalances() {
   const account = useAccountContext();
-
   return useMemo(
     () =>
       account.balances.filter(
