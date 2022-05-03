@@ -1,20 +1,22 @@
 import React, { ReactNode } from "react";
 import { Line } from "recharts";
-import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
-import { useBollingerBands } from "../../hooks/useBollingerBands";
+import { MarketData } from "../../contexts/useMarketsContext";
 import { ChartCandlesticks } from "./ChartCandlesticks";
 
 export function ChartBollingerBands({
   children,
   data,
   ...props
-}: CategoricalChartProps & {
+}: {
   children?: ReactNode;
-  data: OHLCData[];
+  data: MarketData;
 }) {
-  const bollingerBandsData = useBollingerBands(data);
+  const mergedData = data.ohlc.map((ohlc, index) => ({
+    ...ohlc,
+    ...data.bollingerBands[index],
+  }));
   return (
-    <ChartCandlesticks data={bollingerBandsData} {...props}>
+    <ChartCandlesticks data={mergedData} {...props}>
       {children}
       <Line
         dataKey="upper"

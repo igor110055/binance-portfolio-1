@@ -1,13 +1,16 @@
 import { createContext, useContext } from "react";
+import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 
-export type MarketsData = {
+export type MarketData = {
+  asset: string;
   currency: string;
   ohlc: OHLCData[];
+  bollingerBands: BollingerBandsOutput[];
 };
 
 export type MarketsContextData = {
   asset: string;
-  markets: MarketsData[];
+  markets: MarketData[];
 };
 
 export const MarketsContext = createContext<MarketsContextData[]>([]);

@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { Card } from "react-bootstrap";
+import { MarketData } from "../../contexts/useMarketsContext";
 import { BalanceChart } from "./BalanceChart";
 
 function BalanceCardPrice(props: { price?: number; currency: string }) {
@@ -12,11 +13,11 @@ function BalanceCardPrice(props: { price?: number; currency: string }) {
   );
 }
 
-export function BalanceCard(props: { currency: string; ohlc: OHLCData[] }) {
-  const price = _.last(props.ohlc)?.close;
+export function BalanceCard(props: { currency: string; data: MarketData }) {
+  const price = _.last(props.data.ohlc)?.close;
   return (
     <Card>
-      <BalanceChart ohlc={props.ohlc} />
+      <BalanceChart data={props.data} />
       <Card.Body>
         <Card.Title>
           <BalanceCardPrice price={price} currency={props.currency} />

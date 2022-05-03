@@ -13,9 +13,9 @@ export function BalanceGrid() {
           <div key={asset}>
             <h2>{asset}</h2>
             <Row xs={1} md={2} xl={4} className="g-4">
-              {markets.map(({ currency, ohlc }) => (
-                <Col key={currency}>
-                  <BalanceCard currency={currency} ohlc={ohlc} />
+              {markets.map((data) => (
+                <Col key={data.currency}>
+                  <BalanceCard currency={data.currency} data={data} />
                 </Col>
               ))}
             </Row>

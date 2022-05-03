@@ -1,46 +1,44 @@
 import React, { ReactNode, useMemo } from "react";
 import {
+  MarketData,
   MarketsContext,
   MarketsContextData,
-  MarketsData,
 } from "./useMarketsContext";
 import { KlinesContextData, useKlinesContext } from "./useKlinesContext";
+import { toOhlcData } from "../lib/ohlc";
+import { BollingerBands } from "technicalindicators";
 
-const toOhlcData =
-  (currencyKlines: Kline[]) =>
-  (
-    [time, assetOpen, assetHigh, assetLow, assetClose]: Kline,
-    index: number
-  ): OHLCData => {
-    const [, currencyOpen, currencyHigh, currencyLow, currencyClose] =
-      currencyKlines[index];
-    const open = Number(assetOpen) / Number(currencyOpen);
-    const high = Number(assetHigh) / Number(currencyHigh);
-    const low = Number(assetLow) / Number(currencyLow);
-    const close = Number(assetClose) / Number(currencyClose);
-    return {
-      time: new Date(time),
-      open,
-      high: Math.max(open, close, high),
-      low: Math.min(open, close, low),
-      close,
-    };
-  };
+export const BOLLINGER_BANDS_PERIOD = 21;
+export const BOLLINGER_BANDS_STANDARD_DEVIATION = 2;
 
-const toMarketsData =
+const toMarketData =
   (asset: string, klines: KlinesContextData[]) =>
-  (currency: string): MarketsData | undefined => {
+  (currency: string): MarketData | null => {
     const marketAsset = klines.find((data) => data.asset === asset)?.klines;
     const marketCurrency = klines.find(
       (data) => data.asset === currency
     )?.klines;
-    return (
+    const ohlc =
       marketAsset &&
-      marketCurrency && {
-        currency,
-        ohlc: marketAsset.map(toOhlcData(marketCurrency)),
-      }
-    );
+      marketCurrency &&
+      marketAsset.map(toOhlcData(marketCurrency));
+    if (!ohlc) {
+      return null;
+    }
+    const bollingerBands = BollingerBands.calculate({
+      period: BOLLINGER_BANDS_PERIOD,
+      stdDev: BOLLINGER_BANDS_STANDARD_DEVIATION,
+      values: ohlc.map((data) => data.close),
+    });
+    return {
+      asset,
+      currency,
+      ohlc,
+      bollingerBands: [
+        ...Array(ohlc.length - bollingerBands.length).fill(undefined),
+        ...bollingerBands,
+      ],
+    };
   };
 
 const toMarketsContextData =
@@ -51,8 +49,8 @@ const toMarketsContextData =
       markets: klines
         .map((balance) => balance.asset)
         .filter((currency) => currency !== asset)
-        .map(toMarketsData(asset, klines))
-        .filter(Boolean) as MarketsData[],
+        .map(toMarketData(asset, klines))
+        .filter(Boolean) as MarketData[],
     };
   };
 
