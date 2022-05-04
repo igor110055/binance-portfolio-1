@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { API, CACHE_MAX_AGE } from "../hooks/useRequest";
 import { applyBinanceRequestConfig } from "../lib/binance";
-import { KlinesContext, KlinesContextData } from "./useKlinesContext";
+import { KlinesContext, KlinesData } from "./useKlinesContext";
 
 const KLINES_INTERVAL = "1d";
 const KLINES_LIMIT = 51;
@@ -13,7 +13,7 @@ export function KlinesProvider(props: {
   assets: string[];
   children: ReactNode;
 }) {
-  const [data, setData] = useState<KlinesContextData[]>();
+  const [data, setData] = useState<KlinesData[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

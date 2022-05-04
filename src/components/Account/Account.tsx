@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useBalances } from "../../hooks/useBalances";
-import { BalanceGrid } from "../Balance/BalanceGrid";
+import { MarketGrid } from "../Market/MarketGrid";
 import { MarketsProvider } from "../../contexts/MarketsProvider";
 import { KlinesProvider } from "../../contexts/KlinesProvider";
 
@@ -14,8 +14,8 @@ function App() {
 
   return (
     <KlinesProvider assets={assets}>
-      <MarketsProvider>
-        <BalanceGrid />
+      <MarketsProvider assets={assets}>
+        <MarketGrid />
       </MarketsProvider>
     </KlinesProvider>
   );

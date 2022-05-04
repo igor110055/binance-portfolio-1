@@ -3,7 +3,7 @@ import { ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { MarketData } from "../../contexts/useMarketsContext";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 
-export function BalanceChart(props: { data: MarketData }) {
+export function MarketChart(props: { data: MarketData }) {
   const yDomain = useMemo<[number, number]>(() => {
     const extremes = props.data.ohlc.reduce<number[]>(
       (values, { high, low }) => [...values, high, low],
@@ -11,30 +11,12 @@ export function BalanceChart(props: { data: MarketData }) {
     );
     return [Math.min(...extremes), Math.max(...extremes)];
   }, [props.data]);
-  const ticks = useMemo(
-    () => [
-      yDomain[0],
-      props.data.ohlc[props.data.ohlc.length - 1]?.close,
-      yDomain[1],
-    ],
-    [props.data, yDomain]
-  );
 
   return (
-    <ResponsiveContainer className="AnalysisBollinger" height={240}>
+    <ResponsiveContainer className="MarketChart" height={160}>
       <ChartBollingerBands data={props.data}>
-        <XAxis
-          dataKey="time"
-          tickFormatter={(time) => {
-            return time.toLocaleDateString();
-          }}
-        />
-        <YAxis
-          domain={yDomain}
-          orientation="right"
-          ticks={ticks}
-          type="number"
-        />
+        <XAxis dataKey="time" tick={false} height={0} />
+        <YAxis domain={yDomain} tick={false} width={0} />
       </ChartBollingerBands>
     </ResponsiveContainer>
   );

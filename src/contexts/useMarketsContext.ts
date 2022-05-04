@@ -8,12 +8,7 @@ export type MarketData = {
   bollingerBands: BollingerBandsOutput[];
 };
 
-export type MarketsContextData = {
-  asset: string;
-  markets: MarketData[];
-};
-
-export const MarketsContext = createContext<MarketsContextData[]>([]);
+export const MarketsContext = createContext<MarketData[]>([]);
 
 export function useMarketsContext() {
   return useContext(MarketsContext);
@@ -21,5 +16,5 @@ export function useMarketsContext() {
 
 export function useMarkets(asset: string) {
   const Markets = useMarketsContext();
-  return Markets.find((data) => data.asset === asset)?.markets;
+  return Markets.filter((data) => data.asset === asset);
 }
