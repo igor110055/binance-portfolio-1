@@ -44,7 +44,7 @@ export function CandlestickShape({
   );
 }
 
-export function ChartCandlesticks({
+export function CandlesticksChart({
   children,
   data,
   ...props

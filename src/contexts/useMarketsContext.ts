@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { MACDOutput } from "technicalindicators/declarations/moving_averages/MACD";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 
 export type MarketData = {
@@ -6,6 +7,8 @@ export type MarketData = {
   currency: string;
   ohlc: OHLCData[];
   bollingerBands: BollingerBandsOutput[];
+  macd: MACDOutput[];
+  rsi: number[];
 };
 
 export const MarketsContext = createContext<MarketData[]>([]);

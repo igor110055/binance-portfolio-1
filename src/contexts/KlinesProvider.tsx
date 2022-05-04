@@ -5,7 +5,7 @@ import { applyBinanceRequestConfig } from "../lib/binance";
 import { KlinesContext, KlinesData } from "./useKlinesContext";
 
 const KLINES_INTERVAL = "1d";
-const KLINES_LIMIT = 51;
+const KLINES_LIMIT = 90;
 
 let fetchedAt = 0;
 

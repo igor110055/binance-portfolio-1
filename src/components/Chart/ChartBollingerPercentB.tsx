@@ -1,19 +1,18 @@
-import React, { ReactNode } from "react";
-import { Line, LineChart, YAxis } from "recharts";
+import React from "react";
+import { Line, LineChart, ReferenceLine, YAxis } from "recharts";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 
 export function ChartBollingerPercentB({
-  children,
   data,
   ...props
 }: {
-  children?: ReactNode;
   data: BollingerBandsOutput[];
 }) {
   return (
     <LineChart data={data} {...props}>
-      {children}
-      <YAxis domain={[0, 1]} tick={false} width={0} />
+      <YAxis domain={[-0.75, 1 + 0.75]} tick={false} width={0} />
+      <ReferenceLine stroke="grey" strokeOpacity={0.5} y={0} />
+      <ReferenceLine stroke="grey" strokeOpacity={0.5} y={1} />
       <Line dataKey="pb" dot={false} isAnimationActive={false} stroke="grey" />
     </LineChart>
   );

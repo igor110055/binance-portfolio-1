@@ -2,12 +2,18 @@ import React, { ReactNode, useMemo } from "react";
 import { MarketData, MarketsContext } from "./useMarketsContext";
 import { KlinesData, useKlinesContext } from "./useKlinesContext";
 import { toOhlcData } from "../lib/ohlc";
-import { BollingerBands } from "technicalindicators";
+import { BollingerBands, MACD, RSI } from "technicalindicators";
 
 export const MARKETS_LIMIT = 30;
 
 export const BOLLINGER_BANDS_PERIOD = 21;
 export const BOLLINGER_BANDS_STANDARD_DEVIATION = 2;
+
+export const MACD_FAST_PERIOD = 12;
+export const MACD_SLOW_PERIOD = 26;
+export const MACD_SIGNAL_PERIOD = 9;
+
+export const RSI_PERIOD = 6;
 
 const toMarketData = (
   asset: string,
@@ -23,10 +29,23 @@ const toMarketData = (
   if (!ohlc) {
     return null;
   }
+  const values = ohlc.map((data) => data.close);
   const bollingerBands = BollingerBands.calculate({
     period: BOLLINGER_BANDS_PERIOD,
     stdDev: BOLLINGER_BANDS_STANDARD_DEVIATION,
-    values: ohlc.map((data) => data.close),
+    values,
+  });
+  const macd = MACD.calculate({
+    values,
+    fastPeriod: MACD_FAST_PERIOD,
+    slowPeriod: MACD_SLOW_PERIOD,
+    signalPeriod: MACD_SIGNAL_PERIOD,
+    SimpleMAOscillator: false,
+    SimpleMASignal: false,
+  });
+  const rsi = RSI.calculate({
+    values,
+    period: RSI_PERIOD,
   });
   return {
     asset,
@@ -36,6 +55,12 @@ const toMarketData = (
       ...Array(ohlc.length - bollingerBands.length).fill(undefined),
       ...bollingerBands,
     ].slice(-MARKETS_LIMIT),
+    macd: [...Array(ohlc.length - macd.length).fill(undefined), ...macd].slice(
+      -MARKETS_LIMIT
+    ),
+    rsi: [...Array(ohlc.length - rsi.length).fill(undefined), ...rsi].slice(
+      -MARKETS_LIMIT
+    ),
   };
 };
 
