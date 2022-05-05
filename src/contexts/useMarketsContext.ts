@@ -9,6 +9,7 @@ export type MarketData = {
   bollingerBands: BollingerBandsOutput[];
   macd: MACDOutput[];
   rsi: number[];
+  score: number;
 };
 
 export const MarketsContext = createContext<MarketData[]>([]);

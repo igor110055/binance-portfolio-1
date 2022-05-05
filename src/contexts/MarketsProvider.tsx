@@ -15,11 +15,13 @@ export const MACD_SIGNAL_PERIOD = 9;
 
 export const RSI_PERIOD = 6;
 
-const toMarketData = (
+export const SCORE_PERIOD = 1;
+
+function toMarketData(
   asset: string,
   currency: string,
   klines: KlinesData[]
-): MarketData | null => {
+): MarketData | null {
   const marketAsset = klines.find((data) => data.asset === asset)?.klines;
   const marketCurrency = klines.find((data) => data.asset === currency)?.klines;
   const ohlc =
@@ -61,8 +63,18 @@ const toMarketData = (
     rsi: [...Array(ohlc.length - rsi.length).fill(undefined), ...rsi].slice(
       -MARKETS_LIMIT
     ),
+    score:
+      ((values[values.length - 1] - values[values.length - SCORE_PERIOD - 1]) /
+        values[values.length - SCORE_PERIOD - 1]) *
+      100,
   };
-};
+}
+
+function byScore(a: MarketData, b: MarketData) {
+  const rsiScore = a.rsi[b.rsi.length - 1] - b.rsi[a.rsi.length - 1];
+  const score = a.score - b.score;
+  return rsiScore + score;
+}
 
 export function MarketsProvider(props: {
   assets: string[];
@@ -79,7 +91,8 @@ export function MarketsProvider(props: {
             .map((currency) => toMarketData(asset, currency, klines))
             .filter(Boolean) as MarketData[]
       )
-      .flat();
+      .flat()
+      .sort(byScore);
   }, [klines, props.assets]);
 
   return (
