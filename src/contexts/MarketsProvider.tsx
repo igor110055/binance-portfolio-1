@@ -3,10 +3,8 @@ import { MarketsContext } from "./useMarketsContext";
 import { useKlinesContext } from "./useKlinesContext";
 import { MarketData, toMarketData } from "../lib/markets";
 
-function byScore(a: MarketData, b: MarketData) {
-  const rsiScore = a.rsi[b.rsi.length - 1] - b.rsi[b.rsi.length - 1];
-  const score = a.score - b.score;
-  return rsiScore + score;
+function byRsi(a: MarketData, b: MarketData) {
+  return a.rsi[b.rsi.length - 1] - b.rsi[b.rsi.length - 1];
 }
 
 export function MarketsProvider(props: {
@@ -25,7 +23,7 @@ export function MarketsProvider(props: {
             .filter(Boolean) as MarketData[]
       )
       .flat()
-      .sort(byScore);
+      .sort(byRsi);
   }, [klines, props.assets]);
 
   return (

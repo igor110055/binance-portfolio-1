@@ -1,6 +1,7 @@
 import { BollingerBands, MACD, RSI } from "technicalindicators";
 import { MACDOutput } from "technicalindicators/declarations/moving_averages/MACD";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
+import { OHLCData } from "./ohlc";
 
 export type AnalysisData = {
   bollingerBands: BollingerBandsOutput[];

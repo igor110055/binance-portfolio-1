@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Line, XAxis, YAxis } from "recharts";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 import { CandlesticksChart } from "../../common/CandlesticksChart";
+import { OHLCData } from "../../lib/ohlc";
 
 export function ChartBollingerBands({
   bollingerBands,
