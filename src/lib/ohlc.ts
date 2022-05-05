@@ -1,15 +1,15 @@
 export const toOhlcData =
-  (currencyKlines: Kline[]) =>
+  (quoteAssetKlines: Kline[]) =>
   (
-    [time, assetOpen, assetHigh, assetLow, assetClose]: Kline,
+    [time, baseAssetOpen, baseAssetHigh, baseAssetLow, baseAssetClose]: Kline,
     index: number
   ): OHLCData => {
-    const [, currencyOpen, currencyHigh, currencyLow, currencyClose] =
-      currencyKlines[index];
-    const open = Number(assetOpen) / Number(currencyOpen);
-    const high = Number(assetHigh) / Number(currencyHigh);
-    const low = Number(assetLow) / Number(currencyLow);
-    const close = Number(assetClose) / Number(currencyClose);
+    const [, quoteAssetOpen, quoteAssetHigh, quoteAssetLow, quoteAssetClose] =
+      quoteAssetKlines[index];
+    const open = Number(baseAssetOpen) / Number(quoteAssetOpen);
+    const high = Number(baseAssetHigh) / Number(quoteAssetHigh);
+    const low = Number(baseAssetLow) / Number(quoteAssetLow);
+    const close = Number(baseAssetClose) / Number(quoteAssetClose);
     return {
       time: new Date(time),
       open,

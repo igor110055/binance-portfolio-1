@@ -52,7 +52,7 @@ export function CandlesticksChart({
   children?: ReactNode;
   data: OHLCData[];
 }) {
-  const rangeData = useMemo(
+  const rangeData = useMemo<(OHLCData & { range: [number, number] })[]>(
     () =>
       data.map(({ high, low, ...ohlc }) => ({
         high,
@@ -63,7 +63,7 @@ export function CandlesticksChart({
     [data]
   );
   return (
-    <ComposedChart {...props} data={rangeData}>
+    <ComposedChart data={rangeData} {...props}>
       <Bar dataKey="range" isAnimationActive={false} shape={CandlestickShape} />
       {children}
     </ComposedChart>

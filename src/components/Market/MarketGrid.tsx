@@ -9,7 +9,7 @@ export function MarketGrid() {
   return (
     <Row xs={1} sm={2} md={3} lg={4} xl={6} className="MarketGrid g-4">
       {markets.map((data) => (
-        <Col key={data.asset + data.currency}>
+        <Col key={data.baseAsset + data.quoteAsset}>
           <MarketCard data={data} />
         </Col>
       ))}

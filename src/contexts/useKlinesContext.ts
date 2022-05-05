@@ -12,6 +12,5 @@ export function useKlinesContext() {
 }
 
 export function useKlines(asset: string) {
-  const Klines = useKlinesContext();
-  return Klines.find((data) => data.asset === asset)?.klines;
+  return useKlinesContext().find((data) => data.asset === asset)?.klines;
 }

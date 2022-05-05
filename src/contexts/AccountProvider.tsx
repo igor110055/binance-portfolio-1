@@ -1,10 +1,21 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { Spinner } from "react-bootstrap";
-import { useBinanceAccount } from "../hooks/useBinance";
+import { useRequest } from "../hooks/useRequest";
+import { applyBinanceRequestConfig } from "../lib/binance";
 import { AccountContext } from "./useAccountContext";
 
-export function AccountProvider(props: { children: ReactNode }) {
-  const account = useBinanceAccount();
+export function AccountProvider(props: {
+  children: ReactNode;
+  recvWindow?: number;
+}) {
+  const config = useMemo(() => {
+    return applyBinanceRequestConfig(
+      "/v3/account",
+      { method: "get", params: { recvWindow: props.recvWindow } },
+      true
+    );
+  }, [props.recvWindow]);
+  const account = useRequest<Account>(config);
 
   if (account.loading) {
     return <Spinner animation="grow" />;

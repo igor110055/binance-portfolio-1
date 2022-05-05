@@ -1,23 +1,30 @@
 import React, { useMemo } from "react";
 import { Line, XAxis, YAxis } from "recharts";
-import { MarketData } from "../../contexts/useMarketsContext";
+import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 import { CandlesticksChart } from "../../common/CandlesticksChart";
 
-export function ChartBollingerBands({ data, ...props }: { data: MarketData }) {
+export function ChartBollingerBands({
+  bollingerBands,
+  ohlc,
+  ...props
+}: {
+  bollingerBands: BollingerBandsOutput[];
+  ohlc: OHLCData[];
+}) {
   const yDomain = useMemo<[number, number]>(() => {
-    const extremes = data.ohlc.reduce<number[]>(
+    const extremes = ohlc.reduce<number[]>(
       (values, { high, low }) => [...values, high, low],
       []
     );
     return [Math.min(...extremes), Math.max(...extremes)];
-  }, [data]);
+  }, [ohlc]);
   const mergedData = useMemo(
     () =>
-      data.ohlc.map((ohlc, index) => ({
+      ohlc.map((ohlc, index) => ({
         ...ohlc,
-        ...data.bollingerBands[index],
+        ...bollingerBands[index],
       })),
-    [data.bollingerBands, data.ohlc]
+    [bollingerBands, ohlc]
   );
   return (
     <CandlesticksChart data={mergedData} {...props}>

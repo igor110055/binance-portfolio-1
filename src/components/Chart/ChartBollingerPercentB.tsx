@@ -2,14 +2,11 @@ import React from "react";
 import { Line, LineChart, ReferenceLine, YAxis } from "recharts";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 
-export function ChartBollingerPercentB({
-  data,
-  ...props
-}: {
+export function ChartBollingerPercentB(props: {
   data: BollingerBandsOutput[];
 }) {
   return (
-    <LineChart data={data} {...props}>
+    <LineChart {...props}>
       <YAxis domain={[-0.75, 1 + 0.75]} tick={false} width={0} />
       <ReferenceLine stroke="grey" strokeOpacity={0.5} y={0} />
       <ReferenceLine stroke="grey" strokeOpacity={0.5} y={1} />
