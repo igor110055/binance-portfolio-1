@@ -7,7 +7,6 @@ export type AnalysisData = {
   bollingerBands: BollingerBandsOutput[];
   macd: MACDOutput[];
   rsi: number[];
-  score: number;
 };
 
 export const BOLLINGER_BANDS_PERIOD = 21;
@@ -51,9 +50,5 @@ export function getAnalysisData(ohlc: OHLCData[], limit: number): AnalysisData {
     rsi: [...Array(ohlc.length - rsi.length).fill(undefined), ...rsi].slice(
       -limit
     ),
-    score:
-      ((values[values.length - 1] - values[values.length - SCORE_PERIOD - 1]) /
-        values[values.length - SCORE_PERIOD - 1]) *
-      100,
   };
 }

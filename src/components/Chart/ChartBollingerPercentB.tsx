@@ -7,7 +7,7 @@ export function ChartBollingerPercentB(props: {
 }) {
   return (
     <LineChart {...props}>
-      <YAxis domain={[-0.75, 1 + 0.75]} tick={false} width={0} />
+      <YAxis domain={[-0.75, 1.75]} tick={false} width={0} />
       <ReferenceLine stroke="grey" strokeOpacity={0.5} y={0} />
       <ReferenceLine stroke="grey" strokeOpacity={0.5} y={1} />
       <Line dataKey="pb" dot={false} isAnimationActive={false} stroke="grey" />

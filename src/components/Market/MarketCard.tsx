@@ -10,10 +10,11 @@ import { ChartRSI } from "../Chart/ChartRSI";
 export function MarketCard(props: { data: MarketData }) {
   const price = _.last(props.data.ohlc)?.close;
   const color = useMemo(() => {
-    if (props.data.score > 1) return "success";
-    if (props.data.score < 1) return "danger";
+    if (props.data.priceChangePercent > 1) return "success";
+    if (props.data.priceChangePercent < 1) return "danger";
     return undefined;
-  }, [props.data.score]);
+  }, [props.data.priceChangePercent]);
+
   return (
     <Card className="MarketCard">
       <ResponsiveContainer className="MarketChart" height={160}>
@@ -26,7 +27,7 @@ export function MarketCard(props: { data: MarketData }) {
         <Card.Title className="d-flex">
           {props.data.baseAsset}
           <Badge bg={color} className="ms-auto">
-            {props.data.score.toFixed(2)}%
+            {props.data.priceChangePercent.toFixed(2)}%
           </Badge>
         </Card.Title>
         <Card.Subtitle>
