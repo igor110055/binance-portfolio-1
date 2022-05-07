@@ -18,27 +18,27 @@ export const MACD_SIGNAL_PERIOD = 9;
 
 export const RSI_PERIOD = 6;
 
-export const SCORE_PERIOD = 1;
-
-export function getAnalysisData(ohlc: OHLCData[], limit: number): AnalysisData {
+export function getAnalysis(ohlc: OHLCData[], limit: number): AnalysisData {
   const values = ohlc.map((data) => data.close);
+
   const bollingerBands = BollingerBands.calculate({
     period: BOLLINGER_BANDS_PERIOD,
     stdDev: BOLLINGER_BANDS_STANDARD_DEVIATION,
     values,
   });
   const macd = MACD.calculate({
-    values,
     fastPeriod: MACD_FAST_PERIOD,
     slowPeriod: MACD_SLOW_PERIOD,
     signalPeriod: MACD_SIGNAL_PERIOD,
     SimpleMAOscillator: false,
     SimpleMASignal: false,
+    values,
   });
   const rsi = RSI.calculate({
-    values,
     period: RSI_PERIOD,
+    values,
   });
+
   return {
     bollingerBands: [
       ...Array(ohlc.length - bollingerBands.length).fill(undefined),

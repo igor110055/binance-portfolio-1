@@ -1,43 +1,31 @@
-import { KlinesData } from "../contexts/useKlinesContext";
-import { AnalysisData, getAnalysisData } from "./analysis";
-import { OHLCData, toOhlcData } from "./ohlc";
+import { AnalysisData, getAnalysis } from "./analysis";
+import { AssetData } from "./assets";
+import { crossOhlc, OHLCData } from "./ohlc";
 
 export type MarketData = {
-  baseAsset: string;
-  quoteAsset: string;
+  baseAsset: AssetData;
+  quoteAsset: AssetData;
+  symbol: string;
   ohlc: OHLCData[];
-  priceChangePercent: number;
   lastPrice: number;
-  // heikinAshi: OHLCData[];
+  priceChangePercent: number;
 } & AnalysisData;
 
 export const MARKET_PERIOD = 30;
 
 export function toMarketData(
-  baseAsset: string,
-  quoteAsset: string,
-  klines: KlinesData[],
-  ticker24hr: Ticker24hr | undefined
-): MarketData | null {
-  const klinesBaseAsset = klines.find(
-    (data) => data.asset === baseAsset
-  )?.klines;
-  const klinesQuoteAsset = klines.find(
-    (data) => data.asset === quoteAsset
-  )?.klines;
-  const ohlc =
-    klinesBaseAsset &&
-    klinesQuoteAsset &&
-    klinesBaseAsset.map(toOhlcData(klinesQuoteAsset));
-  if (ohlc) {
-    return {
-      baseAsset,
-      quoteAsset,
-      ohlc: ohlc.slice(-MARKET_PERIOD),
-      priceChangePercent: Number(ticker24hr?.priceChangePercent),
-      lastPrice: Number(ticker24hr?.lastPrice),
-      ...getAnalysisData(ohlc, MARKET_PERIOD),
-    };
-  }
-  return null;
+  baseAsset: AssetData,
+  quoteAsset: AssetData
+): MarketData {
+  const ohlc = crossOhlc(baseAsset.ohlc, quoteAsset.ohlc);
+  return {
+    baseAsset,
+    quoteAsset,
+    symbol: baseAsset.asset + quoteAsset.asset,
+    ohlc: ohlc.slice(-MARKET_PERIOD),
+    priceChangePercent:
+      baseAsset.priceChangePercent - quoteAsset.priceChangePercent,
+    lastPrice: baseAsset.lastPrice / quoteAsset.lastPrice,
+    ...getAnalysis(ohlc, MARKET_PERIOD),
+  };
 }

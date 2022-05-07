@@ -1,45 +1,48 @@
 import _ from "lodash";
 import React, { useMemo } from "react";
-import { Badge, Card } from "react-bootstrap";
+import { Badge, Card, CardProps } from "react-bootstrap";
 import { ResponsiveContainer } from "recharts";
 import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";
 import { ChartRSI } from "../Chart/ChartRSI";
 
-export function MarketCard(props: { data: MarketData }) {
-  const price = _.last(props.data.ohlc)?.close;
+export function MarketCard({
+  market,
+  ...props
+}: CardProps & { market: MarketData }) {
+  const price = _.last(market.ohlc)?.close;
   const color = useMemo(() => {
-    if (props.data.priceChangePercent > 1) return "success";
-    if (props.data.priceChangePercent < 1) return "danger";
+    if (market.priceChangePercent > 1) return "success";
+    if (market.priceChangePercent < 1) return "danger";
     return undefined;
-  }, [props.data.priceChangePercent]);
+  }, [market.priceChangePercent]);
 
   return (
-    <Card className="MarketCard">
+    <Card className="MarketCard" {...props}>
       <ResponsiveContainer className="MarketChart" height={160}>
         <ChartBollingerBands
-          bollingerBands={props.data.bollingerBands}
-          ohlc={props.data.ohlc}
+          bollingerBands={market.bollingerBands}
+          ohlc={market.ohlc}
         />
       </ResponsiveContainer>
       <Card.Body>
         <Card.Title className="d-flex">
-          {props.data.baseAsset}
+          {market.baseAsset.asset}
           <Badge bg={color} className="ms-auto">
-            {props.data.priceChangePercent.toFixed(2)}%
+            {market.priceChangePercent.toFixed(2)}%
           </Badge>
         </Card.Title>
         <Card.Subtitle>
-          <strong className="me-1">{props.data.quoteAsset}</strong>
+          <strong className="me-1">{market.quoteAsset.asset}</strong>
           {price?.toFixed(2)}
         </Card.Subtitle>
       </Card.Body>
       <ResponsiveContainer height={80}>
-        <ChartMACD data={props.data.macd} />
+        <ChartMACD data={market.macd} />
       </ResponsiveContainer>
       <ResponsiveContainer height={80}>
-        <ChartRSI data={props.data.rsi} />
+        <ChartRSI data={market.rsi} />
       </ResponsiveContainer>
     </Card>
   );
