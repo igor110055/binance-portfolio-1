@@ -3,6 +3,7 @@ import { setupCache } from "axios-cache-adapter";
 import axiosThrottle from "axios-request-throttle";
 
 export const CACHE_MAX_AGE = 15 * 60 * 1000;
+export const REQUESTS_PER_SECOND = 5;
 
 const cache = setupCache({
   maxAge: CACHE_MAX_AGE,
@@ -12,7 +13,7 @@ export const API = axios.create({
   adapter: cache.adapter,
 });
 
-axiosThrottle.use(API, { requestsPerSecond: 1 });
+axiosThrottle.use(API, { requestsPerSecond: REQUESTS_PER_SECOND });
 
 export async function loadRequest<T>(config: AxiosRequestConfig) {
   const response = await API.request<T>(config);

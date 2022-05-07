@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { Cell, Pie, PieChart, PieLabelRenderProps } from "recharts";
-import { AssetData, ASSET_ICON_SIZE } from "../../lib/assets";
+import { AssetData } from "../../lib/assets";
+
+const ASSET_ICON_SIZE = 24;
 
 type ChartAssetsPieData = {
   asset: string;
@@ -27,10 +29,13 @@ function ChartAssetsPieLabel({
   );
 }
 
-export function ChartAssetsPie({ assets }: { assets: AssetData[] }) {
-  const data = useMemo(() => {
-    return assets.reduce<ChartAssetsPieData[]>(
-      (entries, { asset, available, unavailable, icon, lastPrice }) => {
+export function ChartAssetsPie({ assets, ...props }: { assets: AssetData[] }) {
+  const data = useMemo<ChartAssetsPieData[]>(() => {
+    return assets.reduce(
+      (
+        entries: ChartAssetsPieData[],
+        { asset, available, unavailable, icon, lastPrice }: AssetData
+      ) => {
         if (available > 0) {
           entries.push({
             asset,
@@ -54,13 +59,14 @@ export function ChartAssetsPie({ assets }: { assets: AssetData[] }) {
   }, [assets]);
 
   return (
-    <PieChart width={400} height={240}>
+    <PieChart {...props}>
       <Pie
         data={data}
         dataKey="amount"
         isAnimationActive={false}
         label={ChartAssetsPieLabel}
-        outerRadius={80}
+        labelLine={false}
+        innerRadius={61.8}
       >
         {data.map((entry, index) => {
           return <Cell key={index} fill="grey" opacity={entry.opacity} />;
