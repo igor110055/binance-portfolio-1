@@ -21,7 +21,12 @@ function listFilesSync(dir) {
 const directoryPath = path.resolve(".icons");
 
 function loadIconColor(pngFile) {
-  return ColorThief.getColor(pngFile, 1).then((color) => {
+  return ColorThief.getPalette(pngFile, 5).then((palette) => {
+    const color = palette
+      ? palette.find(
+          (color) => color[0] !== color[1] || color[0] !== color[2]
+        ) || palette[0]
+      : "grey";
     console.log(pngFile, color);
     return {
       asset: pngFile.replace(directoryPath + "/", "").replace(".png", ""),
@@ -43,7 +48,7 @@ Promise.all(iconColors).then((colors) => {
     }
     return results;
   }, {});
+  console.log(outFile);
   const outputString = JSON.stringify(output, null, 2);
   fs.writeFileSync(outFile, outputString);
-  console.log(output);
-}, console.error);
+});
