@@ -2,6 +2,7 @@ import _ from "lodash";
 import React, { useMemo } from "react";
 import { Badge, Card, CardProps } from "react-bootstrap";
 import { ResponsiveContainer } from "recharts";
+import { AssetIcon } from "../../common/AssetIcon";
 import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";
@@ -28,13 +29,17 @@ export function MarketCard({
       </ResponsiveContainer>
       <Card.Body>
         <Card.Title className="d-flex">
+          <AssetIcon className="me-1" asset={market.baseAsset} />
           {market.baseAsset.asset}
           <Badge bg={color} className="ms-auto">
             {market.priceChangePercent.toFixed(2)}%
           </Badge>
         </Card.Title>
         <Card.Subtitle>
-          <strong className="me-1">{market.quoteAsset.asset}</strong>
+          <strong className="me-1">
+            <AssetIcon className="me-1" asset={market.quoteAsset} />
+            {market.quoteAsset.asset}
+          </strong>
           {price?.toFixed(2)}
         </Card.Subtitle>
       </Card.Body>

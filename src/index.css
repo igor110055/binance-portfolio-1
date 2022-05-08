@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+.icon {
+  max-height: 1.2em;
+  color: grey;
+  font-weight: normal;
+  vertical-align: bottom;
+}
+
 .recharts-wrapper {
   font-size: small;
 }
