@@ -4,10 +4,7 @@
 	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill-rule:evenodd;clip-rule:evenodd;}
-	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#00E8B4;}
 </style>
-<polygon id="Fill-18" class="st0" points="166.7,0 166.7,166.7 83.3,250 83.3,83.3 "/>
-<path id="Fill-19" class="st0" d="M416.7,333.3c0,92-74.6,166.7-166.7,166.7c-92.1,0-166.7-74.6-166.7-166.7V250h83.3v83.3
-	c0,45.9,37.4,83.3,83.3,83.3s83.3-37.4,83.3-83.3H416.7z"/>
-<polygon id="Fill-20" class="st1" points="416.7,166.7 333.3,250 83.3,250 166.7,166.7 "/>
+<path class="st0" d="M249.9,416.6c-45.9,0-83.3-37.4-83.3-83.3V250h166.7l83.4-83.3h-250V0L83.3,83.3V250h0v83.3
+	C83.3,425.4,157.9,500,250,500s166.7-74.7,166.7-166.7h-83.5C333.2,379.2,295.8,416.6,249.9,416.6z"/>
 </svg>
