@@ -3,6 +3,9 @@ import { toOhlc, OHLCData } from "./ohlc";
 import { KLINES_LIMIT, loadBinanceKlines } from "./binance/klines";
 import { PortfolioData } from "./portfolio";
 
+import COLORS from "../assets/colors.json";
+const colors = COLORS as any;
+
 export const ASSET_ICON_SIZE = 32;
 
 export type AssetData = {
@@ -13,6 +16,7 @@ export type AssetData = {
   unavailable: number;
   ohlc: OHLCData[];
   icon: string;
+  color: string | undefined;
 };
 
 function getAssetIconPath(asset: string) {
@@ -48,6 +52,7 @@ function loadAssetReference({
       };
     }),
     icon,
+    color: colors[asset],
   });
 }
 
@@ -56,6 +61,7 @@ export function loadAsset({
   available,
   unavailable,
 }: PortfolioData): Promise<AssetData> {
+  console.log(asset, colors[asset]);
   if (asset === process.env.REACT_APP_CURRENCY) {
     return loadAssetReference({ asset, available, unavailable });
   }
@@ -73,6 +79,7 @@ export function loadAsset({
       unavailable,
       ohlc: klines.map(toOhlc),
       icon,
+      color: colors[asset],
     };
   });
 }

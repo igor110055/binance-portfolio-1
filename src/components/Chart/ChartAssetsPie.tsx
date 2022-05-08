@@ -8,6 +8,7 @@ type ChartAssetsPieData = {
   asset: string;
   amount: number;
   icon: string;
+  color: string | undefined;
   opacity: number;
 };
 
@@ -34,13 +35,14 @@ export function ChartAssetsPie({ assets, ...props }: { assets: AssetData[] }) {
     return assets.reduce(
       (
         entries: ChartAssetsPieData[],
-        { asset, available, unavailable, icon, lastPrice }: AssetData
+        { asset, available, unavailable, icon, color, lastPrice }: AssetData
       ) => {
         if (available > 0) {
           entries.push({
             asset,
             amount: available * lastPrice,
             icon,
+            color,
             opacity: 1,
           });
         }
@@ -49,6 +51,7 @@ export function ChartAssetsPie({ assets, ...props }: { assets: AssetData[] }) {
             asset,
             amount: unavailable * lastPrice,
             icon,
+            color,
             opacity: 0.5,
           });
         }
@@ -69,7 +72,13 @@ export function ChartAssetsPie({ assets, ...props }: { assets: AssetData[] }) {
         innerRadius={61.8}
       >
         {data.map((entry, index) => {
-          return <Cell key={index} fill="grey" opacity={entry.opacity} />;
+          return (
+            <Cell
+              key={index}
+              fill={entry.color || "grey"}
+              opacity={entry.opacity}
+            />
+          );
         })}
       </Pie>
     </PieChart>

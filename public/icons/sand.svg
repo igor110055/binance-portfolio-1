@@ -2,6 +2,15 @@
 <!-- Generator: Adobe Illustrator 26.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="sand" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
-<path d="M250,0C111.9,0,0,111.9,0,250s111.9,250,250,250s250-111.9,250-250S388.1,0,250,0z M373.1,189.1h-91.6v-30.4h-61v60.9h122
-	l30.5,30.5V372l-30.5,30.4H159.4L128.9,372v-61h91.6v30.3h61v-60.9H159.4L128.9,250V128.2l30.5-30.5h183.2l30.5,30.5V189.1z"/>
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#FFFFFF;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="3.1064" y1="500.5213" x2="3.1064" y2="495.2021" gradientTransform="matrix(94 0 0 -94 -42 47049)">
+	<stop  offset="0" style="stop-color:#00ADEF"/>
+	<stop  offset="1" style="stop-color:#0084FF"/>
+</linearGradient>
+<circle class="st0" cx="250" cy="250" r="250"/>
+<path class="st1" d="M159.4,97.7l-30.5,30.5V250l30.5,30.4h122.1v60.9h-61V311h-91.6v61l30.5,30.4h183.1l30.5-30.4V250.1l-30.5-30.5
+	H220.5v-60.9h61v30.4h91.6v-60.9l-30.5-30.5L159.4,97.7z"/>
 </svg>
