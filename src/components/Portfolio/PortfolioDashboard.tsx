@@ -10,7 +10,7 @@ export function PortfolioDashboard() {
   const assets = useAssets();
   return (
     <>
-      <ResponsiveContainer className="AssetsChart" height={320}>
+      <ResponsiveContainer height={320}>
         <ChartAssetsPie assets={assets} />
       </ResponsiveContainer>
       <MarketsProvider>

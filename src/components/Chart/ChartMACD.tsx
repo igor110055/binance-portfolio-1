@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Bar, ComposedChart, Line, Rectangle, YAxis } from "recharts";
+import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
 import { MACDOutput } from "technicalindicators/declarations/moving_averages/MACD";
 
 function ChartMACDHistogramShape({
@@ -17,13 +18,23 @@ function ChartMACDHistogramShape({
   return <Rectangle fill="green" fillOpacity={0.5} {...props} />;
 }
 
-export function ChartMACD({ data, ...props }: { data: MACDOutput[] }) {
+export function ChartMACD({
+  data,
+  ...props
+}: CategoricalChartProps & {
+  data: (MACDOutput | undefined)[];
+}) {
   const yDomain = useMemo<[number, number]>(() => {
-    const extreme = data.reduce<number>(
-      (max, { signal, MACD }) =>
-        Math.max(max, Math.abs(signal || 0), Math.abs(MACD || 0)),
-      0
-    );
+    const extreme = data.reduce<number>((max, output) => {
+      if (
+        output === undefined ||
+        output.signal === undefined ||
+        output.MACD === undefined
+      ) {
+        return max;
+      }
+      return Math.max(max, Math.abs(output.signal), Math.abs(output.MACD));
+    }, 0);
     return [-extreme, extreme];
   }, [data]);
   return (

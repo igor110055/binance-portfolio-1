@@ -19,19 +19,16 @@ export function BinanceAccountPortfolioProvider({
   useEffect(() => {
     if (!isFetching && !data) {
       isFetching = true;
-      console.log("BinanceAccountPortfolioProvider FETCH");
       loadBinanceAccount(params)
         .then(toPortfolio)
         .then(setData)
-        .catch(console.warn)
+        .catch(console.error)
         .finally(() => {
           isFetching = false;
           setLoading(false);
         });
     }
   }, [data, params]);
-
-  console.log("BinanceAccountPortfolioProvider", data);
 
   if (loading) {
     return <Spinner animation="grow" />;

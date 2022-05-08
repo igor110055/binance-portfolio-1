@@ -1,7 +1,7 @@
 import { BollingerBands, MACD, RSI } from "technicalindicators";
 import { MACDOutput } from "technicalindicators/declarations/moving_averages/MACD";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
-import { OHLCData } from "./ohlc";
+import { OHLCData, toValues } from "./ohlc";
 
 export type AnalysisData = {
   bollingerBands: BollingerBandsOutput[];
@@ -19,7 +19,7 @@ export const MACD_SIGNAL_PERIOD = 9;
 export const RSI_PERIOD = 6;
 
 export function getAnalysis(ohlc: OHLCData[], limit: number): AnalysisData {
-  const values = ohlc.map((data) => data.close);
+  const values = toValues(ohlc);
 
   const bollingerBands = BollingerBands.calculate({
     period: BOLLINGER_BANDS_PERIOD,

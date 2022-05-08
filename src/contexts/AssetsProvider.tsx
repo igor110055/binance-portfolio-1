@@ -15,18 +15,15 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isFetching && !data) {
       isFetching = true;
-      console.log("AssetsProvider FETCH");
       Promise.all(portfolio.map(loadAsset))
         .then(setData)
-        .catch(console.warn)
+        .catch(console.error)
         .finally(() => {
           isFetching = false;
           setLoading(false);
         });
     }
   }, [data, portfolio]);
-
-  console.log("AssetsProvider", data);
 
   if (loading) {
     return <Spinner animation="grow" />;

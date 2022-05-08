@@ -20,7 +20,7 @@ export function MarketCard({
 
   return (
     <Card className="MarketCard" {...props}>
-      <ResponsiveContainer className="MarketChart" height={160}>
+      <ResponsiveContainer height={160}>
         <ChartBollingerBands
           bollingerBands={market.bollingerBands}
           ohlc={market.ohlc}

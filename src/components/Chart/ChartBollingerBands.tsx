@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Line, XAxis, YAxis } from "recharts";
+import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 import { CandlesticksChart } from "../../common/CandlesticksChart";
 import { OHLCData } from "../../lib/ohlc";
@@ -8,15 +9,17 @@ export function ChartBollingerBands({
   bollingerBands,
   ohlc,
   ...props
-}: {
+}: CategoricalChartProps & {
   bollingerBands: BollingerBandsOutput[];
   ohlc: OHLCData[];
 }) {
   const yDomain = useMemo<[number, number]>(() => {
-    const extremes = ohlc.reduce<number[]>(
-      (values, { high, low }) => [...values, high, low],
-      []
-    );
+    const extremes = ohlc.reduce<number[]>((values, data) => {
+      if (data) {
+        return [...values, data.high, data.low];
+      }
+      return values;
+    }, []);
     return [Math.min(...extremes), Math.max(...extremes)];
   }, [ohlc]);
   const mergedData = useMemo(
