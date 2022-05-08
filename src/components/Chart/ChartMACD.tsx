@@ -38,7 +38,7 @@ export function ChartMACD({
     return [-extreme, extreme];
   }, [data]);
   return (
-    <ComposedChart data={data} {...props}>
+    <ComposedChart {...props} data={data}>
       <YAxis domain={yDomain} tick={false} width={0} />
       <Bar
         dataKey="histogram"

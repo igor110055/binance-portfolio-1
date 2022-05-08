@@ -24,14 +24,14 @@ export function ChartBollingerBands({
   }, [ohlc]);
   const mergedData = useMemo(
     () =>
-      ohlc.map((ohlc, index) => ({
+      ohlc.filter(Boolean).map((ohlc, index) => ({
         ...ohlc,
         ...bollingerBands[index],
       })),
     [bollingerBands, ohlc]
   );
   return (
-    <CandlesticksChart data={mergedData} {...props}>
+    <CandlesticksChart {...props} data={mergedData}>
       <XAxis dataKey="time" tick={false} height={0} />
       <YAxis domain={yDomain} tick={false} width={0} />
       <Line

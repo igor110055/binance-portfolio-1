@@ -3,6 +3,8 @@ import { Bar, RectangleProps, ComposedChart } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
 import { OHLCData } from "../lib/ohlc";
 
+type CandlesticksChartData = OHLCData & { range: [number, number] };
+
 export function CandlestickShape({
   x,
   y,
@@ -53,18 +55,21 @@ export function CandlesticksChart({
   children?: ReactNode;
   data: OHLCData[];
 }) {
-  const rangeData = useMemo<(OHLCData & { range: [number, number] })[]>(
+  const rangeData = useMemo<CandlesticksChartData[]>(
     () =>
-      data.map(({ high, low, ...ohlc }) => ({
-        high,
-        low,
-        ...ohlc,
-        range: [low, high],
-      })),
+      data
+        .filter(Boolean)
+        .filter((ohlc) => ohlc.low < ohlc.high)
+        .map((ohlc) => {
+          return {
+            ...ohlc,
+            range: [ohlc.low, ohlc.high],
+          };
+        }),
     [data]
   );
   return (
-    <ComposedChart data={rangeData} {...props}>
+    <ComposedChart {...props} data={rangeData}>
       <Bar dataKey="range" isAnimationActive={false} shape={CandlestickShape} />
       {children}
     </ComposedChart>

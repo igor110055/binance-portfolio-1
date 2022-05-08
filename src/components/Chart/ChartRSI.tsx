@@ -8,7 +8,7 @@ export function ChartRSI({ data, ...props }: { data: number[] }) {
     return "black";
   }, [data]);
   return (
-    <LineChart data={data} {...props}>
+    <LineChart {...props} data={data}>
       <YAxis domain={[0, 100]} tick={false} width={0} />
       <ReferenceLine stroke="grey" strokeOpacity={0.5} y={70} />
       <ReferenceLine stroke="grey" strokeOpacity={0.5} y={30} />
