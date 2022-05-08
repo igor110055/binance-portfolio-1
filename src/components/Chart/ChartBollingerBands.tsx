@@ -24,10 +24,15 @@ export function ChartBollingerBands({
   }, [ohlc]);
   const mergedData = useMemo(
     () =>
-      ohlc.filter(Boolean).map((ohlc, index) => ({
-        ...ohlc,
-        ...bollingerBands[index],
-      })),
+      ohlc
+        .map(
+          (ohlc, index) =>
+            ohlc && {
+              ...ohlc,
+              ...bollingerBands[index],
+            }
+        )
+        .filter(Boolean),
     [bollingerBands, ohlc]
   );
   return (

@@ -7,16 +7,21 @@ import { usePortfolio } from "./usePortfolio";
 let isFetching = false;
 
 export function AssetsProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<AssetData[]>();
+  const [data, setData] = useState<AssetData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const portfolio = usePortfolio();
 
   useEffect(() => {
-    if (!isFetching && !data) {
+    if (!isFetching && data.length === 0) {
       isFetching = true;
-      Promise.all(portfolio.map(loadAsset))
-        .then(setData)
+      Promise.all(
+        portfolio.map((balance) => {
+          return loadAsset(balance).then((asset) => {
+            setData((prevData) => [...prevData, asset]);
+          });
+        })
+      )
         .catch(console.error)
         .finally(() => {
           isFetching = false;
@@ -25,16 +30,10 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
     }
   }, [data, portfolio]);
 
-  if (loading) {
-    return <Spinner animation="grow" />;
-  }
-
-  if (!data) {
-    console.error("Assets data not available.");
-    return null;
-  }
-
   return (
-    <AssetsContext.Provider value={data}>{children}</AssetsContext.Provider>
+    <AssetsContext.Provider value={data}>
+      {loading ? <Spinner animation="grow" /> : null}
+      {children}
+    </AssetsContext.Provider>
   );
 }
