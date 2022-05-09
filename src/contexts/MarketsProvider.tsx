@@ -10,9 +10,9 @@ function byRsi(a: MarketData, b: MarketData) {
 export function MarketsProvider({ children }: { children: ReactNode }) {
   const assets = useAssets();
   const markets = useMemo<MarketData[]>(() => {
-    return assets
+    return assets.data
       .map((baseAsset) => {
-        return assets
+        return assets.data
           .filter((quoteAsset) => quoteAsset !== baseAsset)
           .map((quoteAsset) => {
             return toMarketData(baseAsset, quoteAsset);
@@ -20,7 +20,7 @@ export function MarketsProvider({ children }: { children: ReactNode }) {
       })
       .flat()
       .sort(byRsi);
-  }, [assets]);
+  }, [assets.data]);
 
   return (
     <MarketsContext.Provider value={markets}>

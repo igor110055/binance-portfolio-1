@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { ImgHTMLAttributes } from "react";
-import { AssetData } from "../lib/assets";
+import { AssetData } from "../../lib/assets";
 
 export function AssetIcon({
   asset,

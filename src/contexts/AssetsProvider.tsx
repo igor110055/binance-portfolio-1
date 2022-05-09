@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { AssetsContext } from "./useAssets";
 import { AssetData, loadAsset } from "../lib/assets";
-import { Spinner } from "react-bootstrap";
 import { usePortfolio } from "./usePortfolio";
 
 let isFetching = false;
@@ -31,8 +30,7 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
   }, [data, portfolio]);
 
   return (
-    <AssetsContext.Provider value={data}>
-      {loading ? <Spinner animation="grow" /> : null}
+    <AssetsContext.Provider value={{ data, loading }}>
       {children}
     </AssetsContext.Provider>
   );

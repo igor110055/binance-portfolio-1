@@ -6,7 +6,7 @@ const ASSET_ICON_SIZE = 24;
 
 type ChartAssetsPieData = {
   asset: string;
-  amount: number;
+  value: number;
   icon: string;
   color: string | undefined;
   opacity: number;
@@ -30,56 +30,76 @@ function ChartAssetsPieLabel({
   );
 }
 
+function ChartAssetsPieCell(entry: ChartAssetsPieData, index: number) {
+  return (
+    <Cell
+      key={entry.asset + index}
+      fill={entry.color || "grey"}
+      opacity={entry.opacity}
+    />
+  );
+}
+
 export function ChartAssetsPie({ assets, ...props }: { assets: AssetData[] }) {
-  const data = useMemo<ChartAssetsPieData[]>(() => {
-    return assets.reduce(
+  const [dataTotals, dataDetails] = useMemo(() => {
+    return assets.reduce<[ChartAssetsPieData[], ChartAssetsPieData[]]>(
       (
-        entries: ChartAssetsPieData[],
+        [totals, details],
         { asset, available, unavailable, icon, color, lastPrice }: AssetData
       ) => {
+        totals.push({
+          asset,
+          value: (available + unavailable) * lastPrice,
+          icon,
+          color,
+          opacity: 1,
+        });
         if (available > 0) {
-          entries.push({
+          details.push({
             asset,
-            amount: available * lastPrice,
-            icon,
-            color,
-            opacity: 1,
-          });
-        }
-        if (unavailable > 0) {
-          entries.push({
-            asset,
-            amount: unavailable * lastPrice,
+            value: available * lastPrice,
             icon,
             color,
             opacity: 0.5,
           });
         }
-        return entries;
+        if (unavailable > 0) {
+          details.push({
+            asset,
+            value: unavailable * lastPrice,
+            icon,
+            color,
+            opacity: 1,
+          });
+        }
+        return [totals, details];
       },
-      []
+      [[], []]
     );
   }, [assets]);
 
   return (
     <PieChart {...props}>
       <Pie
-        data={data}
-        dataKey="amount"
+        data={dataDetails}
+        dataKey="value"
+        isAnimationActive={false}
+        label={false}
+        innerRadius="25%"
+        outerRadius="38.2%"
+      >
+        {dataDetails.map(ChartAssetsPieCell)}
+      </Pie>
+      <Pie
+        data={dataTotals}
+        dataKey="value"
         isAnimationActive={false}
         label={ChartAssetsPieLabel}
         labelLine={false}
-        innerRadius={61.8}
+        innerRadius="38.2%"
+        outerRadius="61.8%"
       >
-        {data.map((entry, index) => {
-          return (
-            <Cell
-              key={index}
-              fill={entry.color || "grey"}
-              opacity={entry.opacity}
-            />
-          );
-        })}
+        {dataTotals.map(ChartAssetsPieCell)}
       </Pie>
     </PieChart>
   );

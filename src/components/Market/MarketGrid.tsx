@@ -7,7 +7,7 @@ export function MarketGrid() {
   const markets = useMarkets();
 
   return (
-    <Row xs={1} sm={2} md={3} lg={4} xl={6} className="MarketGrid g-4">
+    <Row xs={1} sm={2} md={3} lg={4} xl={5} className="MarketGrid g-4">
       {markets.map((market) => (
         <Col key={market.symbol}>
           <MarketCard market={market} />

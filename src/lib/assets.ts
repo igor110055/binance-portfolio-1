@@ -61,7 +61,6 @@ export function loadAsset({
   available,
   unavailable,
 }: PortfolioData): Promise<AssetData> {
-  console.log(asset, colors[asset]);
   if (asset === process.env.REACT_APP_CURRENCY) {
     return loadAssetReference({ asset, available, unavailable });
   }

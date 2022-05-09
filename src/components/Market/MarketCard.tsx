@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { useMemo } from "react";
 import { Badge, Card, CardProps } from "react-bootstrap";
 import { ResponsiveContainer } from "recharts";
-import { AssetIcon } from "../../common/AssetIcon";
+import { AssetIcon } from "../Assets/AssetIcon";
 import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";
@@ -21,7 +21,7 @@ export function MarketCard({
 
   return (
     <Card className="MarketCard" {...props}>
-      <ResponsiveContainer height={160}>
+      <ResponsiveContainer aspect={16 / 9}>
         <ChartBollingerBands
           bollingerBands={market.bollingerBands}
           ohlc={market.ohlc}
@@ -31,7 +31,7 @@ export function MarketCard({
         <Card.Title className="d-flex">
           <AssetIcon className="me-1" asset={market.baseAsset} />
           {market.baseAsset.asset}
-          <Badge bg={color} className="ms-auto">
+          <Badge bg={color} className="ms-auto px-1">
             {market.priceChangePercent.toFixed(2)}%
           </Badge>
         </Card.Title>
@@ -43,10 +43,10 @@ export function MarketCard({
           {price?.toFixed(2)}
         </Card.Subtitle>
       </Card.Body>
-      <ResponsiveContainer height={80}>
+      <ResponsiveContainer aspect={32 / 9}>
         <ChartMACD data={market.macd} />
       </ResponsiveContainer>
-      <ResponsiveContainer height={80}>
+      <ResponsiveContainer aspect={32 / 9}>
         <ChartRSI data={market.rsi} />
       </ResponsiveContainer>
     </Card>

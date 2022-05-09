@@ -1,0 +1,78 @@
+@import "~bootstrap/scss/bootstrap.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.AssetTable {
+  font-size: small;
+}
+
+.PortfolioDashboard-loader {
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.Loader {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  max-height: 1.5em;
+  color: grey;
+  font-weight: normal;
+  vertical-align: bottom;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  .icon {
+    max-height: 1.2em;
+  }
+}
+
+.table {
+  .form-control-sm {
+    margin: -0.42em 0;
+    &[type="number"] {
+      max-width: 12em;
+      min-width: 6em;
+    }
+  }
+  tbody {
+    th {
+      min-width: 8em;
+    }
+  }
+}
+
+.recharts-wrapper {
+  font-size: small;
+}

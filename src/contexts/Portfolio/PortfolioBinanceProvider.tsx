@@ -1,12 +1,12 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
-import { loadBinanceAccount } from "../lib/binance/account";
-import { PortfolioData, toPortfolio } from "../lib/portfolio";
-import { PortfolioContext } from "./usePortfolio";
+import { Loader } from "../../common/Loader";
+import { loadBinanceAccount } from "../../lib/binance/account";
+import { PortfolioData, toPortfolio } from "../../lib/portfolio";
+import { PortfolioContext } from "../usePortfolio";
 
 let isFetching = false;
 
-export function BinanceAccountPortfolioProvider({
+export function PortfolioBinanceProvider({
   children,
   ...params
 }: {
@@ -31,7 +31,7 @@ export function BinanceAccountPortfolioProvider({
   }, [data, params]);
 
   if (loading) {
-    return <Spinner animation="grow" />;
+    return <Loader />;
   }
 
   if (!data) {

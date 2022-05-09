@@ -5,17 +5,33 @@ import { MarketsProvider } from "../../contexts/MarketsProvider";
 import { ChartAssetsPie } from "../Chart/ChartAssetsPie";
 import { useAssets } from "../../contexts/useAssets";
 import { ResponsiveContainer } from "recharts";
+import { AssetTable } from "../Assets/AssetTable";
+import { Col, Row } from "react-bootstrap";
+import { Loader } from "../../common/Loader";
 
 export function PortfolioDashboard() {
   const assets = useAssets();
   return (
-    <>
-      <ResponsiveContainer height={320}>
-        <ChartAssetsPie assets={assets} />
-      </ResponsiveContainer>
+    <div className="PortfolioDashboard">
+      <Row className="mb-4">
+        <Col md={4} className="position-relative">
+          <div className="PortfolioDashboard-loader">
+            {assets.loading ? <Loader /> : null}
+            <ResponsiveContainer
+              className="PortfolioDashboard-chart"
+              aspect={1}
+            >
+              <ChartAssetsPie assets={assets.data} />
+            </ResponsiveContainer>
+          </div>
+        </Col>
+        <Col md={8}>
+          <AssetTable assets={assets.data} />
+        </Col>
+      </Row>
       <MarketsProvider>
         <MarketGrid />
       </MarketsProvider>
-    </>
+    </div>
   );
 }
