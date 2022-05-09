@@ -3,8 +3,6 @@ import { PortfolioLocalProvider } from "./contexts/Portfolio/PortfolioLocalProvi
 import { AssetsProvider } from "./contexts/AssetsProvider";
 import { PortfolioDashboard } from "./components/Portfolio/PortfolioDashboard";
 
-localStorage.removeItem("portfolio");
-
 function App() {
   return (
     <div className="App p-4">
