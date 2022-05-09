@@ -21,7 +21,7 @@ export function toMarketData(
   return {
     baseAsset,
     quoteAsset,
-    symbol: baseAsset.asset + quoteAsset.asset,
+    symbol: baseAsset.assetId + quoteAsset.assetId,
     ohlc: ohlc.slice(-MARKET_PERIOD),
     priceChangePercent:
       baseAsset.priceChangePercent - quoteAsset.priceChangePercent,

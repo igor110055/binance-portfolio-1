@@ -29,16 +29,16 @@ export function MarketCard({
       </ResponsiveContainer>
       <Card.Body>
         <Card.Title className="d-flex">
-          <AssetIcon className="me-1" asset={market.baseAsset} />
-          {market.baseAsset.asset}
+          <AssetIcon className="me-1" assetId={market.baseAsset.assetId} />
+          {market.baseAsset.assetId}
           <Badge bg={color} className="ms-auto px-1">
             {market.priceChangePercent.toFixed(2)}%
           </Badge>
         </Card.Title>
         <Card.Subtitle>
           <strong className="me-1">
-            <AssetIcon className="me-1" asset={market.quoteAsset} />
-            {market.quoteAsset.asset}
+            <AssetIcon className="me-1" assetId={market.quoteAsset.assetId} />
+            {market.quoteAsset.assetId}
           </strong>
           {price?.toFixed(2)}
         </Card.Subtitle>

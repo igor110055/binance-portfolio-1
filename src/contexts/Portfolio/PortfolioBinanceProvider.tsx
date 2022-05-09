@@ -3,7 +3,7 @@ import { Loader } from "../../common/Loader";
 import { useLocalState } from "../../hooks/useLocalState";
 import { loadBinanceAccount } from "../../lib/binance/account";
 import { PortfolioData, toPortfolio } from "../../lib/portfolio";
-import { PortfolioContext } from "../usePortfolio";
+import { PortfolioContext } from "./usePortfolio";
 
 let isFetching = false;
 

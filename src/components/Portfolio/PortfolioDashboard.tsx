@@ -1,37 +1,33 @@
-import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MarketGrid } from "../Market/MarketGrid";
-import { MarketsProvider } from "../../contexts/MarketsProvider";
-import { ChartAssetsPie } from "../Chart/ChartAssetsPie";
-import { useAssets } from "../../contexts/useAssets";
+import { PortfolioChart } from "./PortfolioChart";
 import { ResponsiveContainer } from "recharts";
 import { PortfolioTable } from "./PortfolioTable";
 import { Col, Row } from "react-bootstrap";
 import { Loader } from "../../common/Loader";
+import { useAssets } from "../../contexts/useAssets";
 
 export function PortfolioDashboard() {
-  const assets = useAssets();
+  const [, assetsLoading] = useAssets();
   return (
     <div className="PortfolioDashboard">
       <Row className="mb-4">
         <Col md={4} className="position-relative">
           <div className="PortfolioDashboard-loader">
-            {assets.loading ? <Loader /> : null}
+            {assetsLoading ? <Loader /> : null}
             <ResponsiveContainer
               className="PortfolioDashboard-chart"
               aspect={1}
             >
-              <ChartAssetsPie assets={assets.data} />
+              <PortfolioChart />
             </ResponsiveContainer>
           </div>
         </Col>
         <Col md={8}>
-          <PortfolioTable assets={assets.data} />
+          <PortfolioTable />
         </Col>
       </Row>
-      <MarketsProvider>
-        <MarketGrid />
-      </MarketsProvider>
+      <MarketGrid />
     </div>
   );
 }

@@ -1,15 +1,27 @@
+import { useMemo } from "react";
 import { Form, Table } from "react-bootstrap";
-import { AssetData } from "../../lib/assets";
+import { useAssets } from "../../contexts/useAssets";
+import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
 import { AssetIcon } from "../Assets/AssetIcon";
 
-export function PortfolioTable({ assets }: { assets: AssetData[] }) {
-  const weights = assets.reduce<{ [asset: string]: number }>((w, asset) => {
-    w[asset.asset] = (asset.available + asset.unavailable) * asset.lastPrice;
-    return w;
-  }, {});
-  const total = assets.reduce((t, asset) => {
-    return t + weights[asset.asset];
-  }, 0);
+export function PortfolioTable() {
+  const [assets] = useAssets();
+  const [portfolio] = usePortfolio();
+
+  const [weights, total] = useMemo(() => {
+    return portfolio.reduce<[{ [assetId: string]: number }, number]>(
+      ([w, t], balance) => {
+        const asset = assets.find((a) => a.assetId === balance.assetId);
+        if (asset) {
+          t += w[balance.assetId] =
+            (balance.available + balance.unavailable) * asset.lastPrice;
+        }
+        return [w, t];
+      },
+      [{}, 0]
+    );
+  }, [assets, portfolio]);
+
   return (
     <Table className="PortfolioTable" hover={true}>
       <thead>
@@ -22,16 +34,17 @@ export function PortfolioTable({ assets }: { assets: AssetData[] }) {
         </tr>
       </thead>
       <tbody>
-        {assets.map((asset) => {
-          const current = ((weights[asset.asset] / total) * 100).toFixed(2);
+        {portfolio.map((balance) => {
+          const current = ((weights[balance.assetId] / total) * 100).toFixed(2);
           return (
-            <tr key={asset.asset}>
+            <tr key={balance.assetId}>
               <th>
-                <AssetIcon asset={asset} className="me-1" /> {asset.asset}
+                <AssetIcon assetId={balance.assetId} className="me-1" />
+                {balance.assetId}
               </th>
               <td>
                 <Form.Control
-                  defaultValue={asset.available}
+                  defaultValue={balance.available}
                   type="number"
                   placeholder="0"
                   size="sm"
@@ -39,7 +52,7 @@ export function PortfolioTable({ assets }: { assets: AssetData[] }) {
               </td>
               <td>
                 <Form.Control
-                  defaultValue={asset.unavailable}
+                  defaultValue={balance.unavailable}
                   type="number"
                   placeholder="0"
                   size="sm"

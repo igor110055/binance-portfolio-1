@@ -21,17 +21,24 @@ function listFilesSync(dir) {
 const directoryPath = path.resolve(".icons");
 
 function loadIconColor(pngFile) {
+  console.log(pngFile);
   return ColorThief.getPalette(pngFile, 5).then((palette) => {
-    const color = palette
-      ? palette.find(
+    const assetId = pngFile
+      .replace(directoryPath + "/", "")
+      .replace(".png", "")
+      .toUpperCase();
+    if (palette) {
+      const color =
+        palette.find(
           (color) => color[0] !== color[1] || color[0] !== color[2]
-        ) || palette[0]
-      : "grey";
-    console.log(pngFile, color);
-    return {
-      asset: pngFile.replace(directoryPath + "/", "").replace(".png", ""),
-      color,
-    };
+        ) || palette[0];
+      console.log(assetId, color);
+      return {
+        assetId,
+        color,
+      };
+    }
+    console.log(`No palette for ${assetId}.`);
   }, console.warn);
 }
 
@@ -41,14 +48,13 @@ console.log(`${pngIcons.length} icons`);
 const iconColors = pngIcons.map(loadIconColor);
 Promise.all(iconColors).then((colors) => {
   const outFile = `src/assets/colors.json`;
-  const output = colors.reduce((results, r) => {
+  const output = colors.filter(Boolean).reduce((results, r) => {
     if (r) {
-      const key = r.asset.toUpperCase();
-      results[key] = `rgb(${r.color[0]},${r.color[1]},${r.color[2]})`;
+      results[r.assetId] = `rgb(${r.color[0]},${r.color[1]},${r.color[2]})`;
     }
     return results;
   }, {});
-  console.log(outFile);
+  console.log(`Done. ${outFile}`);
   const outputString = JSON.stringify(output, null, 2);
   fs.writeFileSync(outFile, outputString);
 });

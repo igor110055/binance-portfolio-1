@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { useMarkets } from "../../contexts/useMarkets";
+import { useMarkets } from "../../hooks/useMarkets";
 import { MarketCard } from "./MarketCard";
 
 export function MarketGrid() {

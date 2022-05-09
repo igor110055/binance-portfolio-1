@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { PortfolioData } from "../lib/portfolio";
+import { PortfolioData } from "../../lib/portfolio";
 
 export const PortfolioContext = createContext<
   [data: PortfolioData[], setData: (portfolio: PortfolioData[]) => void]
