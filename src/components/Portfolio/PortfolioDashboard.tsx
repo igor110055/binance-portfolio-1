@@ -5,7 +5,7 @@ import { MarketsProvider } from "../../contexts/MarketsProvider";
 import { ChartAssetsPie } from "../Chart/ChartAssetsPie";
 import { useAssets } from "../../contexts/useAssets";
 import { ResponsiveContainer } from "recharts";
-import { AssetTable } from "../Assets/AssetTable";
+import { PortfolioTable } from "./PortfolioTable";
 import { Col, Row } from "react-bootstrap";
 import { Loader } from "../../common/Loader";
 
@@ -26,7 +26,7 @@ export function PortfolioDashboard() {
           </div>
         </Col>
         <Col md={8}>
-          <AssetTable assets={assets.data} />
+          <PortfolioTable assets={assets.data} />
         </Col>
       </Row>
       <MarketsProvider>

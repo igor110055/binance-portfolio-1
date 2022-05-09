@@ -9,7 +9,7 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<AssetData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const portfolio = usePortfolio();
+  const [portfolio] = usePortfolio();
 
   useEffect(() => {
     if (!isFetching && data.length === 0) {

@@ -1,8 +1,8 @@
 import { Form, Table } from "react-bootstrap";
 import { AssetData } from "../../lib/assets";
-import { AssetIcon } from "./AssetIcon";
+import { AssetIcon } from "../Assets/AssetIcon";
 
-export function AssetTable({ assets }: { assets: AssetData[] }) {
+export function PortfolioTable({ assets }: { assets: AssetData[] }) {
   const weights = assets.reduce<{ [asset: string]: number }>((w, asset) => {
     w[asset.asset] = (asset.available + asset.unavailable) * asset.lastPrice;
     return w;
@@ -11,7 +11,7 @@ export function AssetTable({ assets }: { assets: AssetData[] }) {
     return t + weights[asset.asset];
   }, 0);
   return (
-    <Table className="AssetTable" hover={true}>
+    <Table className="PortfolioTable" hover={true}>
       <thead>
         <tr>
           <th>Asset</th>
