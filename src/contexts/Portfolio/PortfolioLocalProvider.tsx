@@ -4,11 +4,11 @@ import { PortfolioData } from "../../lib/portfolio";
 import { PortfolioContext } from "./usePortfolio";
 
 export const DEFAULT_PORTFOLIO: PortfolioData[] = [
-  { assetId: "BTC", available: 0.01, unavailable: 0.02 },
-  { assetId: "ETH", available: 0.1, unavailable: 0.2 },
-  { assetId: "XMR", available: 1, unavailable: 0.5 },
-  { assetId: "LUNA", available: 10, unavailable: 0 },
-  { assetId: "BUSD", available: 1000, unavailable: 0 },
+  { assetId: "BTC", available: 0.01, unavailable: 0.02, target: undefined },
+  { assetId: "ETH", available: 0.1, unavailable: 0.2, target: undefined },
+  { assetId: "XMR", available: 1, unavailable: 0.5, target: undefined },
+  { assetId: "LUNA", available: 10, unavailable: 0, target: undefined },
+  { assetId: "BUSD", available: 1000, unavailable: 0, target: undefined },
 ];
 
 export function PortfolioLocalProvider({ children }: { children: ReactNode }) {

@@ -14,10 +14,6 @@ code {
     monospace;
 }
 
-.AssetTable {
-  font-size: small;
-}
-
 .PortfolioDashboard-loader {
   aspect-ratio: 1;
   position: relative;
@@ -59,7 +55,8 @@ h6 {
 }
 
 .table {
-  .form-control-sm {
+  font-size: small;
+  .form-control {
     margin: -0.42em 0;
     &[type="number"] {
       max-width: 12em;

@@ -4,6 +4,7 @@ export type PortfolioData = {
   assetId: string;
   available: number;
   unavailable: number;
+  target: number | undefined;
 };
 
 export function toPortfolio(account: BinanceAccount): PortfolioData[] {
@@ -19,6 +20,7 @@ export function toPortfolio(account: BinanceAccount): PortfolioData[] {
             assetId,
             available: Number(balance.free),
             unavailable: Number(balance.locked),
+            target: undefined,
           });
         } else {
           reducedBalances[prevBalanceIndex].available += Number(balance.free);
