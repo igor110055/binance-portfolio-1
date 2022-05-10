@@ -27,7 +27,6 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
           setLoading(false);
         });
     }
-    console.log("Assets", data);
   }, [data, portfolio]);
 
   return (

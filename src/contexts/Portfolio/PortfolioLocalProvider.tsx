@@ -16,7 +16,6 @@ export function PortfolioLocalProvider({ children }: { children: ReactNode }) {
     "portfolio",
     DEFAULT_PORTFOLIO
   );
-  console.log("PortfolioLocal", data);
   return (
     <PortfolioContext.Provider value={[data, setData]}>
       {children}

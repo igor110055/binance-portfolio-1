@@ -1,44 +1,25 @@
-import { ChangeEvent, useCallback, useMemo } from "react";
-import { Form, Table } from "react-bootstrap";
-import { useAssets } from "../../contexts/useAssets";
+import { useCallback } from "react";
+import { Table } from "react-bootstrap";
 import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
-import { AssetIcon } from "../Assets/AssetIcon";
+import { usePortfolioWeights } from "../../hooks/usePortfolioWeights";
+import { PortfolioTableRow } from "./PortfolioTableRow";
+import { PortfolioData } from "../../lib/portfolio";
 
 export function PortfolioTable() {
-  const [assets] = useAssets();
   const [portfolio, setPortfolio] = usePortfolio();
+  const weights = usePortfolioWeights();
 
-  const [weights, total] = useMemo(() => {
-    return portfolio.reduce<
-      [{ [assetId: string]: number | undefined }, number]
-    >(
-      ([w, t], balance) => {
-        const asset = assets.find((a) => a.assetId === balance.assetId);
-        if (asset) {
-          t += w[balance.assetId] =
-            (balance.available + balance.unavailable) * asset.lastPrice;
-        }
-        return [w, t];
-      },
-      [{}, 0]
-    );
-  }, [assets, portfolio]);
-
-  const handleChangeNumber = useCallback(
-    (assetId: string, prop: "available" | "unavailable" | "target") =>
-      (event: ChangeEvent<HTMLInputElement>) => {
-        setPortfolio((p) => {
-          return p.map((b) => {
-            if (b.assetId === assetId) {
-              return {
-                ...b,
-                [prop]: Number(event.target.value),
-              };
-            }
-            return b;
-          });
+  const handleChange = useCallback(
+    (balance: PortfolioData) => (nextBalance: PortfolioData) => {
+      setPortfolio((p) => {
+        return p.map((prevBalance) => {
+          if (prevBalance.assetId === balance.assetId) {
+            return nextBalance;
+          }
+          return prevBalance;
         });
-      },
+      });
+    },
     [setPortfolio]
   );
 
@@ -56,50 +37,14 @@ export function PortfolioTable() {
       <tbody>
         {portfolio.map((balance) => {
           const weight = weights[balance.assetId];
-          if (weight) {
-            const current = ((weight / total) * 100).toFixed(2);
-            return (
-              <tr key={balance.assetId}>
-                <th>
-                  <AssetIcon assetId={balance.assetId} className="me-1" />
-                  {balance.assetId}
-                </th>
-                <td>
-                  <Form.Control
-                    defaultValue={balance.available}
-                    type="number"
-                    placeholder="0"
-                    size="sm"
-                    onChange={handleChangeNumber(balance.assetId, "available")}
-                  />
-                </td>
-                <td>
-                  <Form.Control
-                    defaultValue={balance.unavailable}
-                    type="number"
-                    placeholder="0"
-                    size="sm"
-                    onChange={handleChangeNumber(
-                      balance.assetId,
-                      "unavailable"
-                    )}
-                  />
-                </td>
-                <td>{current}%</td>
-                <td>
-                  <Form.Control
-                    className="form-percentage"
-                    defaultValue={balance.target}
-                    type="number"
-                    placeholder={current + "%"}
-                    size="sm"
-                    onChange={handleChangeNumber(balance.assetId, "target")}
-                  />
-                </td>
-              </tr>
-            );
-          }
-          return null;
+          return (
+            <PortfolioTableRow
+              key={balance.assetId}
+              balance={balance}
+              onChange={handleChange(balance)}
+              weight={weight}
+            />
+          );
         })}
       </tbody>
     </Table>

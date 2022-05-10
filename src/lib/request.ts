@@ -18,9 +18,9 @@ axiosThrottle.use(API, { requestsPerSecond: REQUESTS_PER_SECOND });
 export async function loadRequest<T>(config: AxiosRequestConfig) {
   const response = await API.request<T>(config);
   if (response.request.fromCache !== true) {
-    console.warn(response);
+    console.warn(config.url, response.data);
   } else {
-    console.log(response);
+    console.log(config.url, response.data);
   }
   return response.data;
 }
