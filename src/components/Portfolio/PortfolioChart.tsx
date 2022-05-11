@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Cell, Pie, PieChart, PieLabelRenderProps } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
-import { usePrices } from "../../contexts/Prices/usePrices";
+import { useAssets } from "../../contexts/Assets/useAssets";
 import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
 import { getAssetColor, getAssetIcon } from "../../lib/assets";
 
@@ -40,29 +40,30 @@ function PortfolioChartCell(entry: PortfolioChartData, index: number) {
 }
 
 export function PortfolioChart(props: CategoricalChartProps) {
-  const [prices] = usePrices();
+  const [assets] = useAssets();
   const [portfolio] = usePortfolio();
 
   const [dataTotals, dataDetails] = useMemo(() => {
     return portfolio.reduce<[PortfolioChartData[], PortfolioChartData[]]>(
       ([totals, details], { assetId, available, unavailable }) => {
-        if (prices[assetId]) {
+        const asset = assets.find((a) => a.assetId === assetId);
+        if (asset) {
           totals.push({
             assetId,
-            value: (available + unavailable) * prices[assetId],
+            value: (available + unavailable) * asset.lastPrice,
             opacity: 1,
           });
           if (available > 0) {
             details.push({
               assetId,
-              value: available * prices[assetId],
+              value: available * asset.lastPrice,
               opacity: 0.5,
             });
           }
           if (unavailable > 0) {
             details.push({
               assetId,
-              value: unavailable * prices[assetId],
+              value: unavailable * asset.lastPrice,
               opacity: 1,
             });
           }
@@ -71,7 +72,7 @@ export function PortfolioChart(props: CategoricalChartProps) {
       },
       [[], []]
     );
-  }, [prices, portfolio]);
+  }, [assets, portfolio]);
 
   return (
     <PieChart {...props}>

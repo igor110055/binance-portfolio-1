@@ -8,7 +8,7 @@ export type BinancePrice = {
 
 export type BinancePricesParams = {};
 
-export function loadBinancePrices(params: BinancePricesParams) {
+export function loadBinancePrices(params?: BinancePricesParams) {
   const config = applyBinanceRequestConfig(
     "/api/v3/ticker/price",
     {

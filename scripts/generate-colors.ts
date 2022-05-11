@@ -1,15 +1,15 @@
-const fs = require("fs");
-const path = require("path");
+import { readdirSync, lstatSync, writeFileSync, PathLike } from "fs";
+import { join, resolve } from "path";
 
-const ColorThief = require("colorthief");
+import { getPalette } from "colorthief";
 
 // return an ordered list of files in the input dir, with full paths
-function listFilesSync(dir) {
-  let fileList = [];
-  fs.readdirSync(dir).forEach((file) => {
+function listFilesSync(dir: PathLike) {
+  let fileList: string[] = [];
+  readdirSync(dir).forEach((file) => {
     const dirString = dir.toString();
-    const fullPath = path.join(dirString, file);
-    if (fs.lstatSync(fullPath).isDirectory()) {
+    const fullPath = join(dirString, file);
+    if (lstatSync(fullPath).isDirectory()) {
       fileList = fileList.concat(listFilesSync(fullPath));
     } else {
       fileList.push(fullPath);
@@ -18,11 +18,11 @@ function listFilesSync(dir) {
   return fileList;
 }
 
-const directoryPath = path.resolve(".icons");
+const directoryPath = resolve(".icons");
 
-function loadIconColor(pngFile) {
+function loadIconColor(pngFile: string) {
   console.log(pngFile);
-  return ColorThief.getPalette(pngFile, 5).then((palette) => {
+  return getPalette(pngFile, 5).then((palette: [number, number, number][]) => {
     const assetId = pngFile
       .replace(directoryPath + "/", "")
       .replace(".png", "")
@@ -30,7 +30,8 @@ function loadIconColor(pngFile) {
     if (palette) {
       const color =
         palette.find(
-          (color) => color[0] !== color[1] || color[0] !== color[2]
+          (color: [number, number, number]) =>
+            color[0] !== color[1] || color[0] !== color[2]
         ) || palette[0];
       console.log(assetId, color);
       return {
@@ -56,5 +57,5 @@ Promise.all(iconColors).then((colors) => {
   }, {});
   console.log(`Done. ${outFile}`);
   const outputString = JSON.stringify(output, null, 2);
-  fs.writeFileSync(outFile, outputString);
+  writeFileSync(outFile, outputString);
 });

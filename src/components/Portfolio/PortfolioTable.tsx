@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Table } from "react-bootstrap";
 import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
 import { usePortfolioWeights } from "../../hooks/usePortfolioWeights";
@@ -10,7 +10,26 @@ export function PortfolioTable() {
   const [portfolio, setPortfolio] = usePortfolio();
   const weights = usePortfolioWeights();
 
-  const handleChange = useCallback(
+  const handleCreate = useCallback(
+    (assetId: string | null) => {
+      if (assetId) {
+        setPortfolio((p) => {
+          return [
+            ...p,
+            {
+              assetId,
+              available: 0,
+              unavailable: 0,
+              target: undefined,
+            },
+          ];
+        });
+      }
+    },
+    [setPortfolio]
+  );
+
+  const handleUpdate = useCallback(
     (balance: PortfolioData) => (nextBalance: PortfolioData) => {
       setPortfolio((p) => {
         return p.map((prevBalance) => {
@@ -23,6 +42,21 @@ export function PortfolioTable() {
     },
     [setPortfolio]
   );
+
+  const handleDelete = useCallback(
+    (balance: PortfolioData) => () => {
+      setPortfolio((p) => {
+        return p.filter(
+          (prevBalance) => prevBalance.assetId !== balance.assetId
+        );
+      });
+    },
+    [setPortfolio]
+  );
+
+  const assetIds = useMemo(() => {
+    return portfolio.map((balance) => balance.assetId);
+  }, [portfolio]);
 
   return (
     <Table className="PortfolioTable" hover={true}>
@@ -40,7 +74,8 @@ export function PortfolioTable() {
             <PortfolioTableRow
               key={balance.assetId}
               balance={balance}
-              onChange={handleChange(balance)}
+              onUpdate={handleUpdate(balance)}
+              onDelete={handleDelete(balance)}
               weight={weight}
             />
           );
@@ -49,23 +84,7 @@ export function PortfolioTable() {
       <tfoot>
         <tr>
           <th>
-            <AssetDropdown
-              onSelect={(assetId) => {
-                if (assetId) {
-                  setPortfolio((p) => {
-                    return [
-                      ...p,
-                      {
-                        assetId,
-                        available: 0,
-                        unavailable: 0,
-                        target: undefined,
-                      },
-                    ];
-                  });
-                }
-              }}
-            />
+            <AssetDropdown disabled={assetIds} onSelect={handleCreate} />
           </th>
           <th colSpan={2}></th>
           <th></th>

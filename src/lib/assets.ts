@@ -5,6 +5,7 @@ import COLORS from "../assets/colors.json";
 
 export type AssetData = {
   assetId: string;
+  lastPrice: number;
   priceChangePercent: number;
   ohlc: OHLCData[];
 };
@@ -24,6 +25,7 @@ function loadAssetReference(assetId: string): Promise<AssetData> {
   const date = now.getDate();
   return Promise.resolve({
     assetId,
+    lastPrice: 1,
     priceChangePercent: 0,
     ohlc: Array.from({ length: KLINES_LIMIT }, (_, index) => {
       const ohlcTime = new Date(time);
@@ -51,6 +53,7 @@ export function loadAsset(assetId: string): Promise<AssetData> {
   ]).then(([ticker, klines]) => {
     return {
       assetId,
+      lastPrice: Number(ticker.lastPrice),
       priceChangePercent: Number(ticker.priceChangePercent),
       ohlc: klines.map(toOhlc),
     };

@@ -23,7 +23,7 @@ export type BinanceAccountBalance = {
 
 export type BinanceAccountParams = { recvWindow?: number };
 
-export function loadBinanceAccount(params: BinanceAccountParams) {
+export function loadBinanceAccount(params?: BinanceAccountParams) {
   const config = applyBinanceRequestConfig(
     "/api/v3/account",
     { method: "get", params },

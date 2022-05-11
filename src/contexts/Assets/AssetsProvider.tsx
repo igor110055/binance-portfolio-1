@@ -1,31 +1,33 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import { AssetsContext } from "./useAssets";
 import { AssetData, loadAsset } from "../../lib/assets";
 import { usePortfolio } from "../Portfolio/usePortfolio";
 
-let isFetching = false;
+let fetchQueue: string[] = [];
 
 export function AssetsProvider({ children }: { children: ReactNode }) {
   const [portfolio] = usePortfolio();
 
   const [data, setData] = useState<AssetData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+
+  const loading = useMemo(
+    () => portfolio.length > data.length,
+    [data.length, portfolio.length]
+  );
 
   useEffect(() => {
-    if (!isFetching && data.length === 0) {
-      isFetching = true;
-      Promise.all(
-        portfolio.map((balance) => {
-          return loadAsset(balance.assetId).then((asset) => {
-            setData((prevData) => [...prevData, asset]);
-          });
-        })
-      )
-        .catch(console.error)
-        .finally(() => {
-          isFetching = false;
-          setLoading(false);
-        });
+    for (const balance of portfolio) {
+      if (
+        fetchQueue.includes(balance.assetId) ||
+        data.find((asset) => asset.assetId === balance.assetId)
+      ) {
+        continue;
+      }
+      fetchQueue.push(balance.assetId);
+      loadAsset(balance.assetId).then((asset: AssetData) => {
+        setData((prevData) => [...prevData, asset]);
+        // fetchQueue = fetchQueue.filter((assetId) => assetId !== asset.assetId);
+      }, console.error);
     }
   }, [data, portfolio]);
 

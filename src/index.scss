@@ -14,11 +14,6 @@ code {
     monospace;
 }
 
-.PortfolioDashboard-loader {
-  aspect-ratio: 1;
-  position: relative;
-}
-
 .Loader {
   position: absolute;
   top: 0;
@@ -28,6 +23,25 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.PortfolioDashboard-loader {
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.PortfolioTableRow {
+  .PortfolioTableRow-close {
+    opacity: 0;
+  }
+  &:hover .PortfolioTableRow-close {
+    opacity: 0.5;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+      color: $danger;
+    }
+  }
 }
 
 .dropdown-menu {

@@ -8,14 +8,9 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  Dropdown,
-  FormControl,
-  FormControlProps,
-  Spinner,
-} from "react-bootstrap";
-import { usePrices } from "../../contexts/Prices/usePrices";
+import { Dropdown, FormControl, FormControlProps } from "react-bootstrap";
 import { AssetIcon } from "./AssetIcon";
+import TICKERS from "../../assets/tickers.json";
 
 function useCombinedRefs<T>(
   ...refs: (ForwardedRef<T> | MutableRefObject<T>)[]
@@ -70,23 +65,19 @@ const AssetDropdownToggle = forwardRef<
 });
 
 export function AssetDropdown({
+  disabled,
   onSelect,
 }: {
+  disabled: string[];
   onSelect: (assetId: string | null) => void;
 }) {
-  const [prices, loading] = usePrices();
   const [search, setSearch] = useState("");
   const [show, setShow] = useState<boolean>(false);
-  if (loading) {
-    return <Spinner animation="grow" size="sm" />;
-  }
-  const assetIds = Object.keys(prices)
-    .filter((assetId) => {
-      return !search || assetId.startsWith(search);
-    })
-    .sort((a, b) => {
-      return a.localeCompare(b);
-    });
+  const assetIds = TICKERS.filter((assetId) => {
+    return !search || assetId.startsWith(search);
+  }).sort((a, b) => {
+    return a.localeCompare(b);
+  });
   return (
     <Dropdown
       show={show}
@@ -106,7 +97,11 @@ export function AssetDropdown({
       <Dropdown.Menu show={show}>
         {assetIds.map((assetId) => {
           return (
-            <Dropdown.Item key={assetId} eventKey={assetId}>
+            <Dropdown.Item
+              key={assetId}
+              eventKey={assetId}
+              disabled={disabled.includes(assetId)}
+            >
               <AssetIcon assetId={assetId} className="me-2" />
               {assetId}
             </Dropdown.Item>

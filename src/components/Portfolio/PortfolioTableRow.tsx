@@ -1,42 +1,43 @@
 import { ChangeEvent, useCallback } from "react";
-import { Form, Spinner } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
 
 export function PortfolioTableRow({
   balance,
   weight,
-  onChange,
+  onDelete,
+  onUpdate,
 }: {
   balance: PortfolioData;
   weight?: number;
-  onChange: (balance: PortfolioData) => void;
+  onUpdate: (balance: PortfolioData) => void;
+  onDelete: () => void;
 }) {
   const handleChangeNumber = useCallback(
     (prop: "available" | "unavailable" | "target") => {
       return (event: ChangeEvent<HTMLInputElement>) => {
-        onChange({
+        onUpdate({
           ...balance,
           [prop]: Number(event.target.value),
         });
       };
     },
-    [balance, onChange]
+    [balance, onUpdate]
   );
 
   return (
-    <tr>
+    <tr className="PortfolioTableRow">
       <th>
-        <AssetIcon assetId={balance.assetId} className="me-1" />
-        {balance.assetId}
+        <div className="d-flex">
+          <AssetIcon assetId={balance.assetId} className="me-1" />
+          {balance.assetId}
+          <span className="PortfolioTableRow-close ms-auto" onClick={onDelete}>
+            ✕
+          </span>
+        </div>
       </th>
-      <td>
-        {weight === undefined ? (
-          <Spinner animation="grow" size="sm" />
-        ) : (
-          weight.toFixed(2) + "%"
-        )}
-      </td>
+      <td>{weight === undefined ? null : weight.toFixed(2) + "%"}</td>
       <td>
         <Form.Control
           defaultValue={balance.available}
@@ -47,16 +48,15 @@ export function PortfolioTableRow({
         />
       </td>
       <td>
-        {weight === undefined ? null : (
-          <Form.Control
-            className="form-percentage"
-            defaultValue={balance.target}
-            type="number"
-            placeholder={weight.toFixed(2) + "%"}
-            size="sm"
-            onChange={handleChangeNumber("target")}
-          />
-        )}
+        <Form.Control
+          defaultValue={balance.target}
+          type="number"
+          placeholder={
+            weight === undefined ? undefined : weight.toFixed(2) + "%"
+          }
+          size="sm"
+          onChange={handleChangeNumber("target")}
+        />
       </td>
     </tr>
   );

@@ -34,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate:colors": "ts-node scripts/generate-colors.ts",
+    "generate:tickers": "env $(cat .env.local | xargs) ts-node scripts/generate-tickers.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +57,7 @@
     ]
   },
   "devDependencies": {
-    "colorthief": "^2.3.2"
+    "colorthief": "^2.3.2",
+    "ts-node": "^10.7.0"
   }
 }
