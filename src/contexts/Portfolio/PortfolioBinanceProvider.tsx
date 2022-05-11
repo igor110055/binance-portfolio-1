@@ -1,7 +1,10 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { Loader } from "../../common/Loader";
 import { useLocalState } from "../../hooks/useLocalState";
-import { loadBinanceAccount } from "../../lib/binance/account";
+import {
+  BinanceAccountParams,
+  loadBinanceAccount,
+} from "../../lib/binance/account";
 import { PortfolioData, toPortfolio } from "../../lib/portfolio";
 import { PortfolioContext } from "./usePortfolio";
 
@@ -10,12 +13,11 @@ let isFetching = false;
 export function PortfolioBinanceProvider({
   children,
   ...params
-}: {
+}: BinanceAccountParams & {
   children: ReactNode;
-  recvWindow?: number;
 }) {
   const [data, setData] = useLocalState<PortfolioData[]>("portfolio");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     console.log(data);

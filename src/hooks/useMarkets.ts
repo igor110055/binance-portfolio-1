@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { MarketData, toMarketData } from "../lib/markets";
-import { useAssets } from "../contexts/useAssets";
+import { useAssets } from "../contexts/Assets/useAssets";
 
 function byRsi(a: MarketData, b: MarketData) {
   return a.rsi[b.rsi.length - 1] - b.rsi[b.rsi.length - 1];

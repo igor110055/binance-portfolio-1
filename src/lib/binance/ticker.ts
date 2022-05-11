@@ -1,7 +1,7 @@
 import { loadRequest } from "../request";
 import { applyBinanceRequestConfig } from "./binance";
 
-export type BinanceTicker24hr = {
+export type BinanceTicker = {
   symbol: string;
   priceChange: string;
   priceChangePercent: string;
@@ -25,9 +25,9 @@ export type BinanceTicker24hr = {
   count: number;
 };
 
-export type BinanceTicker24hrParams = { symbol: string };
+export type BinanceTickerParams = { symbol: string };
 
-export function loadBinanceTicker24hr(params: BinanceTicker24hrParams) {
+export function loadBinanceTicker(params: BinanceTickerParams) {
   const config = applyBinanceRequestConfig(
     "/api/v3/ticker/24hr",
     {
@@ -36,5 +36,5 @@ export function loadBinanceTicker24hr(params: BinanceTicker24hrParams) {
     },
     false
   );
-  return loadRequest<BinanceTicker24hr>(config);
+  return loadRequest<BinanceTicker>(config);
 }

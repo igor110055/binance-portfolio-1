@@ -1,19 +1,18 @@
 import { useMemo } from "react";
 import { usePortfolio } from "../contexts/Portfolio/usePortfolio";
-import { useAssets } from "../contexts/useAssets";
+import { usePrices } from "../contexts/Prices/usePrices";
 
 export function usePortfolioWeights() {
   const [portfolio] = usePortfolio();
-  const [assets] = useAssets();
+  const [prices] = usePrices();
   return useMemo(() => {
     const [amounts, total] = portfolio.reduce<
       [[assetId: string, amount: number | undefined][], number]
     >(
       ([a, t], balance) => {
-        const asset = assets.find((a) => a.assetId === balance.assetId);
-        if (asset) {
+        if (prices[balance.assetId]) {
           const amount =
-            (balance.available + balance.unavailable) * asset.lastPrice;
+            (balance.available + balance.unavailable) * prices[balance.assetId];
           t += amount;
           a.push([balance.assetId, amount]);
         } else {
@@ -25,12 +24,12 @@ export function usePortfolioWeights() {
     );
     return amounts.reduce<{ [assetId: string]: number | undefined }>(
       (weights, [assetId, amount]) => {
-        if (amount) {
+        if (amount !== undefined) {
           weights[assetId] = (amount / total) * 100;
         }
         return weights;
       },
       {}
     );
-  }, [assets, portfolio]);
+  }, [prices, portfolio]);
 }

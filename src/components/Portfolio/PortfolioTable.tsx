@@ -4,6 +4,7 @@ import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
 import { usePortfolioWeights } from "../../hooks/usePortfolioWeights";
 import { PortfolioTableRow } from "./PortfolioTableRow";
 import { PortfolioData } from "../../lib/portfolio";
+import { AssetDropdown } from "../Asset/AssetDropdown";
 
 export function PortfolioTable() {
   const [portfolio, setPortfolio] = usePortfolio();
@@ -28,9 +29,7 @@ export function PortfolioTable() {
       <thead>
         <tr>
           <th>Asset</th>
-          <th>Available</th>
-          <th>Locked</th>
-          <th>Current</th>
+          <th colSpan={2}>Current</th>
           <th>Target</th>
         </tr>
       </thead>
@@ -47,6 +46,31 @@ export function PortfolioTable() {
           );
         })}
       </tbody>
+      <tfoot>
+        <tr>
+          <th>
+            <AssetDropdown
+              onSelect={(assetId) => {
+                if (assetId) {
+                  setPortfolio((p) => {
+                    return [
+                      ...p,
+                      {
+                        assetId,
+                        available: 0,
+                        unavailable: 0,
+                        target: undefined,
+                      },
+                    ];
+                  });
+                }
+              }}
+            />
+          </th>
+          <th colSpan={2}></th>
+          <th></th>
+        </tr>
+      </tfoot>
     </Table>
   );
 }

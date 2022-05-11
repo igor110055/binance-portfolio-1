@@ -5,7 +5,7 @@ import { ResponsiveContainer } from "recharts";
 import { PortfolioTable } from "./PortfolioTable";
 import { Col, Row } from "react-bootstrap";
 import { Loader } from "../../common/Loader";
-import { useAssets } from "../../contexts/useAssets";
+import { useAssets } from "../../contexts/Assets/useAssets";
 
 export function PortfolioDashboard() {
   const [, assetsLoading] = useAssets();

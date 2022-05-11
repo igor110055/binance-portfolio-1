@@ -30,6 +30,11 @@ code {
   align-items: center;
 }
 
+.dropdown-menu {
+  max-height: 61.8vh;
+  overflow: auto;
+}
+
 .icon {
   max-height: 1.5em;
   color: grey;
@@ -55,16 +60,16 @@ h6 {
 
 .table {
   font-size: small;
-  .form-control {
-    margin: -0.36rem 0;
-    &[type="number"] {
-      max-width: 12em;
-      min-width: 6em;
-    }
-  }
   tbody {
     th {
       min-width: 8em;
+    }
+    .form-control {
+      margin: -0.36rem 0;
+      &[type="number"] {
+        max-width: 12em;
+        min-width: 6em;
+      }
     }
   }
 }

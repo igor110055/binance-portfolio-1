@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback } from "react";
 import { Form, Spinner } from "react-bootstrap";
-import { AssetIcon } from "../Assets/AssetIcon";
+import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
 
 export function PortfolioTableRow({
@@ -31,6 +31,13 @@ export function PortfolioTableRow({
         {balance.assetId}
       </th>
       <td>
+        {weight === undefined ? (
+          <Spinner animation="grow" size="sm" />
+        ) : (
+          weight.toFixed(2) + "%"
+        )}
+      </td>
+      <td>
         <Form.Control
           defaultValue={balance.available}
           type="number"
@@ -40,23 +47,7 @@ export function PortfolioTableRow({
         />
       </td>
       <td>
-        <Form.Control
-          defaultValue={balance.unavailable}
-          type="number"
-          placeholder="0"
-          size="sm"
-          onChange={handleChangeNumber("unavailable")}
-        />
-      </td>
-      <td>
-        {weight ? (
-          weight.toFixed(2) + "%"
-        ) : (
-          <Spinner animation="grow" size="sm" />
-        )}
-      </td>
-      <td>
-        {weight ? (
+        {weight === undefined ? null : (
           <Form.Control
             className="form-percentage"
             defaultValue={balance.target}
@@ -65,8 +56,6 @@ export function PortfolioTableRow({
             size="sm"
             onChange={handleChangeNumber("target")}
           />
-        ) : (
-          <Spinner animation="grow" size="sm" />
         )}
       </td>
     </tr>

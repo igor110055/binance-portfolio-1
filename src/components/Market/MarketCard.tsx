@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { useMemo } from "react";
 import { Badge, Card, CardProps } from "react-bootstrap";
 import { ResponsiveContainer } from "recharts";
-import { AssetIcon } from "../Assets/AssetIcon";
+import { AssetIcon } from "../Asset/AssetIcon";
 import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";

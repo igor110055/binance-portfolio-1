@@ -1,13 +1,10 @@
-import { loadBinanceTicker24hr } from "./binance/ticker24hr";
+import { loadBinanceTicker } from "./binance/ticker";
 import { toOhlc, OHLCData } from "./ohlc";
 import { KLINES_LIMIT, loadBinanceKlines } from "./binance/klines";
 import COLORS from "../assets/colors.json";
 
-export const ASSET_ICON_SIZE = 32;
-
 export type AssetData = {
   assetId: string;
-  lastPrice: number;
   priceChangePercent: number;
   ohlc: OHLCData[];
 };
@@ -17,8 +14,8 @@ export function getAssetIcon(assetId: string) {
   return `/icons/${iconName}.svg`;
 }
 
-export function getAssetColor(assetId: string) {
-  return COLORS[assetId as keyof typeof COLORS] || "grey";
+export function getAssetColor(assetId: string): string | undefined {
+  return COLORS[assetId as keyof typeof COLORS];
 }
 
 function loadAssetReference(assetId: string): Promise<AssetData> {
@@ -27,7 +24,6 @@ function loadAssetReference(assetId: string): Promise<AssetData> {
   const date = now.getDate();
   return Promise.resolve({
     assetId,
-    lastPrice: 1,
     priceChangePercent: 0,
     ohlc: Array.from({ length: KLINES_LIMIT }, (_, index) => {
       const ohlcTime = new Date(time);
@@ -50,13 +46,12 @@ export function loadAsset(assetId: string): Promise<AssetData> {
   }
   const symbol = assetId + process.env.REACT_APP_CURRENCY;
   return Promise.all([
-    loadBinanceTicker24hr({ symbol }),
+    loadBinanceTicker({ symbol }),
     loadBinanceKlines({ symbol }),
-  ]).then(([ticker24hr, klines]) => {
+  ]).then(([ticker, klines]) => {
     return {
       assetId,
-      lastPrice: Number(ticker24hr.lastPrice),
-      priceChangePercent: Number(ticker24hr.priceChangePercent),
+      priceChangePercent: Number(ticker.priceChangePercent),
       ohlc: klines.map(toOhlc),
     };
   });

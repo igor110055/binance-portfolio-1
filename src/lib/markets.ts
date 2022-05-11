@@ -7,7 +7,6 @@ export type MarketData = {
   quoteAsset: AssetData;
   symbol: string;
   ohlc: OHLCData[];
-  lastPrice: number;
   priceChangePercent: number;
 } & AnalysisData;
 
@@ -25,7 +24,6 @@ export function toMarketData(
     ohlc: ohlc.slice(-MARKET_PERIOD),
     priceChangePercent:
       baseAsset.priceChangePercent - quoteAsset.priceChangePercent,
-    lastPrice: baseAsset.lastPrice / quoteAsset.lastPrice,
     ...getAnalysis(ohlc, MARKET_PERIOD),
   };
 }

@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { AssetsContext } from "./useAssets";
-import { AssetData, loadAsset } from "../lib/assets";
-import { usePortfolio } from "./Portfolio/usePortfolio";
+import { AssetData, loadAsset } from "../../lib/assets";
+import { usePortfolio } from "../Portfolio/usePortfolio";
 
 let isFetching = false;
 
