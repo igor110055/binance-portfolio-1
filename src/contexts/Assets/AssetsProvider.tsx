@@ -3,7 +3,7 @@ import { AssetsContext } from "./useAssets";
 import { AssetData, loadAsset } from "../../lib/assets";
 import { usePortfolio } from "../Portfolio/usePortfolio";
 
-let fetchQueue: string[] = [];
+const fetchQueue: string[] = [];
 
 export function AssetsProvider({ children }: { children: ReactNode }) {
   const [portfolio] = usePortfolio();
@@ -26,7 +26,6 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
       fetchQueue.push(balance.assetId);
       loadAsset(balance.assetId).then((asset: AssetData) => {
         setData((prevData) => [...prevData, asset]);
-        // fetchQueue = fetchQueue.filter((assetId) => assetId !== asset.assetId);
       }, console.error);
     }
   }, [data, portfolio]);
