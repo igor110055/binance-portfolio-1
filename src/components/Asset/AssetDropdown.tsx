@@ -11,6 +11,7 @@ import {
 import { Dropdown, FormControl, FormControlProps } from "react-bootstrap";
 import { AssetIcon } from "./AssetIcon";
 import TICKERS from "../../assets/tickers.json";
+import { AssetId } from "../../lib/assets";
 
 function useCombinedRefs<T>(
   ...refs: (ForwardedRef<T> | MutableRefObject<T>)[]
@@ -69,7 +70,7 @@ export function AssetDropdown({
   onSelect,
 }: {
   disabled: string[];
-  onSelect: (assetId: string | null) => void;
+  onSelect: (assetId: AssetId | null) => void;
 }) {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState<boolean>(false);
@@ -77,12 +78,12 @@ export function AssetDropdown({
     return !search || assetId.startsWith(search);
   }).sort((a, b) => {
     return a.localeCompare(b);
-  });
+  }) as AssetId[];
   return (
     <Dropdown
       show={show}
       onSelect={(eventKey) => {
-        onSelect(eventKey);
+        onSelect(eventKey as AssetId);
         setSearch("");
         setShow(false);
       }}

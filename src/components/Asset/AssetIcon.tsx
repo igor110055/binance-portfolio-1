@@ -1,12 +1,12 @@
 import classNames from "classnames";
 import React, { ImgHTMLAttributes } from "react";
-import { getAssetIcon } from "../../lib/assets";
+import { AssetId, getAssetIcon } from "../../lib/assets";
 
 export function AssetIcon({
   assetId,
   className,
   ...props
-}: ImgHTMLAttributes<HTMLImageElement> & { assetId: string }) {
+}: ImgHTMLAttributes<HTMLImageElement> & { assetId: AssetId }) {
   const icon = getAssetIcon(assetId);
   return (
     <img

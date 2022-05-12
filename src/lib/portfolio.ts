@@ -1,7 +1,8 @@
+import { AssetId } from "./assets";
 import { BinanceAccount } from "./binance/account";
 
 export type PortfolioData = {
-  assetId: string;
+  assetId: AssetId;
   available: number;
   unavailable: number;
   target: number | undefined;
@@ -17,7 +18,7 @@ export function toPortfolio(account: BinanceAccount): PortfolioData[] {
         );
         if (prevBalanceIndex < 0) {
           reducedBalances.push({
-            assetId,
+            assetId: assetId as AssetId,
             available: Number(balance.free),
             unavailable: Number(balance.locked),
             target: undefined,

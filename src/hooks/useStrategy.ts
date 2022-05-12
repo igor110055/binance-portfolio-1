@@ -1,13 +1,19 @@
 import { useMemo } from "react";
 import { useAssets } from "../contexts/Assets/useAssets";
 import { usePortfolio } from "../contexts/Portfolio/usePortfolio";
+import { AssetId } from "../lib/assets";
 
-export function usePortfolioWeights() {
+export type StrategyData = {
+  weights: { [assetId in AssetId]: number };
+  total: number;
+};
+
+export function useStrategy() {
   const [assets] = useAssets();
   const [portfolio] = usePortfolio();
   const [sums, total] = useMemo(
     () =>
-      portfolio.reduce<[[assetId: string, sum: number | undefined][], number]>(
+      portfolio.reduce<[[assetId: AssetId, sum: number | undefined][], number]>(
         ([s, t], balance) => {
           const asset = assets.find((a) => a.assetId === balance.assetId);
           if (asset) {
@@ -25,14 +31,14 @@ export function usePortfolioWeights() {
     [assets, portfolio]
   );
   return useMemo(() => {
-    return sums.reduce<{ [assetId: string]: number | undefined }>(
-      (weights, [assetId, sum]) => {
+    return sums.reduce(
+      (strategy, [assetId, sum]) => {
         if (sum !== undefined) {
-          weights[assetId] = (sum / total) * 100;
+          strategy.weights[assetId] = (sum / total) * 100;
         }
-        return weights;
+        return strategy;
       },
-      {}
+      { weights: {}, total } as StrategyData
     );
   }, [sums, total]);
 }

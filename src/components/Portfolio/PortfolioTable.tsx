@@ -1,17 +1,18 @@
 import { useCallback, useMemo } from "react";
 import { Table } from "react-bootstrap";
 import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
-import { usePortfolioWeights } from "../../hooks/usePortfolioWeights";
+import { useStrategy } from "../../hooks/useStrategy";
 import { PortfolioTableRow } from "./PortfolioTableRow";
 import { PortfolioData } from "../../lib/portfolio";
 import { AssetDropdown } from "../Asset/AssetDropdown";
+import { AssetId } from "../../lib/assets";
 
 export function PortfolioTable() {
   const [portfolio, setPortfolio] = usePortfolio();
-  const weights = usePortfolioWeights();
+  const strategy = useStrategy();
 
   const handleCreate = useCallback(
-    (assetId: string | null) => {
+    (assetId: AssetId | null) => {
       if (assetId) {
         setPortfolio((p) => {
           return [
@@ -69,7 +70,7 @@ export function PortfolioTable() {
       </thead>
       <tbody>
         {portfolio.map((balance) => {
-          const weight = weights[balance.assetId];
+          const weight = strategy.weights[balance.assetId];
           return (
             <PortfolioTableRow
               key={balance.assetId}

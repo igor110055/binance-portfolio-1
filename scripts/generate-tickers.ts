@@ -1,5 +1,5 @@
 import fs from "fs";
-import { getAssetColor } from "../src/lib/assets";
+import { AssetId, getAssetColor } from "../src/lib/assets";
 import { loadBinancePrices } from "../src/lib/binance/prices";
 
 loadBinancePrices()
@@ -11,7 +11,10 @@ loadBinancePrices()
             process.env.REACT_APP_CURRENCY &&
             symbol.endsWith(process.env.REACT_APP_CURRENCY)
           ) {
-            const assetId = symbol.replace(process.env.REACT_APP_CURRENCY, "");
+            const assetId = symbol.replace(
+              process.env.REACT_APP_CURRENCY,
+              ""
+            ) as AssetId;
             const color = getAssetColor(assetId);
             if (color) {
               p.push(assetId);

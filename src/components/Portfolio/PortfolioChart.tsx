@@ -3,12 +3,12 @@ import { Cell, Pie, PieChart, PieLabelRenderProps } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
 import { useAssets } from "../../contexts/Assets/useAssets";
 import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
-import { getAssetColor, getAssetIcon } from "../../lib/assets";
+import { AssetId, getAssetColor, getAssetIcon } from "../../lib/assets";
 
 const ASSET_ICON_SIZE = 24;
 
 type PortfolioChartData = {
-  assetId: string;
+  assetId: AssetId;
   value: number;
   opacity: number;
 };

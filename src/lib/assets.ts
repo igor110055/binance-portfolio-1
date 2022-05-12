@@ -2,24 +2,30 @@ import { loadBinanceTicker } from "./binance/ticker";
 import { toOhlc, OHLCData } from "./ohlc";
 import { KLINES_LIMIT, loadBinanceKlines } from "./binance/klines";
 import COLORS from "../assets/colors.json";
+// import TICKERS from "../assets/tickers.json";
+
+// const tickers = TICKERS as const;
+// export type AssetId = typeof TICKERS[number];
+
+export type AssetId = keyof typeof COLORS;
 
 export type AssetData = {
-  assetId: string;
+  assetId: AssetId;
   lastPrice: number;
   priceChangePercent: number;
   ohlc: OHLCData[];
 };
 
-export function getAssetIcon(assetId: string) {
+export function getAssetIcon(assetId: AssetId) {
   const iconName = assetId.toLowerCase();
   return `/icons/${iconName}.svg`;
 }
 
-export function getAssetColor(assetId: string): string | undefined {
+export function getAssetColor(assetId: AssetId): string | undefined {
   return COLORS[assetId as keyof typeof COLORS];
 }
 
-function loadAssetReference(assetId: string): Promise<AssetData> {
+function loadAssetReference(assetId: AssetId): Promise<AssetData> {
   const now = new Date();
   const time = now.getTime();
   const date = now.getDate();
@@ -42,7 +48,7 @@ function loadAssetReference(assetId: string): Promise<AssetData> {
   });
 }
 
-export function loadAsset(assetId: string): Promise<AssetData> {
+export function loadAsset(assetId: AssetId): Promise<AssetData> {
   if (assetId === process.env.REACT_APP_CURRENCY) {
     return loadAssetReference(assetId);
   }
