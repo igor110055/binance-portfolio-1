@@ -2,6 +2,7 @@ import { ChangeEvent, useCallback } from "react";
 import { Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
+import { StrategyWeight } from "../../hooks/useStrategy";
 
 export function PortfolioTableRow({
   balance,
@@ -10,18 +11,26 @@ export function PortfolioTableRow({
   onUpdate,
 }: {
   balance: PortfolioData;
-  weight?: number;
+  weight?: StrategyWeight;
   onUpdate: (balance: PortfolioData) => void;
   onDelete: () => void;
 }) {
-  const handleChangeNumber = useCallback(
-    (prop: "available" | "unavailable" | "target") => {
-      return (event: ChangeEvent<HTMLInputElement>) => {
-        onUpdate({
-          ...balance,
-          [prop]: Number(event.target.value),
-        });
-      };
+  const handleChangeAvailable = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onUpdate({
+        ...balance,
+        available: Number(event.target.value),
+      });
+    },
+    [balance, onUpdate]
+  );
+  const handleChangeTarget = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onUpdate({
+        ...balance,
+        target:
+          event.target.value === "" ? undefined : Number(event.target.value),
+      });
     },
     [balance, onUpdate]
   );
@@ -37,14 +46,16 @@ export function PortfolioTableRow({
           </span>
         </div>
       </th>
-      <td>{weight === undefined ? null : weight.toFixed(2) + "%"}</td>
+      <td>
+        {weight === undefined ? null : (weight.current * 100).toFixed(2) + "%"}
+      </td>
       <td>
         <Form.Control
           defaultValue={balance.available}
           type="number"
           placeholder="0"
           size="sm"
-          onChange={handleChangeNumber("available")}
+          onChange={handleChangeAvailable}
         />
       </td>
       <td>
@@ -52,11 +63,18 @@ export function PortfolioTableRow({
           defaultValue={balance.target}
           type="number"
           placeholder={
-            weight === undefined ? undefined : weight.toFixed(2) + "%"
+            weight === undefined
+              ? undefined
+              : (weight.actualTarget * 100).toFixed(2) + "%"
           }
           size="sm"
-          onChange={handleChangeNumber("target")}
+          onChange={handleChangeTarget}
         />
+      </td>
+      <td>
+        {weight === undefined
+          ? null
+          : (weight.actualTarget * 100).toFixed(2) + "%"}
       </td>
     </tr>
   );

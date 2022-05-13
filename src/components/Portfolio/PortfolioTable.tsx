@@ -20,7 +20,6 @@ export function PortfolioTable() {
             {
               assetId,
               available: 0,
-              unavailable: 0,
               target: undefined,
             },
           ];
@@ -70,7 +69,9 @@ export function PortfolioTable() {
       </thead>
       <tbody>
         {portfolio.map((balance) => {
-          const weight = strategy.weights[balance.assetId];
+          const weight = strategy.weights.find(
+            (w) => w.assetId === balance.assetId
+          );
           return (
             <PortfolioTableRow
               key={balance.assetId}

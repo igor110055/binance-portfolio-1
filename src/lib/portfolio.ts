@@ -4,7 +4,6 @@ import { BinanceAccount } from "./binance/account";
 export type PortfolioData = {
   assetId: AssetId;
   available: number;
-  unavailable: number;
   target: number | undefined;
 };
 
@@ -16,18 +15,15 @@ export function toPortfolio(account: BinanceAccount): PortfolioData[] {
         const prevBalanceIndex = reducedBalances.findIndex(
           (b) => b.assetId === assetId
         );
+        const available = Number(balance.free) + Number(balance.locked);
         if (prevBalanceIndex < 0) {
           reducedBalances.push({
             assetId: assetId as AssetId,
-            available: Number(balance.free),
-            unavailable: Number(balance.locked),
+            available,
             target: undefined,
           });
         } else {
-          reducedBalances[prevBalanceIndex].available += Number(balance.free);
-          reducedBalances[prevBalanceIndex].unavailable += Number(
-            balance.locked
-          );
+          reducedBalances[prevBalanceIndex].available += available;
         }
       }
       return reducedBalances;
