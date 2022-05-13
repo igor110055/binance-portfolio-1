@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { MarketData, toMarketData } from "../lib/markets";
 import { useAssets } from "../contexts/Assets/useAssets";
+import { useStrategy } from "./useStrategy";
 
 function byRsi(a: MarketData, b: MarketData) {
   return a.rsi[b.rsi.length - 1] - b.rsi[b.rsi.length - 1];
@@ -8,16 +9,29 @@ function byRsi(a: MarketData, b: MarketData) {
 
 export function useMarkets() {
   const [assets] = useAssets();
+  const strategy = useStrategy();
   return useMemo<MarketData[]>(() => {
-    return assets
+    const baseAssets = assets.filter((asset) => {
+      const baseStrategy = strategy.weights.find(
+        (weight) => weight.assetId === asset.assetId
+      );
+      return baseStrategy && baseStrategy.current < baseStrategy.actualTarget;
+    });
+    const quoteAssets = assets.filter((asset) => {
+      const quoteStrategy = strategy.weights.find(
+        (weight) => weight.assetId === asset.assetId
+      );
+      return (
+        quoteStrategy && quoteStrategy.current > quoteStrategy.actualTarget
+      );
+    });
+    return baseAssets
       .map((baseAsset) => {
-        return assets
-          .filter((quoteAsset) => quoteAsset !== baseAsset)
-          .map((quoteAsset) => {
-            return toMarketData(baseAsset, quoteAsset);
-          });
+        return quoteAssets.map((quoteAsset) => {
+          return toMarketData(baseAsset, quoteAsset);
+        });
       })
       .flat()
       .sort(byRsi);
-  }, [assets]);
+  }, [assets, strategy.weights]);
 }

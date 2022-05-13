@@ -5,9 +5,10 @@ import { PortfolioContext } from "./usePortfolio";
 
 export const DEFAULT_PORTFOLIO: PortfolioData[] = [
   { assetId: "BTC", available: 0.01, target: 40 },
-  { assetId: "ETH", available: 0.1, target: 30 },
+  { assetId: "ETH", available: 0.1, target: 20 },
   { assetId: "BUSD", available: 100, target: undefined },
   { assetId: "XMR", available: 0, target: 10 },
+  { assetId: "LTC", available: 1, target: 0 },
 ];
 
 localStorage.clear();
