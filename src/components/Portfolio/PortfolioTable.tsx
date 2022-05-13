@@ -58,6 +58,19 @@ export function PortfolioTable() {
     return portfolio.map((balance) => balance.assetId);
   }, [portfolio]);
 
+  const targetUnit = useMemo(() => {
+    if (strategy.actualTargetTotal === 100) {
+      return "%";
+    }
+    if (strategy.actualTargetTotal === 1000) {
+      return "‰";
+    }
+    if (strategy.actualTargetTotal === 10000) {
+      return "‱";
+    }
+    return `/${strategy.actualTargetTotal}`;
+  }, [strategy.actualTargetTotal]);
+
   return (
     <Table className="PortfolioTable" hover={true}>
       <thead>
@@ -89,7 +102,7 @@ export function PortfolioTable() {
             <AssetDropdown disabled={assetIds} onSelect={handleCreate} />
           </th>
           <th colSpan={2}></th>
-          <th></th>
+          <th colSpan={2}>{targetUnit}</th>
         </tr>
       </tfoot>
     </Table>

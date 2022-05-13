@@ -9,7 +9,6 @@ const ASSET_ICON_SIZE = 24;
 type PortfolioChartData = {
   assetId: AssetId;
   value: number;
-  opacity: number;
 };
 
 function PortfolioChartLabel({
@@ -33,9 +32,7 @@ function PortfolioChartLabel({
 
 function PortfolioChartCell(entry: PortfolioChartData, index: number) {
   const color = getAssetColor(entry.assetId) || "grey";
-  return (
-    <Cell key={entry.assetId + index} fill={color} opacity={entry.opacity} />
-  );
+  return <Cell key={entry.assetId + index} fill={color} />;
 }
 
 export function PortfolioChart(props: CategoricalChartProps) {
@@ -49,12 +46,10 @@ export function PortfolioChart(props: CategoricalChartProps) {
         current.push({
           assetId: weight.assetId,
           value: weight.current,
-          opacity: 1,
         });
         target.push({
           assetId: weight.assetId,
           value: weight.actualTarget || 0,
-          opacity: 1,
         });
         return [current, target];
       },

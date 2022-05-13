@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback } from "react";
+import { ChangeEvent, useCallback, useMemo } from "react";
 import { Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
@@ -35,11 +35,20 @@ export function PortfolioTableRow({
     [balance, onUpdate]
   );
 
+  const targetPlaceholder = useMemo(() => {
+    if (weight === undefined) {
+      return undefined;
+    }
+    const rounded = (weight.actualTarget * 100).toFixed(2);
+    const roundedNumber = Number(rounded);
+    return String(roundedNumber);
+  }, [weight]);
+
   return (
     <tr className="PortfolioTableRow">
       <th>
         <div className="d-flex">
-          <AssetIcon assetId={balance.assetId} className="me-1" />
+          <AssetIcon assetId={balance.assetId} className="me-2" />
           {balance.assetId}
           <span className="PortfolioTableRow-close ms-auto" onClick={onDelete}>
             ✕
@@ -47,7 +56,7 @@ export function PortfolioTableRow({
         </div>
       </th>
       <td>
-        {weight === undefined ? null : (weight.current * 100).toFixed(2) + "%"}
+        {weight === undefined ? null : (weight.current * 100).toFixed(2)}%
       </td>
       <td>
         <Form.Control
@@ -62,20 +71,12 @@ export function PortfolioTableRow({
         <Form.Control
           defaultValue={balance.target}
           type="number"
-          placeholder={
-            weight === undefined
-              ? undefined
-              : (weight.actualTarget * 100).toFixed(2) + "%"
-          }
+          placeholder={targetPlaceholder}
           size="sm"
           onChange={handleChangeTarget}
         />
       </td>
-      <td>
-        {weight === undefined
-          ? null
-          : (weight.actualTarget * 100).toFixed(2) + "%"}
-      </td>
+      <td>{targetPlaceholder ? targetPlaceholder + "%" : null}</td>
     </tr>
   );
 }

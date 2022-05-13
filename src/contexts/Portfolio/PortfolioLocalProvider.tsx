@@ -4,14 +4,13 @@ import { PortfolioData } from "../../lib/portfolio";
 import { PortfolioContext } from "./usePortfolio";
 
 export const DEFAULT_PORTFOLIO: PortfolioData[] = [
-  { assetId: "BTC", available: 0.01, target: undefined },
-  { assetId: "ETH", available: 0.1, target: undefined },
-  { assetId: "XMR", available: 1, target: undefined },
-  { assetId: "LUNA", available: 10, target: undefined },
-  { assetId: "BUSD", available: 1000, target: undefined },
+  { assetId: "BTC", available: 0.01, target: 40 },
+  { assetId: "ETH", available: 0.1, target: 30 },
+  { assetId: "BUSD", available: 100, target: undefined },
+  { assetId: "XMR", available: 0, target: 10 },
 ];
 
-// localStorage.clear();
+localStorage.clear();
 
 export function PortfolioLocalProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useLocalState<PortfolioData[]>(
