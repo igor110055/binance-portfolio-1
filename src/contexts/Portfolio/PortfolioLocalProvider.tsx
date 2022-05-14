@@ -11,7 +11,7 @@ export const DEFAULT_PORTFOLIO: PortfolioData[] = [
   { assetId: "LTC", available: 1, target: 0 },
 ];
 
-localStorage.clear();
+// localStorage.clear();
 
 export function PortfolioLocalProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useLocalState<PortfolioData[]>(

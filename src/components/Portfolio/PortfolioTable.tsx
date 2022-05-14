@@ -6,6 +6,7 @@ import { PortfolioTableRow } from "./PortfolioTableRow";
 import { PortfolioData } from "../../lib/portfolio";
 import { AssetDropdown } from "../Asset/AssetDropdown";
 import { AssetId } from "../../lib/assets";
+import { AssetAmount } from "../Asset/AssetAmount";
 
 export function PortfolioTable() {
   const [portfolio, setPortfolio] = usePortfolio();
@@ -78,6 +79,7 @@ export function PortfolioTable() {
           <th>Asset</th>
           <th colSpan={2}>Current</th>
           <th>Target</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -103,6 +105,13 @@ export function PortfolioTable() {
           </th>
           <th colSpan={2}></th>
           <th colSpan={2}>{targetUnit}</th>
+          <th>
+            <AssetAmount
+              assetId={process.env.REACT_APP_CURRENCY as AssetId}
+              amount={strategy.valueTotal}
+              decimals={2}
+            />
+          </th>
         </tr>
       </tfoot>
     </Table>

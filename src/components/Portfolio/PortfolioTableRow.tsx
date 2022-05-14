@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
 import { StrategyWeight } from "../../hooks/useStrategy";
+import { AssetAmount } from "../Asset/AssetAmount";
 
 export function PortfolioTableRow({
   balance,
@@ -77,6 +78,15 @@ export function PortfolioTableRow({
         />
       </td>
       <td>{targetPlaceholder ? targetPlaceholder + "%" : null}</td>
+      <td>
+        {weight ? (
+          <AssetAmount
+            amount={weight.amountTarget}
+            assetId={balance.assetId}
+            decimals={6}
+          />
+        ) : null}
+      </td>
     </tr>
   );
 }

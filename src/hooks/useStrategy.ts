@@ -8,6 +8,7 @@ export type StrategyWeight = {
   current: number;
   userTarget: number | undefined;
   actualTarget: number;
+  amountTarget: number;
 };
 export type StrategyData = {
   valueTotal: number;
@@ -79,11 +80,16 @@ export function useStrategy() {
           return balance.target / Math.max(100, userTargetTotal);
         };
 
+        const actualTarget = getActualTarget();
+
+        const amountTarget = (actualTarget * valueTotal) / asset.lastPrice;
+
         return {
           assetId: asset.assetId,
           current,
           userTarget: balance.target,
-          actualTarget: getActualTarget(),
+          actualTarget,
+          amountTarget,
         };
       }
       return {
@@ -91,6 +97,7 @@ export function useStrategy() {
         current: 0,
         userTarget: balance.target,
         actualTarget: 0,
+        amountTarget: 0,
       };
     });
   }, [assets, currentRemainder, portfolio, userTargetTotal, valueTotal]);
