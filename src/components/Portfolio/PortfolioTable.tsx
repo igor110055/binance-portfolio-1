@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { Table } from "react-bootstrap";
 import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
-import { useStrategy } from "../../hooks/useStrategy";
+import { StrategyWeight, useStrategy } from "../../hooks/useStrategy";
 import { PortfolioTableRow } from "./PortfolioTableRow";
 import { PortfolioData } from "../../lib/portfolio";
 import { AssetDropdown } from "../Asset/AssetDropdown";
@@ -55,6 +55,37 @@ export function PortfolioTable() {
     [setPortfolio]
   );
 
+  const handleSort = useCallback(
+    (key: keyof StrategyWeight) => () => {
+      setPortfolio((p) => {
+        return [
+          ...p.sort((a, b) => {
+            const aWeight = strategy.weights.find(
+              (w) => w.assetId === a.assetId
+            );
+            const bWeight = strategy.weights.find(
+              (w) => w.assetId === b.assetId
+            );
+            if (aWeight && bWeight) {
+              if (
+                typeof aWeight[key] === "string" &&
+                typeof aWeight[key] === "string"
+              ) {
+                console.log(aWeight[key], bWeight[key]);
+                return (aWeight[key] as string).localeCompare(
+                  bWeight[key] as string
+                );
+              }
+              return Number(bWeight[key]) - Number(aWeight[key]);
+            }
+            return 0;
+          }),
+        ];
+      });
+    },
+    [setPortfolio, strategy.weights]
+  );
+
   const assetIds = useMemo(() => {
     return portfolio.map((balance) => balance.assetId);
   }, [portfolio]);
@@ -76,9 +107,11 @@ export function PortfolioTable() {
     <Table className="PortfolioTable" hover={true}>
       <thead>
         <tr>
-          <th>Asset</th>
-          <th colSpan={2}>Current</th>
-          <th>Target</th>
+          <th onClick={handleSort("assetId")}>Asset</th>
+          <th onClick={handleSort("currentValue")} colSpan={2}>
+            Current
+          </th>
+          <th onClick={handleSort("targetValue")}>Target</th>
           <th></th>
         </tr>
       </thead>

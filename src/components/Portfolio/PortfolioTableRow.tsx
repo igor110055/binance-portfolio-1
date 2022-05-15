@@ -57,7 +57,7 @@ export function PortfolioTableRow({
         </div>
       </th>
       <td>
-        {weight === undefined ? null : (weight.current * 100).toFixed(2)}%
+        {weight?.current ? (weight.current * 100).toFixed(2) + "%" : null}
       </td>
       <td>
         <Form.Control
@@ -79,7 +79,7 @@ export function PortfolioTableRow({
       </td>
       <td>{targetPlaceholder ? targetPlaceholder + "%" : null}</td>
       <td>
-        {weight ? (
+        {weight?.targetAmount ? (
           <AssetAmount
             amount={weight.targetAmount}
             assetId={balance.assetId}

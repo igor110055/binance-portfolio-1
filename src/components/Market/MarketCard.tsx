@@ -44,9 +44,7 @@ export function MarketCard({
           </strong>
           {price?.toFixed(6)}
         </Card.Subtitle>
-        <Card.Text>
-          <MarketCardStrategy market={market} />
-        </Card.Text>
+        <MarketCardStrategy market={market} />
       </Card.Body>
       <ResponsiveContainer aspect={32 / 9}>
         <ChartRSI data={market.rsi} />
