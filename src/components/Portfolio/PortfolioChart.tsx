@@ -49,7 +49,7 @@ export function PortfolioChart(props: CategoricalChartProps) {
         });
         target.push({
           assetId: weight.assetId,
-          value: weight.actualTarget || 0,
+          value: weight.target || 0,
         });
         return [current, target];
       },

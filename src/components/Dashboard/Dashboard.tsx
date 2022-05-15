@@ -12,7 +12,7 @@ export function Dashboard() {
   return (
     <div className="Dashboard">
       <Row className="mb-4">
-        <Col md={3} lg={4} xl={3} className="position-relative">
+        <Col lg={3} className="position-relative">
           <div className="Dashboard-chart">
             {assetsLoading ? <Loader /> : null}
             <ResponsiveContainer aspect={1}>
@@ -20,7 +20,7 @@ export function Dashboard() {
             </ResponsiveContainer>
           </div>
         </Col>
-        <Col md={9} lg={8} xl={9}>
+        <Col lg={9}>
           <PortfolioTable />
         </Col>
       </Row>

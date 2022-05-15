@@ -60,17 +60,17 @@ export function PortfolioTable() {
   }, [portfolio]);
 
   const targetUnit = useMemo(() => {
-    if (strategy.actualTargetTotal === 100) {
+    if (strategy.totalTarget === 100) {
       return "%";
     }
-    if (strategy.actualTargetTotal === 1000) {
+    if (strategy.totalTarget === 1000) {
       return "‰";
     }
-    if (strategy.actualTargetTotal === 10000) {
+    if (strategy.totalTarget === 10000) {
       return "‱";
     }
-    return `/${strategy.actualTargetTotal}`;
-  }, [strategy.actualTargetTotal]);
+    return `/${strategy.totalTarget}`;
+  }, [strategy.totalTarget]);
 
   return (
     <Table className="PortfolioTable" hover={true}>
@@ -108,7 +108,7 @@ export function PortfolioTable() {
           <th>
             <AssetAmount
               assetId={process.env.REACT_APP_CURRENCY as AssetId}
-              amount={strategy.valueTotal}
+              amount={strategy.totalAmount}
               decimals={2}
             />
           </th>

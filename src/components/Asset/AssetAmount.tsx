@@ -22,11 +22,13 @@ export function AssetAmount({
   }, [amount, decimals]);
   return (
     <span className={classNames("AssetAmount", className)}>
-      <small>
-        {logo ? <AssetIcon className="me-1" assetId={assetId} /> : null}
-        {assetId}
-      </small>
-      {roundedAmount}
+      <span className="AssetAmount-content">
+        <small>
+          {logo ? <AssetIcon className="me-1" assetId={assetId} /> : null}
+          {assetId}
+        </small>
+        {roundedAmount}
+      </span>
     </span>
   );
 }

@@ -15,15 +15,13 @@ export function useMarkets() {
       const baseStrategy = strategy.weights.find(
         (weight) => weight.assetId === asset.assetId
       );
-      return baseStrategy && baseStrategy.current < baseStrategy.actualTarget;
+      return baseStrategy && baseStrategy.current < baseStrategy.target;
     });
     const quoteAssets = assets.filter((asset) => {
       const quoteStrategy = strategy.weights.find(
         (weight) => weight.assetId === asset.assetId
       );
-      return (
-        quoteStrategy && quoteStrategy.current > quoteStrategy.actualTarget
-      );
+      return quoteStrategy && quoteStrategy.current > quoteStrategy.target;
     });
     return baseAssets
       .map((baseAsset) => {

@@ -40,7 +40,7 @@ export function PortfolioTableRow({
     if (weight === undefined) {
       return undefined;
     }
-    const rounded = (weight.actualTarget * 100).toFixed(2);
+    const rounded = (weight.target * 100).toFixed(2);
     const roundedNumber = Number(rounded);
     return String(roundedNumber);
   }, [weight]);
@@ -81,7 +81,7 @@ export function PortfolioTableRow({
       <td>
         {weight ? (
           <AssetAmount
-            amount={weight.amountTarget}
+            amount={weight.targetAmount}
             assetId={balance.assetId}
             decimals={6}
           />

@@ -6,14 +6,14 @@ import { AssetId } from "../lib/assets";
 export type StrategyWeight = {
   assetId: AssetId;
   current: number;
-  userTarget: number | undefined;
-  actualTarget: number;
-  amountTarget: number;
+  currentValue: number;
+  target: number;
+  targetAmount: number;
+  targetValue: number;
 };
 export type StrategyData = {
-  valueTotal: number;
-  actualTargetTotal: number;
-  userTargetTotal: number;
+  totalAmount: number;
+  totalTarget: number;
   weights: StrategyWeight[];
 };
 
@@ -21,7 +21,7 @@ export function useStrategy() {
   const [assets] = useAssets();
   const [portfolio] = usePortfolio();
 
-  const valueTotal = useMemo(() => {
+  const totalAmount = useMemo(() => {
     return assets.reduce((total, asset) => {
       const balance = portfolio.find((b) => b.assetId === asset.assetId);
       if (balance) {
@@ -48,8 +48,8 @@ export function useStrategy() {
           return total + balance.available * asset.lastPrice;
         }
         return total;
-      }, 0) / valueTotal,
-    [assets, portfolio, valueTotal]
+      }, 0) / totalAmount,
+    [assets, portfolio, totalAmount]
   );
 
   const weights = useMemo<StrategyWeight[]>(() => {
@@ -61,7 +61,8 @@ export function useStrategy() {
     return portfolio.map((balance) => {
       const asset = assets.find((a) => a.assetId === balance.assetId);
       if (asset) {
-        const current = (balance.available * asset.lastPrice) / valueTotal;
+        const currentValue = balance.available * asset.lastPrice;
+        const current = currentValue / totalAmount;
 
         const getActualTarget = () => {
           if (balance.target === undefined) {
@@ -80,29 +81,32 @@ export function useStrategy() {
           return balance.target / Math.max(100, userTargetTotal);
         };
 
-        const actualTarget = getActualTarget();
+        const target = getActualTarget();
 
-        const amountTarget = (actualTarget * valueTotal) / asset.lastPrice;
+        const targetValue = target * totalAmount;
+        const targetAmount = targetValue / asset.lastPrice;
 
         return {
-          assetId: asset.assetId,
+          assetId: balance.assetId,
           current,
-          userTarget: balance.target,
-          actualTarget,
-          amountTarget,
+          currentValue,
+          target,
+          targetAmount,
+          targetValue,
         };
       }
       return {
         assetId: balance.assetId,
         current: 0,
-        userTarget: balance.target,
-        actualTarget: 0,
-        amountTarget: 0,
+        currentValue: 0,
+        target: 0,
+        targetAmount: 0,
+        targetValue: 0,
       };
     });
-  }, [assets, currentRemainder, portfolio, userTargetTotal, valueTotal]);
+  }, [assets, currentRemainder, portfolio, userTargetTotal, totalAmount]);
 
-  const actualTargetTotal = useMemo(() => {
+  const totalTarget = useMemo(() => {
     if (userTargetTotal > 100 || currentRemainder === 0) {
       return userTargetTotal;
     }
@@ -111,11 +115,10 @@ export function useStrategy() {
 
   return useMemo(
     () => ({
-      valueTotal,
-      userTargetTotal,
-      actualTargetTotal,
+      totalAmount,
+      totalTarget,
       weights,
     }),
-    [actualTargetTotal, userTargetTotal, valueTotal, weights]
+    [totalTarget, totalAmount, weights]
   );
 }
