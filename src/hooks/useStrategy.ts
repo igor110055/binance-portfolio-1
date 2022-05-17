@@ -113,7 +113,7 @@ export function useStrategy() {
     return 100;
   }, [currentRemainder, userTargetTotal]);
 
-  return useMemo(
+  return useMemo<StrategyData>(
     () => ({
       totalAmount,
       totalTarget,

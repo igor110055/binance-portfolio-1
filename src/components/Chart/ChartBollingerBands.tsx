@@ -8,10 +8,12 @@ import { OHLCData } from "../../lib/ohlc";
 export function ChartBollingerBands({
   bollingerBands,
   ohlc,
+  sma,
   ...props
 }: CategoricalChartProps & {
   bollingerBands: BollingerBandsOutput[];
   ohlc: OHLCData[];
+  sma: number[];
 }) {
   const yDomain = useMemo<[number, number]>(() => {
     const extremes = ohlc.reduce<number[]>((values, data) => {
@@ -20,8 +22,32 @@ export function ChartBollingerBands({
       }
       return values;
     }, []);
-    return [Math.min(...extremes), Math.max(...extremes)];
-  }, [ohlc]);
+    return [
+      Math.min(
+        ...extremes,
+        bollingerBands[bollingerBands.length - 1].lower,
+        sma[sma.length - 1]
+      ),
+      Math.max(
+        ...extremes,
+        bollingerBands[bollingerBands.length - 1].upper,
+        sma[sma.length - 1]
+      ),
+    ];
+  }, [bollingerBands, ohlc, sma]);
+  const ticks = useMemo(() => {
+    const min = Math.min(
+      ohlc[ohlc.length - 1]?.close || Infinity,
+      bollingerBands[bollingerBands.length - 1].lower,
+      sma[sma.length - 1]
+    ).toFixed(6);
+    const max = Math.max(
+      ohlc[ohlc.length - 1]?.close || 0,
+      bollingerBands[bollingerBands.length - 1].upper,
+      sma[sma.length - 1]
+    ).toFixed(6);
+    return [Number(min), Number(max)];
+  }, [bollingerBands, ohlc, sma]);
   const mergedData = useMemo(
     () =>
       ohlc
@@ -30,15 +56,23 @@ export function ChartBollingerBands({
             ohlc && {
               ...ohlc,
               ...bollingerBands[index],
+              sma: sma[index],
             }
         )
         .filter(Boolean),
-    [bollingerBands, ohlc]
+    [bollingerBands, ohlc, sma]
   );
   return (
     <CandlesticksChart {...props} data={mergedData}>
       <XAxis dataKey="time" tick={false} height={0} />
-      <YAxis domain={yDomain} tick={false} width={0} />
+      <YAxis
+        axisLine={false}
+        domain={yDomain}
+        ticks={ticks}
+        mirror={true}
+        orientation="right"
+        tickLine={false}
+      />
       <Line
         dataKey="upper"
         dot={false}
@@ -59,6 +93,13 @@ export function ChartBollingerBands({
         isAnimationActive={false}
         stroke="grey"
         strokeDasharray="4 2"
+        strokeOpacity={0.5}
+      />
+      <Line
+        dataKey="sma"
+        dot={false}
+        isAnimationActive={false}
+        stroke="blueviolet"
         strokeOpacity={0.5}
       />
     </CandlesticksChart>

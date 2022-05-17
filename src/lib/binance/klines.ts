@@ -2,7 +2,7 @@ import { loadRequest } from "../request";
 import { applyBinanceRequestConfig } from "./binance";
 
 export const KLINES_INTERVAL = "1d";
-export const KLINES_LIMIT = 90;
+export const KLINES_LIMIT = 360;
 
 export type BinanceKline = [
   openTime: number,

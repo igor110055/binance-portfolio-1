@@ -1,4 +1,4 @@
-import { BollingerBands, MACD, RSI } from "technicalindicators";
+import { BollingerBands, MACD, RSI, SMA } from "technicalindicators";
 import { MACDOutput } from "technicalindicators/declarations/moving_averages/MACD";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 import { OHLCData, toValues } from "./ohlc";
@@ -7,16 +7,19 @@ export type AnalysisData = {
   bollingerBands: BollingerBandsOutput[];
   macd: MACDOutput[];
   rsi: number[];
+  sma: number[];
 };
 
 export const BOLLINGER_BANDS_PERIOD = 21;
 export const BOLLINGER_BANDS_STANDARD_DEVIATION = 2;
 
 export const MACD_FAST_PERIOD = 12;
-export const MACD_SLOW_PERIOD = 26;
 export const MACD_SIGNAL_PERIOD = 9;
+export const MACD_SLOW_PERIOD = 26;
 
 export const RSI_PERIOD = 6;
+
+export const SMA_PERIOD = 200;
 
 export function getAnalysis(ohlc: OHLCData[], limit: number): AnalysisData {
   const values = toValues(ohlc);
@@ -38,6 +41,10 @@ export function getAnalysis(ohlc: OHLCData[], limit: number): AnalysisData {
     period: RSI_PERIOD,
     values,
   });
+  const sma = SMA.calculate({
+    period: SMA_PERIOD,
+    values,
+  });
 
   return {
     bollingerBands: [
@@ -48,6 +55,9 @@ export function getAnalysis(ohlc: OHLCData[], limit: number): AnalysisData {
       -limit
     ),
     rsi: [...Array(ohlc.length - rsi.length).fill(undefined), ...rsi].slice(
+      -limit
+    ),
+    sma: [...Array(ohlc.length - sma.length).fill(undefined), ...sma].slice(
       -limit
     ),
   };

@@ -48,13 +48,20 @@ export function MarketCardStrategy({
         decimals={6}
         logo={true}
       />
-      <AssetAmount
-        amount={dealValue}
-        assetId={process.env.REACT_APP_CURRENCY as AssetId}
-        className="middle"
-        decimals={2}
-        logo={true}
-      />
+      <div className="middle">
+        <AssetAmount
+          amount={dealValue}
+          assetId={process.env.REACT_APP_CURRENCY as AssetId}
+          decimals={2}
+          logo={true}
+        />
+        <span>
+          {Math.min(
+            market.bollingerBands[market.bollingerBands.length - 1].lower,
+            market.sma[market.sma.length - 1]
+          ).toFixed(6)}
+        </span>
+      </div>
       <AssetAmount
         amount={dealValue / market.baseAsset.lastPrice}
         assetId={market.baseAsset.assetId}

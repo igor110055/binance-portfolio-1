@@ -67,17 +67,11 @@ code {
       }
     }
     &.left {
-      margin-right: 1rem;
-      padding-right: 1rem;
-      border-right: 1px dashed grey;
       small {
         justify-content: left;
       }
     }
     &.right {
-      margin-left: 1rem;
-      padding-left: 1rem;
-      border-left: 1px dashed grey;
       small {
         justify-content: right;
       }
@@ -145,4 +139,7 @@ h6 {
 
 .recharts-wrapper {
   font-size: small;
+  .recharts-text {
+    background: white;
+  }
 }

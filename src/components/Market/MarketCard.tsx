@@ -27,6 +27,7 @@ export function MarketCard({
         <ChartBollingerBands
           bollingerBands={market.bollingerBands}
           ohlc={market.ohlc}
+          sma={market.sma}
         />
       </ResponsiveContainer>
       <Card.Body>
