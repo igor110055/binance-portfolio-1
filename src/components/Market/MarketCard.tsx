@@ -8,7 +8,6 @@ import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";
 import { ChartRSI } from "../Chart/ChartRSI";
-import { MarketCardStrategy } from "./MarketCardStrategy";
 
 export function MarketCard({
   market,
@@ -45,7 +44,6 @@ export function MarketCard({
           </strong>
           {_.round(price, 6)}
         </Card.Subtitle>
-        <MarketCardStrategy market={market} />
       </Card.Body>
       <ResponsiveContainer aspect={32 / 9}>
         <ChartRSI data={market.rsi} />

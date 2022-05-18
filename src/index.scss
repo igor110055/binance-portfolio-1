@@ -14,6 +14,10 @@ code {
     monospace;
 }
 
+.App {
+  min-width: 767px;
+}
+
 .AssetAmount {
   display: block;
   height: 1rem;
@@ -40,9 +44,6 @@ code {
   }
 }
 
-.Dashboard {
-  min-width: 640px;
-}
 .Dashboard-chart {
   position: relative;
 }
@@ -56,33 +57,6 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.MarketCardStrategy {
-  margin-top: 1em;
-  .AssetAmount {
-    position: relative;
-    height: 1.5em;
-  }
-  .left {
-    text-align: left;
-    small {
-      justify-content: left;
-    }
-  }
-  .center {
-    text-align: center;
-    margin: 1em;
-    small {
-      justify-content: center;
-    }
-  }
-  .right {
-    text-align: right;
-    small {
-      justify-content: right;
-    }
-  }
 }
 
 .PortfolioTableRow {
@@ -141,6 +115,10 @@ h6 {
       }
     }
   }
+}
+
+.table-sort {
+  cursor: pointer;
 }
 
 .recharts-wrapper {

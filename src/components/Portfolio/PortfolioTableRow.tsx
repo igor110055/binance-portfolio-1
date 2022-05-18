@@ -1,10 +1,12 @@
-import { ChangeEvent, useCallback, useMemo } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
 import { StrategyWeight } from "../../hooks/useStrategy";
 import { AssetAmount } from "../Asset/AssetAmount";
 import _ from "lodash";
+import { useAsset } from "../../contexts/Assets/useAssets";
+import { AssetId } from "../../lib/assets";
 
 export function PortfolioTableRow({
   balance,
@@ -17,6 +19,7 @@ export function PortfolioTableRow({
   onUpdate: (balance: PortfolioData) => void;
   onDelete: () => void;
 }) {
+  const [asset] = useAsset(weight?.assetId);
   const handleChangeAvailable = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       onUpdate({
@@ -37,14 +40,11 @@ export function PortfolioTableRow({
     [balance, onUpdate]
   );
 
-  const targetPlaceholder = useMemo(() => {
-    if (weight === undefined) {
-      return undefined;
-    }
-    const rounded = _.round(weight.target * 100, 2);
-    const roundedNumber = Number(rounded);
-    return String(roundedNumber);
-  }, [weight]);
+  if (asset === undefined || weight === undefined) {
+    return null;
+  }
+
+  const percentageTarget = String(_.round(weight.target * 100, 2));
 
   return (
     <tr className="PortfolioTableRow">
@@ -57,7 +57,7 @@ export function PortfolioTableRow({
           </span>
         </div>
       </th>
-      <td>{weight?.current ? _.round(weight.current * 100, 2) + "%" : null}</td>
+      <td>{_.round(weight.current * 100, 2) + "%"}</td>
       <td>
         <Form.Control
           defaultValue={balance.available}
@@ -71,20 +71,44 @@ export function PortfolioTableRow({
         <Form.Control
           defaultValue={balance.target}
           type="number"
-          placeholder={targetPlaceholder}
+          placeholder={percentageTarget}
           size="sm"
           onChange={handleChangeTarget}
         />
       </td>
-      <td>{targetPlaceholder ? targetPlaceholder + "%" : null}</td>
+      <td>{percentageTarget + "%"}</td>
       <td>
-        {weight?.targetAmount ? (
-          <AssetAmount
-            amount={weight.targetAmount}
-            assetId={balance.assetId}
-            decimals={6}
-          />
-        ) : null}
+        <AssetAmount
+          amount={weight.targetAmount}
+          assetId={balance.assetId}
+          decimals={6}
+        />
+      </td>
+      <td className="table-warning">
+        <AssetAmount
+          amount={weight.tradeAmount}
+          assetId={weight.assetId}
+          decimals={3}
+          logo={true}
+        />
+      </td>
+      <td className="table-warning">
+        {weight.tradeValue < 0 ? (
+          <small className="text-danger">{_.round(asset.limitSell, 3)}</small>
+        ) : (
+          <small className="text-success">{_.round(asset.limitBuy, 3)}</small>
+        )}
+      </td>
+      <td className="table-warning">
+        <AssetAmount
+          amount={
+            (weight.tradeValue < 0
+              ? weight.tradeAmount * asset.limitSell
+              : weight.tradeAmount * asset.limitBuy) * -1
+          }
+          assetId={process.env.REACT_APP_CURRENCY as AssetId}
+          decimals={3}
+        />
       </td>
     </tr>
   );

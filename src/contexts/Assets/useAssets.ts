@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { AssetData } from "../../lib/assets";
+import { AssetData, AssetId } from "../../lib/assets";
 
 export const AssetsContext = createContext<
   [data: AssetData[], loading: boolean]
@@ -7,4 +7,11 @@ export const AssetsContext = createContext<
 
 export function useAssets() {
   return useContext(AssetsContext);
+}
+
+export function useAsset(
+  assetId?: AssetId
+): [data: AssetData | undefined, loading: boolean] {
+  const [data, loading] = useContext(AssetsContext);
+  return [data.find((asset) => asset.assetId === assetId), loading];
 }

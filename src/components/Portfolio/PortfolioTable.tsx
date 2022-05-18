@@ -69,14 +69,15 @@ export function PortfolioTable() {
             if (aWeight && bWeight) {
               if (
                 typeof aWeight[key] === "string" &&
-                typeof aWeight[key] === "string"
+                typeof bWeight[key] === "string"
               ) {
-                console.log(aWeight[key], bWeight[key]);
                 return (aWeight[key] as string).localeCompare(
                   bWeight[key] as string
                 );
               }
-              return Number(bWeight[key]) - Number(aWeight[key]);
+              return (
+                Math.abs(Number(bWeight[key])) - Math.abs(Number(aWeight[key]))
+              );
             }
             return 0;
           }),
@@ -107,12 +108,30 @@ export function PortfolioTable() {
     <Table className="PortfolioTable" hover={true}>
       <thead>
         <tr>
-          <th onClick={handleSort("assetId")}>Asset</th>
-          <th onClick={handleSort("currentValue")} colSpan={2}>
+          <th className="table-sort" onClick={handleSort("assetId")}>
+            Asset
+          </th>
+          <th
+            className="table-sort"
+            onClick={handleSort("currentValue")}
+            colSpan={2}
+          >
             Current
           </th>
-          <th onClick={handleSort("targetValue")}>Target</th>
-          <th></th>
+          <th
+            className="table-sort"
+            onClick={handleSort("targetValue")}
+            colSpan={3}
+          >
+            Target
+          </th>
+          <th
+            className="table-sort"
+            onClick={handleSort("tradeValue")}
+            colSpan={3}
+          >
+            Trade
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -145,6 +164,7 @@ export function PortfolioTable() {
               decimals={2}
             />
           </th>
+          <th colSpan={3}></th>
         </tr>
       </tfoot>
     </Table>
