@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useMemo } from "react";
+import _ from "lodash";
 import { AssetId } from "../../lib/assets";
 import { AssetIcon } from "./AssetIcon";
 
@@ -16,10 +16,7 @@ export function AssetAmount({
   decimals: number;
   logo?: boolean;
 }) {
-  const roundedAmount = useMemo(() => {
-    const rounded = amount.toFixed(decimals);
-    return Number(rounded);
-  }, [amount, decimals]);
+  const rounded = _.round(amount, decimals);
   return (
     <span className={classNames("AssetAmount", className)}>
       <span className="AssetAmount-content">
@@ -27,7 +24,7 @@ export function AssetAmount({
           {logo ? <AssetIcon className="me-1" assetId={assetId} /> : null}
           {assetId}
         </small>
-        {roundedAmount}
+        {rounded}
       </span>
     </span>
   );

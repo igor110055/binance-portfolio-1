@@ -21,7 +21,10 @@ export const RSI_PERIOD = 6;
 
 export const SMA_PERIOD = 200;
 
-export function getAnalysis(ohlc: OHLCData[], limit: number): AnalysisData {
+export function getAnalysis(
+  ohlc: OHLCData[],
+  limit: number = ohlc.length
+): AnalysisData {
   const values = toValues(ohlc);
 
   const bollingerBands = BollingerBands.calculate({

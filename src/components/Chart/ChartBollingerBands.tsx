@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { useMemo } from "react";
 import { Line, XAxis, YAxis } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
@@ -36,16 +37,22 @@ export function ChartBollingerBands({
     ];
   }, [bollingerBands, ohlc, sma]);
   const ticks = useMemo(() => {
-    const min = Math.min(
-      ohlc[ohlc.length - 1]?.close || Infinity,
-      bollingerBands[bollingerBands.length - 1].lower,
-      sma[sma.length - 1]
-    ).toFixed(6);
-    const max = Math.max(
-      ohlc[ohlc.length - 1]?.close || 0,
-      bollingerBands[bollingerBands.length - 1].upper,
-      sma[sma.length - 1]
-    ).toFixed(6);
+    const min = _.round(
+      Math.min(
+        ohlc[ohlc.length - 1]?.close || Infinity,
+        bollingerBands[bollingerBands.length - 1].lower,
+        sma[sma.length - 1]
+      ),
+      6
+    );
+    const max = _.round(
+      Math.max(
+        ohlc[ohlc.length - 1]?.close || 0,
+        bollingerBands[bollingerBands.length - 1].upper,
+        sma[sma.length - 1]
+      ),
+      6
+    );
     return [Number(min), Number(max)];
   }, [bollingerBands, ohlc, sma]);
   const mergedData = useMemo(

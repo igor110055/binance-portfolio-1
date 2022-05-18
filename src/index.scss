@@ -17,11 +17,13 @@ code {
 .AssetAmount {
   display: block;
   height: 1rem;
+  min-width: 4em;
   .AssetAmount-content {
     display: inline-block;
     position: relative;
     margin-top: 0.67em;
     line-height: 1;
+    width: 100%;
     small {
       display: flex;
       width: 100%;
@@ -61,20 +63,24 @@ code {
   .AssetAmount {
     position: relative;
     height: 1.5em;
-    &.middle {
-      small {
-        justify-content: center;
-      }
+  }
+  .left {
+    text-align: left;
+    small {
+      justify-content: left;
     }
-    &.left {
-      small {
-        justify-content: left;
-      }
+  }
+  .center {
+    text-align: center;
+    margin: 1em;
+    small {
+      justify-content: center;
     }
-    &.right {
-      small {
-        justify-content: right;
-      }
+  }
+  .right {
+    text-align: right;
+    small {
+      justify-content: right;
     }
   }
 }

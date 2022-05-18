@@ -4,6 +4,7 @@ import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
 import { StrategyWeight } from "../../hooks/useStrategy";
 import { AssetAmount } from "../Asset/AssetAmount";
+import _ from "lodash";
 
 export function PortfolioTableRow({
   balance,
@@ -40,7 +41,7 @@ export function PortfolioTableRow({
     if (weight === undefined) {
       return undefined;
     }
-    const rounded = (weight.target * 100).toFixed(2);
+    const rounded = _.round(weight.target * 100, 2);
     const roundedNumber = Number(rounded);
     return String(roundedNumber);
   }, [weight]);
@@ -56,9 +57,7 @@ export function PortfolioTableRow({
           </span>
         </div>
       </th>
-      <td>
-        {weight?.current ? (weight.current * 100).toFixed(2) + "%" : null}
-      </td>
+      <td>{weight?.current ? _.round(weight.current * 100, 2) + "%" : null}</td>
       <td>
         <Form.Control
           defaultValue={balance.available}

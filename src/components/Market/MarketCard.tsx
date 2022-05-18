@@ -14,7 +14,7 @@ export function MarketCard({
   market,
   ...props
 }: CardProps & { market: MarketData }) {
-  const price = _.last(market.ohlc)?.close;
+  const price = _.last(market.ohlc)?.close || 0;
   const color = useMemo(() => {
     if (market.priceChangePercent > 0) return "success";
     if (market.priceChangePercent < 0) return "danger";
@@ -35,7 +35,7 @@ export function MarketCard({
           <AssetIcon className="me-1" assetId={market.baseAsset.assetId} />
           {market.baseAsset.assetId}
           <span className={classNames(`text-${color}`, "ms-auto", "px-1")}>
-            {market.priceChangePercent.toFixed(2)}%
+            {_.round(market.priceChangePercent, 2)}%
           </span>
         </Card.Title>
         <Card.Subtitle>
@@ -43,7 +43,7 @@ export function MarketCard({
             <AssetIcon className="me-1" assetId={market.quoteAsset.assetId} />
             {market.quoteAsset.assetId}
           </strong>
-          {price?.toFixed(6)}
+          {_.round(price, 6)}
         </Card.Subtitle>
         <MarketCardStrategy market={market} />
       </Card.Body>
