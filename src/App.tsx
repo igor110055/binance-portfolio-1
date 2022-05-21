@@ -1,16 +1,18 @@
 import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { PortfolioLocalProvider } from "./contexts/Portfolio/PortfolioLocalProvider";
-import { AssetsProvider } from "./contexts/Assets/AssetsProvider";
 import { Dashboard } from "./components/Dashboard/Dashboard";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <div className="App p-4">
-      <PortfolioLocalProvider>
-        <AssetsProvider>
+      <QueryClientProvider client={queryClient}>
+        <PortfolioLocalProvider>
           <Dashboard />
-        </AssetsProvider>
-      </PortfolioLocalProvider>
+        </PortfolioLocalProvider>
+      </QueryClientProvider>
     </div>
   );
 }

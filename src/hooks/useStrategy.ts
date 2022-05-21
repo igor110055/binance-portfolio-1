@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useAssets } from "../contexts/Assets/useAssets";
+import { useAssets } from "./useAssets";
 import { usePortfolio } from "../contexts/Portfolio/usePortfolio";
 import { AssetId } from "../lib/assets";
 
@@ -24,11 +24,11 @@ export type StrategyData = {
 };
 
 export function useStrategy() {
-  const [assets] = useAssets();
+  const assets = useAssets();
   const [portfolio] = usePortfolio();
 
   const totalAmount = useMemo(() => {
-    return assets.reduce((total, asset) => {
+    return assets.data.reduce((total, asset) => {
       const balance = portfolio.find((b) => b.assetId === asset.assetId);
       if (balance) {
         return total + balance.available * asset.lastPrice;
@@ -48,7 +48,7 @@ export function useStrategy() {
 
   const currentRemainder = useMemo(
     () =>
-      assets.reduce((total, asset) => {
+      assets.data.reduce((total, asset) => {
         const balance = portfolio.find((b) => b.assetId === asset.assetId);
         if (balance && balance.target === undefined) {
           return total + balance.available * asset.lastPrice;
@@ -65,7 +65,7 @@ export function useStrategy() {
       userTargetRemainder !== 0 ? currentRemainder / userTargetRemainder : 0;
 
     return portfolio.map((balance) => {
-      const asset = assets.find((a) => a.assetId === balance.assetId);
+      const asset = assets.data.find((a) => a.assetId === balance.assetId);
       if (asset) {
         const currentValue = balance.available * asset.lastPrice;
         const current = currentValue / totalAmount;

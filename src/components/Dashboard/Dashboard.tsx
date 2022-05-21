@@ -5,18 +5,18 @@ import { ResponsiveContainer } from "recharts";
 import { PortfolioTable } from "../Portfolio/PortfolioTable";
 import { Col, Row, Tab, Tabs } from "react-bootstrap";
 import { Loader } from "../../common/Loader";
-import { useAssets } from "../../contexts/Assets/useAssets";
+import { useAssets } from "../../hooks/useAssets";
 import { useStrategy } from "../../hooks/useStrategy";
 
 export function Dashboard() {
-  const [, loading] = useAssets();
+  const { isLoading } = useAssets();
   const strategy = useStrategy();
   return (
     <div className="Dashboard">
       <Row className="mb-4">
         <Col lg={3} className="position-relative">
           <div className="Dashboard-chart">
-            {loading ? <Loader /> : null}
+            {isLoading ? <Loader /> : null}
             <ResponsiveContainer aspect={1}>
               <PortfolioChart />
             </ResponsiveContainer>
