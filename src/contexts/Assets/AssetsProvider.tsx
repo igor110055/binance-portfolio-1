@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import { AssetsContext } from "./useAssets";
-import { AssetData, loadAsset } from "../../lib/assets";
+import { AssetData, AssetId, loadAsset } from "../../lib/assets";
 import { usePortfolio } from "../Portfolio/usePortfolio";
 
 const fetchQueue: string[] = [];
@@ -15,20 +15,28 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
     [data.length, portfolio.length]
   );
 
+  const assetIds = useMemo(
+    () => [
+      process.env.REACT_APP_CURRENCY as AssetId,
+      ...portfolio.map((balance) => balance.assetId),
+    ],
+    [portfolio]
+  );
+
   useEffect(() => {
-    for (const balance of portfolio) {
+    for (const assetId of assetIds) {
       if (
-        fetchQueue.includes(balance.assetId) ||
-        data.find((asset) => asset.assetId === balance.assetId)
+        fetchQueue.includes(assetId) ||
+        data.find((asset) => asset.assetId === assetId)
       ) {
         continue;
       }
-      fetchQueue.push(balance.assetId);
-      loadAsset(balance.assetId).then((asset: AssetData) => {
+      fetchQueue.push(assetId);
+      loadAsset(assetId).then((asset: AssetData) => {
         setData((prevData) => [...prevData, asset]);
       }, console.error);
     }
-  }, [data, portfolio]);
+  }, [assetIds, data]);
 
   return (
     <AssetsContext.Provider value={[data, loading]}>

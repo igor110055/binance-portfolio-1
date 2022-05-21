@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { BollingerBands, MACD, RSI, SMA } from "technicalindicators";
 import { MACDOutput } from "technicalindicators/declarations/moving_averages/MACD";
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
@@ -8,6 +9,8 @@ export type AnalysisData = {
   macd: MACDOutput[];
   rsi: number[];
   sma: number[];
+  limitSell: number;
+  limitBuy: number;
 };
 
 export const BOLLINGER_BANDS_PERIOD = 21;
@@ -23,7 +26,7 @@ export const SMA_PERIOD = 200;
 
 export function getAnalysis(
   ohlc: OHLCData[],
-  limit: number = ohlc.length
+  period: number = ohlc.length
 ): AnalysisData {
   const values = toValues(ohlc);
 
@@ -49,19 +52,25 @@ export function getAnalysis(
     values,
   });
 
+  const lastLower = _.last(bollingerBands)?.lower || 0;
+  const lastUpper = _.last(bollingerBands)?.upper || 0;
+  const lastSma = _.last(sma) || 0;
+
   return {
     bollingerBands: [
       ...Array(ohlc.length - bollingerBands.length).fill(undefined),
       ...bollingerBands,
-    ].slice(-limit),
+    ].slice(-period),
     macd: [...Array(ohlc.length - macd.length).fill(undefined), ...macd].slice(
-      -limit
+      -period
     ),
     rsi: [...Array(ohlc.length - rsi.length).fill(undefined), ...rsi].slice(
-      -limit
+      -period
     ),
     sma: [...Array(ohlc.length - sma.length).fill(undefined), ...sma].slice(
-      -limit
+      -period
     ),
+    limitSell: Math.max(lastUpper, (lastSma + lastUpper) / 2),
+    limitBuy: Math.min(lastLower, (lastSma + lastLower) / 2),
   };
 }

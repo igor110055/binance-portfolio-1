@@ -3,6 +3,8 @@ import { useAssets } from "../contexts/Assets/useAssets";
 import { usePortfolio } from "../contexts/Portfolio/usePortfolio";
 import { AssetId } from "../lib/assets";
 
+const MINIMUM_TRADE = 0;
+
 export type StrategyWeight = {
   assetId: AssetId;
   current: number;
@@ -17,6 +19,8 @@ export type StrategyData = {
   totalAmount: number;
   totalTarget: number;
   weights: StrategyWeight[];
+  baseAssetIds: AssetId[];
+  quoteAssetIds: AssetId[];
 };
 
 export function useStrategy() {
@@ -122,12 +126,31 @@ export function useStrategy() {
     return 100;
   }, [currentRemainder, userTargetTotal]);
 
+  const [baseAssetIds, quoteAssetIds] = useMemo(
+    () =>
+      weights.reduce<[AssetId[], AssetId[]]>(
+        ([bases, quotes], weight) => {
+          if (weight.target - weight.current >= MINIMUM_TRADE) {
+            bases.push(weight.assetId);
+          }
+          if (weight.current - weight.target >= MINIMUM_TRADE) {
+            quotes.push(weight.assetId);
+          }
+          return [bases, quotes];
+        },
+        [[], []]
+      ),
+    [weights]
+  );
+
   return useMemo<StrategyData>(
     () => ({
       totalAmount,
       totalTarget,
       weights,
+      baseAssetIds,
+      quoteAssetIds,
     }),
-    [totalTarget, totalAmount, weights]
+    [totalAmount, totalTarget, weights, baseAssetIds, quoteAssetIds]
   );
 }

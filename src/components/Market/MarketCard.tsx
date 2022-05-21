@@ -14,15 +14,20 @@ export function MarketCard({
   ...props
 }: CardProps & { market: MarketData }) {
   const price = _.last(market.ohlc)?.close || 0;
-  const color = useMemo(() => {
+  const distanceColor = useMemo(() => {
+    if (market.distanceSell < 0) return "success";
+    if (market.distanceBuy < 0) return "danger";
+    return undefined;
+  }, [market.distanceBuy, market.distanceSell]);
+  const priceChangeColor = useMemo(() => {
     if (market.priceChangePercent > 0) return "success";
     if (market.priceChangePercent < 0) return "danger";
     return undefined;
   }, [market.priceChangePercent]);
 
   return (
-    <Card className="MarketCard" {...props}>
-      <ResponsiveContainer aspect={16 / 9}>
+    <Card className="MarketCard" border={distanceColor} {...props}>
+      <ResponsiveContainer aspect={2}>
         <ChartBollingerBands
           bollingerBands={market.bollingerBands}
           ohlc={market.ohlc}
@@ -33,7 +38,13 @@ export function MarketCard({
         <Card.Title className="d-flex">
           <AssetIcon className="me-1" assetId={market.baseAsset.assetId} />
           {market.baseAsset.assetId}
-          <span className={classNames(`text-${color}`, "ms-auto", "px-1")}>
+          <span
+            className={classNames(
+              `text-${priceChangeColor}`,
+              "ms-auto",
+              "px-1"
+            )}
+          >
             {_.round(market.priceChangePercent, 2)}%
           </span>
         </Card.Title>
@@ -44,11 +55,34 @@ export function MarketCard({
           </strong>
           {_.round(price, 6)}
         </Card.Subtitle>
+        {/* <Card.Text as="pre">
+          {JSON.stringify(
+            _.omit(market, [
+              "ohlc",
+              "bollingerBands",
+              "macd",
+              "rsi",
+              "sma",
+              "baseAsset.ohlc",
+              "baseAsset.bollingerBands",
+              "baseAsset.macd",
+              "baseAsset.rsi",
+              "baseAsset.sma",
+              "quoteAsset.ohlc",
+              "quoteAsset.bollingerBands",
+              "quoteAsset.macd",
+              "quoteAsset.rsi",
+              "quoteAsset.sma",
+            ]),
+            null,
+            2
+          )}
+        </Card.Text> */}
       </Card.Body>
-      <ResponsiveContainer aspect={32 / 9}>
+      <ResponsiveContainer aspect={4}>
         <ChartRSI data={market.rsi} />
       </ResponsiveContainer>
-      <ResponsiveContainer aspect={32 / 9}>
+      <ResponsiveContainer aspect={4}>
         <ChartMACD data={market.macd} />
       </ResponsiveContainer>
     </Card>

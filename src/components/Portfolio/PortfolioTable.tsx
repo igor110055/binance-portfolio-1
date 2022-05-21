@@ -130,7 +130,7 @@ export function PortfolioTable() {
             onClick={handleSort("tradeValue")}
             colSpan={3}
           >
-            Trade
+            Limit (<abbr title="Not Financial Advice">NFA</abbr>)
           </th>
         </tr>
       </thead>
