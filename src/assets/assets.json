@@ -1,0 +1,1677 @@
+{
+  "BUSD": {
+    "assetId": "BUSD",
+    "color": "rgb(186,144,10)",
+    "icon": "/icons/busd.svg"
+  },
+  "BNB": {
+    "assetId": "BNB",
+    "color": "rgb(184,138,48)",
+    "icon": "/icons/bnb.svg"
+  },
+  "BTC": {
+    "assetId": "BTC",
+    "color": "rgb(243,147,36)",
+    "icon": "/icons/btc.svg"
+  },
+  "XRP": {
+    "assetId": "XRP",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/xrp.svg"
+  },
+  "ETH": {
+    "assetId": "ETH",
+    "color": "rgb(47,52,52)",
+    "icon": "/icons/eth.svg"
+  },
+  "BCHABC": {
+    "assetId": "BCHABC",
+    "color": null,
+    "icon": null
+  },
+  "LTC": {
+    "assetId": "LTC",
+    "color": "rgb(52,91,154)",
+    "icon": "/icons/ltc.svg"
+  },
+  "LINK": {
+    "assetId": "LINK",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/link.svg"
+  },
+  "ETC": {
+    "assetId": "ETC",
+    "color": "rgb(59,186,59)",
+    "icon": "/icons/etc.svg"
+  },
+  "TRX": {
+    "assetId": "TRX",
+    "color": "rgb(210,210,210)",
+    "icon": "/icons/trx.svg"
+  },
+  "EOS": {
+    "assetId": "EOS",
+    "color": "rgb(20,20,20)",
+    "icon": "/icons/eos.svg"
+  },
+  "XLM": {
+    "assetId": "XLM",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/xlm.svg"
+  },
+  "ADA": {
+    "assetId": "ADA",
+    "color": "rgb(28,106,200)",
+    "icon": "/icons/ada.svg"
+  },
+  "BCH": {
+    "assetId": "BCH",
+    "color": "rgb(76,202,68)",
+    "icon": "/icons/bch.svg"
+  },
+  "QTUM": {
+    "assetId": "QTUM",
+    "color": "rgb(4,68,244)",
+    "icon": "/icons/qtum.svg"
+  },
+  "VET": {
+    "assetId": "VET",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/vet.svg"
+  },
+  "EUR": {
+    "assetId": "EUR",
+    "color": null,
+    "icon": null
+  },
+  "BULL": {
+    "assetId": "BULL",
+    "color": null,
+    "icon": null
+  },
+  "BEAR": {
+    "assetId": "BEAR",
+    "color": null,
+    "icon": null
+  },
+  "ETHBULL": {
+    "assetId": "ETHBULL",
+    "color": null,
+    "icon": null
+  },
+  "ETHBEAR": {
+    "assetId": "ETHBEAR",
+    "color": null,
+    "icon": null
+  },
+  "ICX": {
+    "assetId": "ICX",
+    "color": "rgb(28,187,187)",
+    "icon": "/icons/icx.svg"
+  },
+  "BTS": {
+    "assetId": "BTS",
+    "color": "rgb(14,79,119)",
+    "icon": "/icons/bts.svg"
+  },
+  "BNT": {
+    "assetId": "BNT",
+    "color": "rgb(12,18,42)",
+    "icon": "/icons/bnt.svg"
+  },
+  "ATOM": {
+    "assetId": "ATOM",
+    "color": "rgb(43,48,71)",
+    "icon": "/icons/atom.svg"
+  },
+  "DASH": {
+    "assetId": "DASH",
+    "color": "rgb(4,139,226)",
+    "icon": "/icons/dash.svg"
+  },
+  "NEO": {
+    "assetId": "NEO",
+    "color": "rgb(4,173,146)",
+    "icon": "/icons/neo.svg"
+  },
+  "WAVES": {
+    "assetId": "WAVES",
+    "color": "rgb(4,74,198)",
+    "icon": "/icons/waves.svg"
+  },
+  "XTZ": {
+    "assetId": "XTZ",
+    "color": "rgb(44,124,245)",
+    "icon": "/icons/xtz.svg"
+  },
+  "EOSBULL": {
+    "assetId": "EOSBULL",
+    "color": null,
+    "icon": null
+  },
+  "EOSBEAR": {
+    "assetId": "EOSBEAR",
+    "color": null,
+    "icon": null
+  },
+  "XRPBULL": {
+    "assetId": "XRPBULL",
+    "color": null,
+    "icon": null
+  },
+  "XRPBEAR": {
+    "assetId": "XRPBEAR",
+    "color": null,
+    "icon": null
+  },
+  "BAT": {
+    "assetId": "BAT",
+    "color": "rgb(131,38,119)",
+    "icon": "/icons/bat.svg"
+  },
+  "ENJ": {
+    "assetId": "ENJ",
+    "color": "rgb(6,5,7)",
+    "icon": "/icons/enj.svg"
+  },
+  "NANO": {
+    "assetId": "NANO",
+    "color": "rgb(76,148,228)",
+    "icon": "/icons/nano.svg"
+  },
+  "ONT": {
+    "assetId": "ONT",
+    "color": "rgb(36,163,187)",
+    "icon": "/icons/ont.svg"
+  },
+  "RVN": {
+    "assetId": "RVN",
+    "color": "rgb(218,70,62)",
+    "icon": "/icons/rvn.svg"
+  },
+  "STRAT": {
+    "assetId": "STRAT",
+    "color": "rgb(4,164,220)",
+    "icon": "/icons/strat.svg"
+  },
+  "AION": {
+    "assetId": "AION",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/aion.svg"
+  },
+  "ALGO": {
+    "assetId": "ALGO",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/algo.svg"
+  },
+  "BTT": {
+    "assetId": "BTT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/btt.svg"
+  },
+  "TOMO": {
+    "assetId": "TOMO",
+    "color": "rgb(4,233,178)",
+    "icon": "/icons/tomo.svg"
+  },
+  "XMR": {
+    "assetId": "XMR",
+    "color": "rgb(249,99,4)",
+    "icon": "/icons/xmr.svg"
+  },
+  "ZEC": {
+    "assetId": "ZEC",
+    "color": "rgb(217,160,58)",
+    "icon": "/icons/zec.svg"
+  },
+  "BNBBULL": {
+    "assetId": "BNBBULL",
+    "color": null,
+    "icon": null
+  },
+  "BNBBEAR": {
+    "assetId": "BNBBEAR",
+    "color": null,
+    "icon": null
+  },
+  "DATA": {
+    "assetId": "DATA",
+    "color": "rgb(196,70,4)",
+    "icon": "/icons/data.svg"
+  },
+  "SOL": {
+    "assetId": "SOL",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/sol.svg"
+  },
+  "CTSI": {
+    "assetId": "CTSI",
+    "color": null,
+    "icon": null
+  },
+  "ERD": {
+    "assetId": "ERD",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/erd.svg"
+  },
+  "HBAR": {
+    "assetId": "HBAR",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/hbar.svg"
+  },
+  "MATIC": {
+    "assetId": "MATIC",
+    "color": "rgb(131,68,227)",
+    "icon": "/icons/matic.svg"
+  },
+  "WRX": {
+    "assetId": "WRX",
+    "color": "rgb(38,80,190)",
+    "icon": "/icons/wrx.svg"
+  },
+  "ZIL": {
+    "assetId": "ZIL",
+    "color": "rgb(75,193,187)",
+    "icon": "/icons/zil.svg"
+  },
+  "KNC": {
+    "assetId": "KNC",
+    "color": "rgb(52,203,156)",
+    "icon": "/icons/knc.svg"
+  },
+  "REP": {
+    "assetId": "REP",
+    "color": "rgb(4,5,5)",
+    "icon": "/icons/rep.svg"
+  },
+  "LRC": {
+    "assetId": "LRC",
+    "color": "rgb(28,68,252)",
+    "icon": "/icons/lrc.svg"
+  },
+  "IQ": {
+    "assetId": "IQ",
+    "color": "rgb(14,77,139)",
+    "icon": "/icons/iq.svg"
+  },
+  "GBP": {
+    "assetId": "GBP",
+    "color": null,
+    "icon": null
+  },
+  "DGB": {
+    "assetId": "DGB",
+    "color": "rgb(4,38,86)",
+    "icon": "/icons/dgb.svg"
+  },
+  "COMP": {
+    "assetId": "COMP",
+    "color": "rgb(4,203,142)",
+    "icon": "/icons/comp.svg"
+  },
+  "BKRW": {
+    "assetId": "BKRW",
+    "color": null,
+    "icon": null
+  },
+  "SXP": {
+    "assetId": "SXP",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/sxp.svg"
+  },
+  "SNX": {
+    "assetId": "SNX",
+    "color": "rgb(4,211,252)",
+    "icon": "/icons/snx.svg"
+  },
+  "VTHO": {
+    "assetId": "VTHO",
+    "color": null,
+    "icon": null
+  },
+  "DCR": {
+    "assetId": "DCR",
+    "color": "rgb(43,115,251)",
+    "icon": "/icons/dcr.svg"
+  },
+  "STORJ": {
+    "assetId": "STORJ",
+    "color": "rgb(36,132,252)",
+    "icon": "/icons/storj.svg"
+  },
+  "IRIS": {
+    "assetId": "IRIS",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/iris.svg"
+  },
+  "MKR": {
+    "assetId": "MKR",
+    "color": "rgb(84,106,122)",
+    "icon": "/icons/mkr.svg"
+  },
+  "DAI": {
+    "assetId": "DAI",
+    "color": "rgb(5,5,5)",
+    "icon": "/icons/dai.svg"
+  },
+  "RUNE": {
+    "assetId": "RUNE",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/rune.svg"
+  },
+  "MANA": {
+    "assetId": "MANA",
+    "color": "rgb(233,177,111)",
+    "icon": "/icons/mana.svg"
+  },
+  "DOGE": {
+    "assetId": "DOGE",
+    "color": "rgb(19,18,12)",
+    "icon": "/icons/doge.svg"
+  },
+  "LEND": {
+    "assetId": "LEND",
+    "color": "rgb(184,226,235)",
+    "icon": "/icons/lend.svg"
+  },
+  "ZRX": {
+    "assetId": "ZRX",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/zrx.svg"
+  },
+  "AUD": {
+    "assetId": "AUD",
+    "color": null,
+    "icon": null
+  },
+  "FIO": {
+    "assetId": "FIO",
+    "color": null,
+    "icon": null
+  },
+  "AVA": {
+    "assetId": "AVA",
+    "color": null,
+    "icon": null
+  },
+  "IOTA": {
+    "assetId": "IOTA",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/iota.svg"
+  },
+  "BAL": {
+    "assetId": "BAL",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/bal.svg"
+  },
+  "YFI": {
+    "assetId": "YFI",
+    "color": "rgb(5,5,5)",
+    "icon": "/icons/yfi.svg"
+  },
+  "BLZ": {
+    "assetId": "BLZ",
+    "color": "rgb(92,168,218)",
+    "icon": "/icons/blz.svg"
+  },
+  "KMD": {
+    "assetId": "KMD",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/kmd.svg"
+  },
+  "JST": {
+    "assetId": "JST",
+    "color": "rgb(177,21,21)",
+    "icon": "/icons/jst.svg"
+  },
+  "SRM": {
+    "assetId": "SRM",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/srm.svg"
+  },
+  "ANT": {
+    "assetId": "ANT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/ant.svg"
+  },
+  "CRV": {
+    "assetId": "CRV",
+    "color": null,
+    "icon": "/Users/etienne/Development/binance-portfolio/.icons/crv.png"
+  },
+  "SAND": {
+    "assetId": "SAND",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/sand.svg"
+  },
+  "OCEAN": {
+    "assetId": "OCEAN",
+    "color": "rgb(20,24,16)",
+    "icon": "/icons/ocean.svg"
+  },
+  "NMR": {
+    "assetId": "NMR",
+    "color": "rgb(23,23,23)",
+    "icon": "/icons/nmr.svg"
+  },
+  "DOT": {
+    "assetId": "DOT",
+    "color": "rgb(227,4,123)",
+    "icon": "/icons/dot.svg"
+  },
+  "LUNA": {
+    "assetId": "LUNA",
+    "color": "rgb(83,147,250)",
+    "icon": "/icons/luna.svg"
+  },
+  "IDEX": {
+    "assetId": "IDEX",
+    "color": "rgb(4,72,103)",
+    "icon": "/icons/idex.svg"
+  },
+  "RSR": {
+    "assetId": "RSR",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/rsr.svg"
+  },
+  "PAXG": {
+    "assetId": "PAXG",
+    "color": null,
+    "icon": "/Users/etienne/Development/binance-portfolio/.icons/paxg.png"
+  },
+  "WNXM": {
+    "assetId": "WNXM",
+    "color": null,
+    "icon": null
+  },
+  "TRB": {
+    "assetId": "TRB",
+    "color": "rgb(55,227,154)",
+    "icon": "/icons/trb.svg"
+  },
+  "BZRX": {
+    "assetId": "BZRX",
+    "color": "rgb(218,218,218)",
+    "icon": "/icons/bzrx.svg"
+  },
+  "SUSHI": {
+    "assetId": "SUSHI",
+    "color": "rgb(9,9,9)",
+    "icon": "/icons/sushi.svg"
+  },
+  "YFII": {
+    "assetId": "YFII",
+    "color": null,
+    "icon": null
+  },
+  "KSM": {
+    "assetId": "KSM",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/ksm.svg"
+  },
+  "EGLD": {
+    "assetId": "EGLD",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/egld.svg"
+  },
+  "DIA": {
+    "assetId": "DIA",
+    "color": null,
+    "icon": null
+  },
+  "BEL": {
+    "assetId": "BEL",
+    "color": "rgb(4,179,251)",
+    "icon": "/icons/bel.svg"
+  },
+  "SWRV": {
+    "assetId": "SWRV",
+    "color": null,
+    "icon": null
+  },
+  "WING": {
+    "assetId": "WING",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/wing.svg"
+  },
+  "CREAM": {
+    "assetId": "CREAM",
+    "color": "rgb(107,227,219)",
+    "icon": "/icons/cream.svg"
+  },
+  "UNI": {
+    "assetId": "UNI",
+    "color": "rgb(249,4,121)",
+    "icon": "/icons/uni.svg"
+  },
+  "AVAX": {
+    "assetId": "AVAX",
+    "color": "rgb(231,67,67)",
+    "icon": "/icons/avax.svg"
+  },
+  "FLM": {
+    "assetId": "FLM",
+    "color": null,
+    "icon": null
+  },
+  "CAKE": {
+    "assetId": "CAKE",
+    "color": "rgb(207,138,76)",
+    "icon": "/icons/cake.svg"
+  },
+  "XVS": {
+    "assetId": "XVS",
+    "color": null,
+    "icon": null
+  },
+  "ALPHA": {
+    "assetId": "ALPHA",
+    "color": null,
+    "icon": "/Users/etienne/Development/binance-portfolio/.icons/alpha.png"
+  },
+  "VIDT": {
+    "assetId": "VIDT",
+    "color": "rgb(60,196,204)",
+    "icon": "/icons/vidt.svg"
+  },
+  "AAVE": {
+    "assetId": "AAVE",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/aave.svg"
+  },
+  "NEAR": {
+    "assetId": "NEAR",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/near.svg"
+  },
+  "FIL": {
+    "assetId": "FIL",
+    "color": "rgb(4,144,247)",
+    "icon": "/icons/fil.svg"
+  },
+  "INJ": {
+    "assetId": "INJ",
+    "color": null,
+    "icon": null
+  },
+  "AERGO": {
+    "assetId": "AERGO",
+    "color": "rgb(248,51,170)",
+    "icon": "/icons/aergo.svg"
+  },
+  "ONE": {
+    "assetId": "ONE",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/one.svg"
+  },
+  "AUDIO": {
+    "assetId": "AUDIO",
+    "color": null,
+    "icon": null
+  },
+  "CTK": {
+    "assetId": "CTK",
+    "color": null,
+    "icon": null
+  },
+  "BOT": {
+    "assetId": "BOT",
+    "color": null,
+    "icon": null
+  },
+  "KP3R": {
+    "assetId": "KP3R",
+    "color": null,
+    "icon": null
+  },
+  "AXS": {
+    "assetId": "AXS",
+    "color": null,
+    "icon": null
+  },
+  "HARD": {
+    "assetId": "HARD",
+    "color": null,
+    "icon": null
+  },
+  "DNT": {
+    "assetId": "DNT",
+    "color": "rgb(44,62,141)",
+    "icon": "/icons/dnt.svg"
+  },
+  "CVP": {
+    "assetId": "CVP",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/cvp.svg"
+  },
+  "STRAX": {
+    "assetId": "STRAX",
+    "color": null,
+    "icon": null
+  },
+  "FOR": {
+    "assetId": "FOR",
+    "color": null,
+    "icon": null
+  },
+  "UNFI": {
+    "assetId": "UNFI",
+    "color": "rgb(57,244,145)",
+    "icon": "/icons/unfi.svg"
+  },
+  "FRONT": {
+    "assetId": "FRONT",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/front.svg"
+  },
+  "BCHA": {
+    "assetId": "BCHA",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/bcha.svg"
+  },
+  "ROSE": {
+    "assetId": "ROSE",
+    "color": "rgb(4,147,243)",
+    "icon": "/icons/rose.svg"
+  },
+  "SYS": {
+    "assetId": "SYS",
+    "color": "rgb(4,132,196)",
+    "icon": "/icons/sys.svg"
+  },
+  "HEGIC": {
+    "assetId": "HEGIC",
+    "color": null,
+    "icon": null
+  },
+  "PROM": {
+    "assetId": "PROM",
+    "color": null,
+    "icon": null
+  },
+  "SKL": {
+    "assetId": "SKL",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/skl.svg"
+  },
+  "COVER": {
+    "assetId": "COVER",
+    "color": "rgb(36,40,32)",
+    "icon": "/icons/cover.svg"
+  },
+  "GHST": {
+    "assetId": "GHST",
+    "color": null,
+    "icon": null
+  },
+  "DF": {
+    "assetId": "DF",
+    "color": null,
+    "icon": null
+  },
+  "JUV": {
+    "assetId": "JUV",
+    "color": null,
+    "icon": null
+  },
+  "PSG": {
+    "assetId": "PSG",
+    "color": null,
+    "icon": null
+  },
+  "BTCST": {
+    "assetId": "BTCST",
+    "color": null,
+    "icon": null
+  },
+  "TRU": {
+    "assetId": "TRU",
+    "color": "rgb(28,91,248)",
+    "icon": "/icons/tru.svg"
+  },
+  "DEXE": {
+    "assetId": "DEXE",
+    "color": null,
+    "icon": null
+  },
+  "USDC": {
+    "assetId": "USDC",
+    "color": "rgb(38,116,201)",
+    "icon": "/icons/usdc.svg"
+  },
+  "TUSD": {
+    "assetId": "TUSD",
+    "color": "rgb(8,45,106)",
+    "icon": "/icons/tusd.svg"
+  },
+  "PAX": {
+    "assetId": "PAX",
+    "color": "rgb(15,93,51)",
+    "icon": "/icons/pax.svg"
+  },
+  "CKB": {
+    "assetId": "CKB",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/ckb.svg"
+  },
+  "TWT": {
+    "assetId": "TWT",
+    "color": "rgb(51,116,188)",
+    "icon": "/icons/twt.svg"
+  },
+  "LIT": {
+    "assetId": "LIT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/lit.svg"
+  },
+  "SFP": {
+    "assetId": "SFP",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/sfp.svg"
+  },
+  "FXS": {
+    "assetId": "FXS",
+    "color": null,
+    "icon": null
+  },
+  "DODO": {
+    "assetId": "DODO",
+    "color": "rgb(251,245,4)",
+    "icon": "/icons/dodo.svg"
+  },
+  "BAKE": {
+    "assetId": "BAKE",
+    "color": null,
+    "icon": null
+  },
+  "UFT": {
+    "assetId": "UFT",
+    "color": "rgb(43,106,233)",
+    "icon": "/icons/uft.svg"
+  },
+  "1INCH": {
+    "assetId": "1INCH",
+    "color": "rgb(224,208,212)",
+    "icon": "/icons/1inch.svg"
+  },
+  "BAND": {
+    "assetId": "BAND",
+    "color": "rgb(68,34,230)",
+    "icon": "/icons/band.svg"
+  },
+  "GRT": {
+    "assetId": "GRT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/grt.svg"
+  },
+  "IOST": {
+    "assetId": "IOST",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/iost.svg"
+  },
+  "OMG": {
+    "assetId": "OMG",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/omg.svg"
+  },
+  "REEF": {
+    "assetId": "REEF",
+    "color": null,
+    "icon": null
+  },
+  "ACM": {
+    "assetId": "ACM",
+    "color": null,
+    "icon": null
+  },
+  "AUCTION": {
+    "assetId": "AUCTION",
+    "color": null,
+    "icon": null
+  },
+  "PHA": {
+    "assetId": "PHA",
+    "color": null,
+    "icon": null
+  },
+  "TVK": {
+    "assetId": "TVK",
+    "color": null,
+    "icon": null
+  },
+  "BADGER": {
+    "assetId": "BADGER",
+    "color": null,
+    "icon": null
+  },
+  "FIS": {
+    "assetId": "FIS",
+    "color": null,
+    "icon": null
+  },
+  "OM": {
+    "assetId": "OM",
+    "color": null,
+    "icon": null
+  },
+  "POND": {
+    "assetId": "POND",
+    "color": "rgb(60,68,196)",
+    "icon": "/icons/pond.svg"
+  },
+  "DEGO": {
+    "assetId": "DEGO",
+    "color": null,
+    "icon": null
+  },
+  "ALICE": {
+    "assetId": "ALICE",
+    "color": null,
+    "icon": null
+  },
+  "CHZ": {
+    "assetId": "CHZ",
+    "color": "rgb(177,36,42)",
+    "icon": "/icons/chz.svg"
+  },
+  "BIFI": {
+    "assetId": "BIFI",
+    "color": "rgb(19,18,18)",
+    "icon": "/icons/bifi.svg"
+  },
+  "LINA": {
+    "assetId": "LINA",
+    "color": null,
+    "icon": null
+  },
+  "PERP": {
+    "assetId": "PERP",
+    "color": "rgb(4,183,224)",
+    "icon": "/icons/perp.svg"
+  },
+  "RAMP": {
+    "assetId": "RAMP",
+    "color": null,
+    "icon": null
+  },
+  "SUPER": {
+    "assetId": "SUPER",
+    "color": "rgb(122,4,248)",
+    "icon": "/icons/super.svg"
+  },
+  "CFX": {
+    "assetId": "CFX",
+    "color": "rgb(4,162,225)",
+    "icon": "/icons/cfx.svg"
+  },
+  "XVG": {
+    "assetId": "XVG",
+    "color": "rgb(52,186,225)",
+    "icon": "/icons/xvg.svg"
+  },
+  "EPS": {
+    "assetId": "EPS",
+    "color": null,
+    "icon": null
+  },
+  "AUTO": {
+    "assetId": "AUTO",
+    "color": "rgb(75,91,196)",
+    "icon": "/icons/auto.svg"
+  },
+  "TKO": {
+    "assetId": "TKO",
+    "color": null,
+    "icon": null
+  },
+  "TLM": {
+    "assetId": "TLM",
+    "color": null,
+    "icon": null
+  },
+  "BTG": {
+    "assetId": "BTG",
+    "color": "rgb(4,36,106)",
+    "icon": "/icons/btg.svg"
+  },
+  "HOT": {
+    "assetId": "HOT",
+    "color": "rgb(4,131,140)",
+    "icon": "/icons/hot.svg"
+  },
+  "MIR": {
+    "assetId": "MIR",
+    "color": "rgb(20,36,68)",
+    "icon": "/icons/mir.svg"
+  },
+  "BAR": {
+    "assetId": "BAR",
+    "color": null,
+    "icon": null
+  },
+  "FORTH": {
+    "assetId": "FORTH",
+    "color": null,
+    "icon": null
+  },
+  "BURGER": {
+    "assetId": "BURGER",
+    "color": null,
+    "icon": null
+  },
+  "SLP": {
+    "assetId": "SLP",
+    "color": null,
+    "icon": null
+  },
+  "SHIB": {
+    "assetId": "SHIB",
+    "color": "rgb(206,12,8)",
+    "icon": "/icons/shib.svg"
+  },
+  "ICP": {
+    "assetId": "ICP",
+    "color": "rgb(40,162,214)",
+    "icon": "/icons/icp.svg"
+  },
+  "AR": {
+    "assetId": "AR",
+    "color": "rgb(28,29,32)",
+    "icon": "/icons/ar.svg"
+  },
+  "POLS": {
+    "assetId": "POLS",
+    "color": "rgb(251,52,99)",
+    "icon": "/icons/pols.svg"
+  },
+  "MDX": {
+    "assetId": "MDX",
+    "color": null,
+    "icon": null
+  },
+  "MASK": {
+    "assetId": "MASK",
+    "color": null,
+    "icon": null
+  },
+  "LPT": {
+    "assetId": "LPT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/lpt.svg"
+  },
+  "NU": {
+    "assetId": "NU",
+    "color": "rgb(24,78,189)",
+    "icon": "/icons/nu.svg"
+  },
+  "RLC": {
+    "assetId": "RLC",
+    "color": "rgb(243,203,68)",
+    "icon": "/icons/rlc.svg"
+  },
+  "CELR": {
+    "assetId": "CELR",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/celr.svg"
+  },
+  "ATM": {
+    "assetId": "ATM",
+    "color": null,
+    "icon": null
+  },
+  "ZEN": {
+    "assetId": "ZEN",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/zen.svg"
+  },
+  "FTM": {
+    "assetId": "FTM",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/ftm.svg"
+  },
+  "THETA": {
+    "assetId": "THETA",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/theta.svg"
+  },
+  "WIN": {
+    "assetId": "WIN",
+    "color": null,
+    "icon": null
+  },
+  "KAVA": {
+    "assetId": "KAVA",
+    "color": "rgb(251,84,76)",
+    "icon": "/icons/kava.svg"
+  },
+  "XEM": {
+    "assetId": "XEM",
+    "color": "rgb(241,168,4)",
+    "icon": "/icons/xem.svg"
+  },
+  "ATA": {
+    "assetId": "ATA",
+    "color": null,
+    "icon": null
+  },
+  "GTC": {
+    "assetId": "GTC",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/gtc.svg"
+  },
+  "TORN": {
+    "assetId": "TORN",
+    "color": "rgb(67,243,163)",
+    "icon": "/icons/torn.svg"
+  },
+  "COTI": {
+    "assetId": "COTI",
+    "color": "rgb(28,76,172)",
+    "icon": "/icons/coti.svg"
+  },
+  "KEEP": {
+    "assetId": "KEEP",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/keep.svg"
+  },
+  "SC": {
+    "assetId": "SC",
+    "color": null,
+    "icon": null
+  },
+  "CHR": {
+    "assetId": "CHR",
+    "color": null,
+    "icon": null
+  },
+  "STMX": {
+    "assetId": "STMX",
+    "color": "rgb(251,44,84)",
+    "icon": "/icons/stmx.svg"
+  },
+  "HNT": {
+    "assetId": "HNT",
+    "color": "rgb(68,76,251)",
+    "icon": "/icons/hnt.svg"
+  },
+  "FTT": {
+    "assetId": "FTT",
+    "color": "rgb(4,160,191)",
+    "icon": "/icons/ftt.svg"
+  },
+  "DOCK": {
+    "assetId": "DOCK",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/dock.svg"
+  },
+  "ERN": {
+    "assetId": "ERN",
+    "color": "rgb(4,231,192)",
+    "icon": "/icons/ern.svg"
+  },
+  "KLAY": {
+    "assetId": "KLAY",
+    "color": "rgb(28,32,24)",
+    "icon": "/icons/klay.svg"
+  },
+  "UTK": {
+    "assetId": "UTK",
+    "color": "rgb(78,36,158)",
+    "icon": "/icons/utk.svg"
+  },
+  "IOTX": {
+    "assetId": "IOTX",
+    "color": "rgb(25,210,194)",
+    "icon": "/icons/iotx.svg"
+  },
+  "BOND": {
+    "assetId": "BOND",
+    "color": "rgb(251,68,59)",
+    "icon": "/icons/bond.svg"
+  },
+  "MLN": {
+    "assetId": "MLN",
+    "color": "rgb(28,28,27)",
+    "icon": "/icons/mln.svg"
+  },
+  "LTO": {
+    "assetId": "LTO",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/lto.svg"
+  },
+  "ADX": {
+    "assetId": "ADX",
+    "color": "rgb(28,116,188)",
+    "icon": "/icons/adx.svg"
+  },
+  "QUICK": {
+    "assetId": "QUICK",
+    "color": "rgb(15,19,41)",
+    "icon": "/icons/quick.svg"
+  },
+  "C98": {
+    "assetId": "C98",
+    "color": "rgb(219,179,52)",
+    "icon": "/icons/c98.svg"
+  },
+  "CLV": {
+    "assetId": "CLV",
+    "color": null,
+    "icon": null
+  },
+  "QNT": {
+    "assetId": "QNT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/qnt.svg"
+  },
+  "FLOW": {
+    "assetId": "FLOW",
+    "color": "rgb(6,235,139)",
+    "icon": "/icons/flow.svg"
+  },
+  "XEC": {
+    "assetId": "XEC",
+    "color": null,
+    "icon": null
+  },
+  "MINA": {
+    "assetId": "MINA",
+    "color": null,
+    "icon": null
+  },
+  "RAY": {
+    "assetId": "RAY",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/ray.svg"
+  },
+  "FARM": {
+    "assetId": "FARM",
+    "color": null,
+    "icon": null
+  },
+  "ALPACA": {
+    "assetId": "ALPACA",
+    "color": null,
+    "icon": null
+  },
+  "ORN": {
+    "assetId": "ORN",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/orn.svg"
+  },
+  "MBOX": {
+    "assetId": "MBOX",
+    "color": null,
+    "icon": null
+  },
+  "WAXP": {
+    "assetId": "WAXP",
+    "color": null,
+    "icon": null
+  },
+  "TRIBE": {
+    "assetId": "TRIBE",
+    "color": "rgb(21,139,209)",
+    "icon": "/icons/tribe.svg"
+  },
+  "GNO": {
+    "assetId": "GNO",
+    "color": "rgb(4,155,187)",
+    "icon": "/icons/gno.svg"
+  },
+  "MTL": {
+    "assetId": "MTL",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/mtl.svg"
+  },
+  "OGN": {
+    "assetId": "OGN",
+    "color": "rgb(28,131,251)",
+    "icon": "/icons/ogn.svg"
+  },
+  "POLY": {
+    "assetId": "POLY",
+    "color": "rgb(58,69,117)",
+    "icon": "/icons/poly.svg"
+  },
+  "DYDX": {
+    "assetId": "DYDX",
+    "color": null,
+    "icon": null
+  },
+  "ELF": {
+    "assetId": "ELF",
+    "color": "rgb(44,92,188)",
+    "icon": "/icons/elf.svg"
+  },
+  "USDP": {
+    "assetId": "USDP",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/usdp.svg"
+  },
+  "GALA": {
+    "assetId": "GALA",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/gala.svg"
+  },
+  "SUN": {
+    "assetId": "SUN",
+    "color": null,
+    "icon": null
+  },
+  "ILV": {
+    "assetId": "ILV",
+    "color": null,
+    "icon": null
+  },
+  "REN": {
+    "assetId": "REN",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/ren.svg"
+  },
+  "YGG": {
+    "assetId": "YGG",
+    "color": null,
+    "icon": null
+  },
+  "STX": {
+    "assetId": "STX",
+    "color": "rgb(84,68,251)",
+    "icon": "/icons/stx.svg"
+  },
+  "FET": {
+    "assetId": "FET",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/fet.svg"
+  },
+  "ARPA": {
+    "assetId": "ARPA",
+    "color": null,
+    "icon": null
+  },
+  "LSK": {
+    "assetId": "LSK",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/lsk.svg"
+  },
+  "FIDA": {
+    "assetId": "FIDA",
+    "color": "rgb(101,101,210)",
+    "icon": "/icons/fida.svg"
+  },
+  "DENT": {
+    "assetId": "DENT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/dent.svg"
+  },
+  "AGLD": {
+    "assetId": "AGLD",
+    "color": null,
+    "icon": null
+  },
+  "RAD": {
+    "assetId": "RAD",
+    "color": null,
+    "icon": null
+  },
+  "HIVE": {
+    "assetId": "HIVE",
+    "color": "rgb(228,20,52)",
+    "icon": "/icons/hive.svg"
+  },
+  "STPT": {
+    "assetId": "STPT",
+    "color": "rgb(36,170,226)",
+    "icon": "/icons/stpt.svg"
+  },
+  "BETA": {
+    "assetId": "BETA",
+    "color": "rgb(36,28,36)",
+    "icon": "/icons/beta.svg"
+  },
+  "RARE": {
+    "assetId": "RARE",
+    "color": null,
+    "icon": null
+  },
+  "TROY": {
+    "assetId": "TROY",
+    "color": null,
+    "icon": null
+  },
+  "CHESS": {
+    "assetId": "CHESS",
+    "color": null,
+    "icon": null
+  },
+  "SCRT": {
+    "assetId": "SCRT",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/scrt.svg"
+  },
+  "CELO": {
+    "assetId": "CELO",
+    "color": "rgb(247,200,90)",
+    "icon": "/icons/celo.svg"
+  },
+  "DAR": {
+    "assetId": "DAR",
+    "color": null,
+    "icon": null
+  },
+  "BNX": {
+    "assetId": "BNX",
+    "color": null,
+    "icon": null
+  },
+  "RGT": {
+    "assetId": "RGT",
+    "color": null,
+    "icon": null
+  },
+  "LAZIO": {
+    "assetId": "LAZIO",
+    "color": null,
+    "icon": null
+  },
+  "OXT": {
+    "assetId": "OXT",
+    "color": "rgb(92,68,187)",
+    "icon": "/icons/oxt.svg"
+  },
+  "MOVR": {
+    "assetId": "MOVR",
+    "color": null,
+    "icon": null
+  },
+  "CITY": {
+    "assetId": "CITY",
+    "color": null,
+    "icon": null
+  },
+  "ENS": {
+    "assetId": "ENS",
+    "color": null,
+    "icon": null
+  },
+  "ANKR": {
+    "assetId": "ANKR",
+    "color": "rgb(45,146,203)",
+    "icon": "/icons/ankr.svg"
+  },
+  "QI": {
+    "assetId": "QI",
+    "color": "rgb(20,20,28)",
+    "icon": "/icons/qi.svg"
+  },
+  "POWR": {
+    "assetId": "POWR",
+    "color": "rgb(4,200,210)",
+    "icon": "/icons/powr.svg"
+  },
+  "JASMY": {
+    "assetId": "JASMY",
+    "color": null,
+    "icon": null
+  },
+  "AMP": {
+    "assetId": "AMP",
+    "color": "rgb(217,52,123)",
+    "icon": "/icons/amp.svg"
+  },
+  "PLA": {
+    "assetId": "PLA",
+    "color": null,
+    "icon": null
+  },
+  "PYR": {
+    "assetId": "PYR",
+    "color": null,
+    "icon": null
+  },
+  "RNDR": {
+    "assetId": "RNDR",
+    "color": null,
+    "icon": null
+  },
+  "ALCX": {
+    "assetId": "ALCX",
+    "color": "rgb(205,173,145)",
+    "icon": "/icons/alcx.svg"
+  },
+  "MC": {
+    "assetId": "MC",
+    "color": null,
+    "icon": null
+  },
+  "COCOS": {
+    "assetId": "COCOS",
+    "color": null,
+    "icon": null
+  },
+  "ANY": {
+    "assetId": "ANY",
+    "color": null,
+    "icon": null
+  },
+  "BICO": {
+    "assetId": "BICO",
+    "color": null,
+    "icon": null
+  },
+  "FLUX": {
+    "assetId": "FLUX",
+    "color": null,
+    "icon": null
+  },
+  "REQ": {
+    "assetId": "REQ",
+    "color": "rgb(4,140,100)",
+    "icon": "/icons/req.svg"
+  },
+  "VOXEL": {
+    "assetId": "VOXEL",
+    "color": null,
+    "icon": null
+  },
+  "COS": {
+    "assetId": "COS",
+    "color": null,
+    "icon": null
+  },
+  "CTXC": {
+    "assetId": "CTXC",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/ctxc.svg"
+  },
+  "HIGH": {
+    "assetId": "HIGH",
+    "color": "rgb(8,4,4)",
+    "icon": "/icons/high.svg"
+  },
+  "CVX": {
+    "assetId": "CVX",
+    "color": "rgb(229,175,57)",
+    "icon": "/icons/cvx.svg"
+  },
+  "PEOPLE": {
+    "assetId": "PEOPLE",
+    "color": null,
+    "icon": null
+  },
+  "OOKI": {
+    "assetId": "OOKI",
+    "color": null,
+    "icon": null
+  },
+  "MDT": {
+    "assetId": "MDT",
+    "color": null,
+    "icon": null
+  },
+  "NULS": {
+    "assetId": "NULS",
+    "color": "rgb(132,188,60)",
+    "icon": "/icons/nuls.svg"
+  },
+  "SPELL": {
+    "assetId": "SPELL",
+    "color": null,
+    "icon": null
+  },
+  "UST": {
+    "assetId": "UST",
+    "color": null,
+    "icon": null
+  },
+  "JOE": {
+    "assetId": "JOE",
+    "color": null,
+    "icon": null
+  },
+  "DUSK": {
+    "assetId": "DUSK",
+    "color": null,
+    "icon": null
+  },
+  "ACH": {
+    "assetId": "ACH",
+    "color": null,
+    "icon": null
+  },
+  "IMX": {
+    "assetId": "IMX",
+    "color": null,
+    "icon": null
+  },
+  "GLMR": {
+    "assetId": "GLMR",
+    "color": null,
+    "icon": null
+  },
+  "UMA": {
+    "assetId": "UMA",
+    "color": "rgb(204,60,60)",
+    "icon": "/icons/uma.svg"
+  },
+  "LOKA": {
+    "assetId": "LOKA",
+    "color": null,
+    "icon": null
+  },
+  "API3": {
+    "assetId": "API3",
+    "color": null,
+    "icon": null
+  },
+  "ACA": {
+    "assetId": "ACA",
+    "color": null,
+    "icon": null
+  },
+  "ANC": {
+    "assetId": "ANC",
+    "color": "rgb(4,5,4)",
+    "icon": "/icons/anc.svg"
+  },
+  "XNO": {
+    "assetId": "XNO",
+    "color": null,
+    "icon": null
+  },
+  "WOO": {
+    "assetId": "WOO",
+    "color": "rgb(12,28,36)",
+    "icon": "/icons/woo.svg"
+  },
+  "TFUEL": {
+    "assetId": "TFUEL",
+    "color": "rgb(4,4,4)",
+    "icon": "/icons/tfuel.svg"
+  },
+  "T": {
+    "assetId": "T",
+    "color": null,
+    "icon": null
+  },
+  "ASTR": {
+    "assetId": "ASTR",
+    "color": null,
+    "icon": null
+  },
+  "GMT": {
+    "assetId": "GMT",
+    "color": null,
+    "icon": null
+  },
+  "KDA": {
+    "assetId": "KDA",
+    "color": "rgb(12,16,8)",
+    "icon": "/icons/kda.svg"
+  },
+  "APE": {
+    "assetId": "APE",
+    "color": null,
+    "icon": null
+  },
+  "ALPINE": {
+    "assetId": "ALPINE",
+    "color": null,
+    "icon": null
+  },
+  "BSW": {
+    "assetId": "BSW",
+    "color": null,
+    "icon": null
+  },
+  "SANTOS": {
+    "assetId": "SANTOS",
+    "color": null,
+    "icon": null
+  },
+  "MULTI": {
+    "assetId": "MULTI",
+    "color": null,
+    "icon": null
+  },
+  "PORTO": {
+    "assetId": "PORTO",
+    "color": null,
+    "icon": null
+  },
+  "BTTC": {
+    "assetId": "BTTC",
+    "color": null,
+    "icon": null
+  },
+  "MBL": {
+    "assetId": "MBL",
+    "color": null,
+    "icon": null
+  },
+  "MOB": {
+    "assetId": "MOB",
+    "color": null,
+    "icon": null
+  },
+  "NEXO": {
+    "assetId": "NEXO",
+    "color": "rgb(33,78,177)",
+    "icon": "/icons/nexo.svg"
+  },
+  "GAL": {
+    "assetId": "GAL",
+    "color": null,
+    "icon": null
+  },
+  "LDO": {
+    "assetId": "LDO",
+    "color": "rgb(241,154,138)",
+    "icon": "/icons/ldo.svg"
+  },
+  "EPX": {
+    "assetId": "EPX",
+    "color": null,
+    "icon": null
+  }
+}

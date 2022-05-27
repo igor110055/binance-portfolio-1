@@ -1,14 +1,10 @@
 import { loadBinanceTicker } from "./binance/ticker";
 import { toOhlc, OHLCData } from "./ohlc";
 import { KLINES_LIMIT, loadBinanceKlines } from "./binance/klines";
-import COLORS from "../assets/colors.json";
+import ASSETS from "../assets/assets.json";
 import { AnalysisData, getAnalysis } from "./analysis";
-// import TICKERS from "../assets/tickers.json";
 
-// const tickers = TICKERS as const;
-// export type AssetId = typeof TICKERS[number];
-
-export type AssetId = keyof typeof COLORS;
+export type AssetId = keyof typeof ASSETS;
 
 export type AssetData = {
   assetId: AssetId;
@@ -17,13 +13,12 @@ export type AssetData = {
   ohlc: OHLCData[];
 } & AnalysisData;
 
-export function getAssetIcon(assetId: AssetId) {
-  const iconName = assetId.toLowerCase();
-  return `/icons/${iconName}.svg`;
+export function getAssetIcon(assetId: AssetId): string | undefined {
+  return ASSETS[assetId as keyof typeof ASSETS].icon || undefined;
 }
 
 export function getAssetColor(assetId: AssetId): string | undefined {
-  return COLORS[assetId as keyof typeof COLORS];
+  return ASSETS[assetId as keyof typeof ASSETS].color || undefined;
 }
 
 function loadAssetReference(assetId: AssetId): Promise<AssetData> {

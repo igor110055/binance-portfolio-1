@@ -35,8 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate:colors": "ts-node scripts/generate-colors.ts",
-    "generate:tickers": "env $(cat .env.development.local | xargs) ts-node scripts/generate-tickers.ts"
+    "generate:assets": "env $(cat .env.development.local | xargs) ts-node scripts/generate-assets.ts"
   },
   "eslintConfig": {
     "extends": [

@@ -32,6 +32,8 @@ export function MarketCard({
           bollingerBands={market.bollingerBands}
           ohlc={market.ohlc}
           sma={market.sma}
+          limitBuy={market.limitBuy}
+          limitSell={market.limitSell}
         />
       </ResponsiveContainer>
       <Card.Body>

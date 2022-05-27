@@ -10,7 +10,7 @@ import {
 } from "react";
 import { Dropdown, FormControl, FormControlProps } from "react-bootstrap";
 import { AssetIcon } from "./AssetIcon";
-import TICKERS from "../../assets/tickers.json";
+import ASSETS from "../../assets/assets.json";
 import { AssetId } from "../../lib/assets";
 
 function useCombinedRefs<T>(
@@ -74,11 +74,16 @@ export function AssetDropdown({
 }) {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState<boolean>(false);
-  const assetIds = TICKERS.filter((assetId) => {
-    return !search || assetId.startsWith(search);
-  }).sort((a, b) => {
-    return a.localeCompare(b);
-  }) as AssetId[];
+  const assetIds = Object.values(ASSETS)
+    .filter((asset) => {
+      return (
+        (!search && asset.icon) || (search && asset.assetId.startsWith(search))
+      );
+    })
+    .map((asset) => asset.assetId)
+    .sort((a, b) => {
+      return a.localeCompare(b);
+    }) as AssetId[];
   return (
     <Dropdown
       show={show}

@@ -10,11 +10,15 @@ export function ChartBollingerBands({
   bollingerBands,
   ohlc,
   sma,
+  limitBuy,
+  limitSell,
   ...props
 }: CategoricalChartProps & {
   bollingerBands: BollingerBandsOutput[];
   ohlc: OHLCData[];
   sma: number[];
+  limitBuy: number;
+  limitSell: number;
 }) {
   const yDomain = useMemo<[number, number]>(() => {
     const extremes = ohlc.reduce<number[]>((values, data) => {
@@ -37,24 +41,8 @@ export function ChartBollingerBands({
     ];
   }, [bollingerBands, ohlc, sma]);
   const ticks = useMemo(() => {
-    const min = _.round(
-      Math.min(
-        ohlc[ohlc.length - 1]?.close || Infinity,
-        bollingerBands[bollingerBands.length - 1].lower,
-        sma[sma.length - 1]
-      ),
-      6
-    );
-    const max = _.round(
-      Math.max(
-        ohlc[ohlc.length - 1]?.close || 0,
-        bollingerBands[bollingerBands.length - 1].upper,
-        sma[sma.length - 1]
-      ),
-      6
-    );
-    return [Number(min), Number(max)];
-  }, [bollingerBands, ohlc, sma]);
+    return [_.ceil(limitBuy, 6), _.floor(limitSell, 6)];
+  }, [limitBuy, limitSell]);
   const mergedData = useMemo(
     () =>
       ohlc
