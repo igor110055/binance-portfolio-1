@@ -6,7 +6,7 @@ import { PortfolioTable } from "../Portfolio/PortfolioTable";
 import { Col, Row, Tab, Tabs } from "react-bootstrap";
 import { Loader } from "../../common/Loader";
 import { useAssets } from "../../contexts/Assets/useAssets";
-import { useStrategy } from "../../hooks/useStrategy";
+import { useStrategy } from "../../contexts/Strategy/useStrategy";
 
 export function Dashboard() {
   const [, loading] = useAssets();
@@ -34,13 +34,14 @@ export function Dashboard() {
         variant="pills"
       >
         <Tab eventKey="assets" title="Assets">
-          <MarketGrid sort="sell" />
+          <MarketGrid exchange={false} sort="buy" />
         </Tab>
         <Tab eventKey="strategy" title="Strategy">
           <MarketGrid
             baseAssetIds={strategy.baseAssetIds}
             quoteAssetIds={strategy.quoteAssetIds}
             sort="buy"
+            exchange={true}
           />
         </Tab>
       </Tabs>

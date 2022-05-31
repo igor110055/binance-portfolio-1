@@ -20,7 +20,8 @@ code {
 
 .AssetAmount {
   display: block;
-  height: 1rem;
+  position: relative;
+  height: 1.5em;
   min-width: 4em;
   .AssetAmount-content {
     display: inline-block;
@@ -29,11 +30,11 @@ code {
     line-height: 1;
     width: 100%;
     small {
-      display: flex;
-      width: 100%;
       position: absolute;
       font-size: 0.8em;
+      left: 0;
       top: -1em;
+      right: 0;
       opacity: 0.5;
       font-weight: bold;
       .icon {

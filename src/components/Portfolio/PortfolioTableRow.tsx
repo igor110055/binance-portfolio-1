@@ -2,11 +2,11 @@ import { ChangeEvent, useCallback } from "react";
 import { Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
-import { StrategyWeight } from "../../hooks/useStrategy";
 import { AssetAmount } from "../Asset/AssetAmount";
 import _ from "lodash";
 import { useAsset } from "../../contexts/Assets/useAssets";
 import { AssetId } from "../../lib/assets";
+import { StrategyWeight } from "../../contexts/Strategy/useStrategy";
 
 export function PortfolioTableRow({
   balance,

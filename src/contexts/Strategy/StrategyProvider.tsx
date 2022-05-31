@@ -1,29 +1,15 @@
-import { useMemo } from "react";
-import { useAssets } from "../contexts/Assets/useAssets";
-import { usePortfolio } from "../contexts/Portfolio/usePortfolio";
-import { AssetId } from "../lib/assets";
+import React, { ReactNode, useMemo } from "react";
+import { AssetId } from "../../lib/assets";
+import { useAssets } from "../Assets/useAssets";
+import { usePortfolio } from "../Portfolio/usePortfolio";
+import {
+  StrategyContext,
+  StrategyData,
+  StrategyWeight,
+  STRATEGY_MINIMUM_TRADE,
+} from "./useStrategy";
 
-const MINIMUM_TRADE = 0;
-
-export type StrategyWeight = {
-  assetId: AssetId;
-  current: number;
-  currentValue: number;
-  target: number;
-  targetAmount: number;
-  targetValue: number;
-  tradeAmount: number;
-  tradeValue: number;
-};
-export type StrategyData = {
-  totalAmount: number;
-  totalTarget: number;
-  weights: StrategyWeight[];
-  baseAssetIds: AssetId[];
-  quoteAssetIds: AssetId[];
-};
-
-export function useStrategy() {
+export function StrategyProvider({ children }: { children: ReactNode }) {
   const [assets] = useAssets();
   const [portfolio] = usePortfolio();
 
@@ -130,10 +116,10 @@ export function useStrategy() {
     () =>
       weights.reduce<[AssetId[], AssetId[]]>(
         ([bases, quotes], weight) => {
-          if (weight.target - weight.current >= MINIMUM_TRADE) {
+          if (weight.target - weight.current >= STRATEGY_MINIMUM_TRADE) {
             bases.push(weight.assetId);
           }
-          if (weight.current - weight.target >= MINIMUM_TRADE) {
+          if (weight.current - weight.target >= STRATEGY_MINIMUM_TRADE) {
             quotes.push(weight.assetId);
           }
           return [bases, quotes];
@@ -143,7 +129,7 @@ export function useStrategy() {
     [weights]
   );
 
-  return useMemo<StrategyData>(
+  const strategy = useMemo<StrategyData>(
     () => ({
       totalAmount,
       totalTarget,
@@ -152,5 +138,11 @@ export function useStrategy() {
       quoteAssetIds,
     }),
     [totalAmount, totalTarget, weights, baseAssetIds, quoteAssetIds]
+  );
+
+  return (
+    <StrategyContext.Provider value={strategy}>
+      {children}
+    </StrategyContext.Provider>
   );
 }

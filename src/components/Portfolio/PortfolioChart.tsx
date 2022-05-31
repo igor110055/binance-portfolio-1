@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Cell, Pie, PieChart, PieLabelRenderProps } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";
-import { useStrategy } from "../../hooks/useStrategy";
+import { useStrategy } from "../../contexts/Strategy/useStrategy";
 import { AssetId, getAssetColor, getAssetIcon } from "../../lib/assets";
 
 const ASSET_ICON_SIZE = 24;

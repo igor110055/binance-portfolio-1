@@ -8,17 +8,19 @@ import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";
 import { ChartRSI } from "../Chart/ChartRSI";
+import { MarketCardStrategy } from "./MarketCardStrategy";
+import { AssetPrice } from "../Asset/AssetPrice";
 
 export function MarketCard({
+  exchange,
   market,
   ...props
-}: CardProps & { market: MarketData }) {
-  const price = _.last(market.ohlc)?.close || 0;
+}: CardProps & { market: MarketData; exchange: boolean }) {
   const distanceColor = useMemo(() => {
-    if (market.distanceSell < 0) return "success";
-    if (market.distanceBuy < 0) return "danger";
+    if (market.sell.ratio <= 1) return "success";
+    if (market.buy.ratio <= 1) return "danger";
     return undefined;
-  }, [market.distanceBuy, market.distanceSell]);
+  }, [market.buy.ratio, market.sell.ratio]);
   const priceChangeColor = useMemo(() => {
     if (market.priceChangePercent > 0) return "success";
     if (market.priceChangePercent < 0) return "danger";
@@ -44,42 +46,21 @@ export function MarketCard({
             className={classNames(
               `text-${priceChangeColor}`,
               "ms-auto",
-              "px-1"
+              "ps-1"
             )}
           >
             {_.round(market.priceChangePercent, 2)}%
           </span>
         </Card.Title>
-        <Card.Subtitle>
-          <strong className="me-1">
-            <AssetIcon className="me-1" assetId={market.quoteAsset.assetId} />
-            {market.quoteAsset.assetId}
-          </strong>
-          {_.round(price, 6)}
+        <Card.Subtitle className="mb-2">
+          <AssetPrice
+            price={market.lastPrice}
+            assetId={market.quoteAsset.assetId}
+            decimals={6}
+            logo={true}
+          />
         </Card.Subtitle>
-        {/* <Card.Text as="pre">
-          {JSON.stringify(
-            _.omit(market, [
-              "ohlc",
-              "bollingerBands",
-              "macd",
-              "rsi",
-              "sma",
-              "baseAsset.ohlc",
-              "baseAsset.bollingerBands",
-              "baseAsset.macd",
-              "baseAsset.rsi",
-              "baseAsset.sma",
-              "quoteAsset.ohlc",
-              "quoteAsset.bollingerBands",
-              "quoteAsset.macd",
-              "quoteAsset.rsi",
-              "quoteAsset.sma",
-            ]),
-            null,
-            2
-          )}
-        </Card.Text> */}
+        <MarketCardStrategy exchange={exchange} market={market} />
       </Card.Body>
       <ResponsiveContainer aspect={4}>
         <ChartRSI data={market.rsi} />

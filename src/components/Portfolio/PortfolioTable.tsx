@@ -1,12 +1,15 @@
 import { useCallback, useMemo } from "react";
 import { Table } from "react-bootstrap";
 import { usePortfolio } from "../../contexts/Portfolio/usePortfolio";
-import { StrategyWeight, useStrategy } from "../../hooks/useStrategy";
 import { PortfolioTableRow } from "./PortfolioTableRow";
 import { PortfolioData } from "../../lib/portfolio";
 import { AssetDropdown } from "../Asset/AssetDropdown";
 import { AssetId } from "../../lib/assets";
 import { AssetAmount } from "../Asset/AssetAmount";
+import {
+  StrategyWeight,
+  useStrategy,
+} from "../../contexts/Strategy/useStrategy";
 
 export function PortfolioTable() {
   const [portfolio, setPortfolio] = usePortfolio();
