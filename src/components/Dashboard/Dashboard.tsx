@@ -34,13 +34,12 @@ export function Dashboard() {
         variant="pills"
       >
         <Tab eventKey="assets" title="Assets">
-          <MarketGrid exchange={false} sort="buy" />
+          <MarketGrid exchange={false} />
         </Tab>
         <Tab eventKey="strategy" title="Strategy">
           <MarketGrid
             baseAssetIds={strategy.baseAssetIds}
             quoteAssetIds={strategy.quoteAssetIds}
-            sort="buy"
             exchange={true}
           />
         </Tab>

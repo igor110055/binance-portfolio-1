@@ -1,6 +1,9 @@
 import { Button, Col, Row } from "react-bootstrap";
-import { useStrategy } from "../../contexts/Strategy/useStrategy";
-import { getMarketTrade, MarketData } from "../../lib/markets";
+import {
+  useStrategy,
+  useStrategyWeight,
+} from "../../contexts/Strategy/useStrategy";
+import { getTradeAmounts, MarketData } from "../../lib/markets";
 import { AssetAmount } from "../Asset/AssetAmount";
 import { AssetPrice } from "../Asset/AssetPrice";
 
@@ -12,8 +15,12 @@ export function MarketCardStrategy({
   exchange: boolean;
 }) {
   const strategy = useStrategy();
+  const weight = useStrategyWeight(market.baseAsset.assetId);
+  if (weight === undefined) {
+    return null;
+  }
 
-  const { buy, sell } = getMarketTrade(market, strategy);
+  const { baseAmount, quoteAmount } = getTradeAmounts(market, strategy);
 
   if (exchange) {
     return (
@@ -22,64 +29,58 @@ export function MarketCardStrategy({
           <small>Sell</small>
           <Button variant="danger">
             <AssetAmount
-              amount={buy.quoteAmount}
+              amount={quoteAmount}
               assetId={market.quoteAsset.assetId}
               decimals={6}
             />
           </Button>
           <small className="text-danger">
-            <AssetPrice price={buy.quotePrice} decimals={3} />
+            <AssetPrice price={market.buy.quotePrice} decimals={3} />
           </small>
         </Col>
         <Col className="d-grid text-center">
           <small>Buy</small>
           <Button variant="success">
             <AssetAmount
-              amount={buy.baseAmount}
+              amount={baseAmount}
               assetId={market.baseAsset.assetId}
               decimals={6}
             />
           </Button>
           <small className="text-success">
-            <AssetPrice price={buy.basePrice} decimals={3} />
+            <AssetPrice price={market.buy.basePrice} decimals={3} />
           </small>
         </Col>
       </Row>
     );
   }
 
-  const weight = strategy.weights.find(
-    (w) => w.assetId === market.baseAsset.assetId
-  );
-  if (weight === undefined) {
-    return null;
-  }
   return (
     <Row className="g-2">
       {weight.tradeValue < 0 ? (
         <Col className="d-grid text-center">
           <Button variant="danger">
             <AssetAmount
-              amount={sell.baseAmount}
+              amount={weight.tradeAmount * -1}
               assetId={market.baseAsset.assetId}
               decimals={6}
             />
           </Button>
           <small className="text-danger">
-            <AssetPrice price={sell.basePrice} decimals={3} />
+            <AssetPrice price={market.sell.basePrice} decimals={3} />
           </small>
         </Col>
       ) : (
         <Col className="d-grid text-center">
           <Button variant="success">
             <AssetAmount
-              amount={buy.baseAmount}
+              amount={weight.tradeAmount}
               assetId={market.baseAsset.assetId}
               decimals={6}
             />
           </Button>
           <small className="text-success">
-            <AssetPrice price={buy.basePrice} decimals={3} />
+            <AssetPrice price={market.buy.basePrice} decimals={3} />
           </small>
         </Col>
       )}

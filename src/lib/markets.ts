@@ -51,7 +51,7 @@ export function toMarketData(
   };
 }
 
-export function getMarketTrade(market: MarketData, strategy: StrategyData) {
+export function getTradeAmounts(market: MarketData, strategy: StrategyData) {
   const baseWeight = strategy.weights.find(
     (weight) => weight.assetId === market.baseAsset.assetId
   );
@@ -63,16 +63,7 @@ export function getMarketTrade(market: MarketData, strategy: StrategyData) {
     Math.abs(quoteWeight?.tradeValue || 0)
   );
   return {
-    tradeValue,
-    buy: {
-      ...market.buy,
-      baseAmount: tradeValue / market.buy.basePrice,
-      quoteAmount: tradeValue / market.buy.quotePrice,
-    },
-    sell: {
-      ...market.sell,
-      baseAmount: tradeValue / market.sell.basePrice,
-      quoteAmount: tradeValue / market.sell.quotePrice,
-    },
+    baseAmount: tradeValue / market.buy.basePrice,
+    quoteAmount: tradeValue / market.buy.quotePrice,
   };
 }

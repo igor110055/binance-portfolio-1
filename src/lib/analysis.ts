@@ -72,5 +72,7 @@ export function getAnalysis(
     ),
     limitSell: Math.max(lastUpper, (lastSma + lastUpper) / 2),
     limitBuy: Math.min(lastLower, (lastSma + lastLower) / 2),
+    // limitSell: lastUpper,
+    // limitBuy: lastLower,
   };
 }

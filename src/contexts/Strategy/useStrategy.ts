@@ -32,3 +32,8 @@ export const StrategyContext = createContext<StrategyData>({
 export function useStrategy() {
   return useContext(StrategyContext);
 }
+
+export function useStrategyWeight(assetId: AssetId) {
+  const strategy = useStrategy();
+  return strategy.weights.find((weight) => weight.assetId === assetId);
+}

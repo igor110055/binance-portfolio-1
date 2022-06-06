@@ -66,7 +66,7 @@ export function ChartBollingerBands({
         ticks={ticks}
         mirror={true}
         orientation="right"
-        tickLine={false}
+        tickLine={true}
       />
       <Line
         dataKey="upper"
