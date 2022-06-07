@@ -51,17 +51,21 @@ export function toMarketData(
   };
 }
 
-export function getTradeAmounts(market: MarketData, strategy: StrategyData) {
+export function getTradeValue(market: MarketData, strategy: StrategyData) {
   const baseWeight = strategy.weights.find(
     (weight) => weight.assetId === market.baseAsset.assetId
   );
   const quoteWeight = strategy.weights.find(
     (weight) => weight.assetId === market.quoteAsset.assetId
   );
-  const tradeValue = Math.min(
+  return Math.min(
     Math.abs(baseWeight?.tradeValue || 0),
     Math.abs(quoteWeight?.tradeValue || 0)
   );
+}
+
+export function getTradeAmounts(market: MarketData, strategy: StrategyData) {
+  const tradeValue = getTradeValue(market, strategy);
   return {
     baseAmount: tradeValue / market.buy.basePrice,
     quoteAmount: tradeValue / market.buy.quotePrice,

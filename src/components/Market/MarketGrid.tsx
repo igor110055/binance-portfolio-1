@@ -1,8 +1,11 @@
 import { Col, Row } from "react-bootstrap";
+import { useStrategy } from "../../contexts/Strategy/useStrategy";
 import { useMarkets } from "../../hooks/useMarkets";
 import { AssetId } from "../../lib/assets";
-import { MarketData } from "../../lib/markets";
+import { getTradeValue, MarketData } from "../../lib/markets";
 import { MarketCard } from "./MarketCard";
+
+const MINIMUM_TRADE_VALUE = 100;
 
 export type MarketGridProps = {
   baseAssetIds?: AssetId[];
@@ -23,14 +26,24 @@ export function MarketGrid({
   quoteAssetIds,
   exchange,
 }: MarketGridProps) {
+  const strategy = useStrategy();
   const markets = useMarkets(baseAssetIds, quoteAssetIds);
   return (
     <Row xs={2} md={3} xl={4} className="MarketGrid g-4">
-      {markets.sort(exchange ? byBuyRatio : bySellRatio).map((market) => (
-        <Col key={market.symbol}>
-          <MarketCard exchange={exchange} market={market} />
-        </Col>
-      ))}
+      {markets
+        .filter((market) => {
+          if (exchange) {
+            const tradeValue = getTradeValue(market, strategy);
+            return Math.abs(tradeValue) > MINIMUM_TRADE_VALUE;
+          }
+          return true;
+        })
+        .sort(exchange ? byBuyRatio : bySellRatio)
+        .map((market) => (
+          <Col key={market.symbol}>
+            <MarketCard exchange={exchange} market={market} />
+          </Col>
+        ))}
     </Row>
   );
 }

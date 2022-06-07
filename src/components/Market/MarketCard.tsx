@@ -8,8 +8,9 @@ import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";
 import { ChartRSI } from "../Chart/ChartRSI";
-import { MarketCardStrategy } from "./MarketCardStrategy";
+import { MarketLimitAsset } from "./MarketLimitAsset";
 import { AssetPrice } from "../Asset/AssetPrice";
+import { MarketLimitStrategy } from "./MarketLimitStrategy";
 
 export function MarketCard({
   exchange,
@@ -60,7 +61,11 @@ export function MarketCard({
             logo={true}
           />
         </Card.Subtitle>
-        <MarketCardStrategy exchange={exchange} market={market} />
+        {exchange ? (
+          <MarketLimitStrategy market={market} />
+        ) : (
+          <MarketLimitAsset market={market} />
+        )}
       </Card.Body>
       <ResponsiveContainer aspect={4}>
         <ChartRSI data={market.rsi} />

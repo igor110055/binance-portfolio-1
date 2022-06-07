@@ -16,7 +16,7 @@ export function ChartBollingerBands({
 }: CategoricalChartProps & {
   bollingerBands: BollingerBandsOutput[];
   ohlc: OHLCData[];
-  sma: number[];
+  sma: (number | null)[];
   limitBuy: number;
   limitSell: number;
 }) {
@@ -31,12 +31,12 @@ export function ChartBollingerBands({
       Math.min(
         ...extremes,
         bollingerBands[bollingerBands.length - 1].lower,
-        sma[sma.length - 1]
+        sma[sma.length - 1] || Infinity
       ),
       Math.max(
         ...extremes,
         bollingerBands[bollingerBands.length - 1].upper,
-        sma[sma.length - 1]
+        sma[sma.length - 1] || -Infinity
       ),
     ];
   }, [bollingerBands, ohlc, sma]);
@@ -51,7 +51,7 @@ export function ChartBollingerBands({
             ohlc && {
               ...ohlc,
               ...bollingerBands[index],
-              sma: sma[index],
+              sma: sma[index] || null,
             }
         )
         .filter(Boolean),
