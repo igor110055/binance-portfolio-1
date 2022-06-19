@@ -1,22 +1,22 @@
 import classNames from "classnames";
-import _ from "lodash";
 import { AssetId } from "../../lib/assets";
+import { roundLength } from "../../lib/round";
 import { AssetIcon } from "./AssetIcon";
 
 export function AssetPrice({
   price,
   assetId = process.env.REACT_APP_CURRENCY as AssetId,
   className,
-  decimals = 6,
+  maxDigits,
   logo = false,
 }: {
   price: number;
   assetId?: AssetId;
   className?: string;
-  decimals?: number;
+  maxDigits: number;
   logo?: boolean;
 }) {
-  const rounded = _.round(price, decimals);
+  const rounded = roundLength(price, maxDigits);
   return (
     <span className={classNames("AssetPrice", className)}>
       <small className="me-1">

@@ -5,6 +5,7 @@ import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalC
 import { BollingerBandsOutput } from "technicalindicators/declarations/volatility/BollingerBands";
 import { CandlesticksChart } from "../../common/CandlesticksChart";
 import { OHLCData } from "../../lib/ohlc";
+import { roundLength } from "../../lib/round";
 
 export function ChartBollingerBands({
   bollingerBands,
@@ -41,7 +42,7 @@ export function ChartBollingerBands({
     ];
   }, [bollingerBands, ohlc, sma]);
   const ticks = useMemo(() => {
-    return [_.ceil(limitBuy, 6), _.floor(limitSell, 6)];
+    return [roundLength(limitBuy, 4), roundLength(limitSell, 4)];
   }, [limitBuy, limitSell]);
   const mergedData = useMemo(
     () =>

@@ -7,6 +7,7 @@ import _ from "lodash";
 import { useAsset } from "../../contexts/Assets/useAssets";
 import { AssetId } from "../../lib/assets";
 import { StrategyWeight } from "../../contexts/Strategy/useStrategy";
+import { roundLength } from "../../lib/round";
 
 export function PortfolioTableRow({
   balance,
@@ -81,22 +82,26 @@ export function PortfolioTableRow({
         <AssetAmount
           amount={weight.targetAmount}
           assetId={balance.assetId}
-          decimals={6}
+          maxDigits={4}
         />
       </td>
       <td className="table-warning">
         <AssetAmount
           amount={weight.tradeAmount}
           assetId={weight.assetId}
-          decimals={3}
+          maxDigits={4}
           logo={true}
         />
       </td>
       <td className="table-warning">
         {weight.tradeValue < 0 ? (
-          <small className="text-danger">{_.round(asset.limitSell, 3)}</small>
+          <small className="text-danger">
+            {roundLength(asset.limitSell, 5)}
+          </small>
         ) : (
-          <small className="text-success">{_.round(asset.limitBuy, 3)}</small>
+          <small className="text-success">
+            {roundLength(asset.limitBuy, 5)}
+          </small>
         )}
       </td>
       <td className="table-warning">
@@ -107,7 +112,7 @@ export function PortfolioTableRow({
               : weight.tradeAmount * asset.limitBuy) * -1
           }
           assetId={process.env.REACT_APP_CURRENCY as AssetId}
-          decimals={3}
+          maxDigits={0}
         />
       </td>
     </tr>

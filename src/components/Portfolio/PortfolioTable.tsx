@@ -164,7 +164,7 @@ export function PortfolioTable() {
             <AssetAmount
               assetId={process.env.REACT_APP_CURRENCY as AssetId}
               amount={strategy.totalAmount}
-              decimals={2}
+              maxDigits={0}
             />
           </th>
           <th colSpan={3}></th>

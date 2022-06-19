@@ -54,7 +54,7 @@ export function getAnalysis(
 
   const lastLower = _.last(bollingerBands)?.lower || 0;
   const lastUpper = _.last(bollingerBands)?.upper || 0;
-  const lastSma = _.last(sma);
+  // const lastSma = _.last(sma);
 
   return {
     bollingerBands: [
@@ -70,15 +70,15 @@ export function getAnalysis(
     sma: [...Array(ohlc.length - sma.length).fill(undefined), ...sma].slice(
       -period
     ),
-    limitSell: Math.max(
-      lastUpper,
-      lastSma ? (lastSma + lastUpper) / 2 : -Infinity
-    ),
-    limitBuy: Math.min(
-      lastLower,
-      lastSma ? (lastSma + lastLower) / 2 : Infinity
-    ),
-    // limitSell: lastUpper,
-    // limitBuy: lastLower,
+    // limitSell: Math.max(
+    //   lastUpper,
+    //   lastSma ? (lastSma + lastUpper) / 2 : -Infinity
+    // ),
+    // limitBuy: Math.min(
+    //   lastLower,
+    //   lastSma ? (lastSma + lastLower) / 2 : Infinity
+    // ),
+    limitSell: lastUpper,
+    limitBuy: lastLower,
   };
 }

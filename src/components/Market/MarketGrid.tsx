@@ -5,7 +5,7 @@ import { AssetId } from "../../lib/assets";
 import { getTradeValue, MarketData } from "../../lib/markets";
 import { MarketCard } from "./MarketCard";
 
-const MINIMUM_TRADE_VALUE = 100;
+const MINIMUM_TRADE_VALUE = 20;
 
 export type MarketGridProps = {
   baseAssetIds?: AssetId[];
@@ -29,7 +29,7 @@ export function MarketGrid({
   const strategy = useStrategy();
   const markets = useMarkets(baseAssetIds, quoteAssetIds);
   return (
-    <Row xs={2} md={3} xl={4} className="MarketGrid g-4">
+    <Row xs={2} sm={2} md={2} lg={2} xl={3} className="MarketGrid g-4">
       {markets
         .filter((market) => {
           if (exchange) {

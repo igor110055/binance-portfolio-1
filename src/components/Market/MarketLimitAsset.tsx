@@ -17,11 +17,11 @@ export function MarketLimitAsset({ market }: { market: MarketData }) {
             <AssetAmount
               amount={weight.tradeAmount * -1}
               assetId={market.baseAsset.assetId}
-              decimals={6}
+              maxDigits={4}
             />
           </Button>
           <small className="text-danger">
-            <AssetPrice price={market.sell.basePrice} decimals={3} />
+            <AssetPrice price={market.sell.basePrice} maxDigits={4} />
           </small>
         </Col>
       ) : (
@@ -30,11 +30,11 @@ export function MarketLimitAsset({ market }: { market: MarketData }) {
             <AssetAmount
               amount={weight.tradeAmount}
               assetId={market.baseAsset.assetId}
-              decimals={6}
+              maxDigits={4}
             />
           </Button>
           <small className="text-success">
-            <AssetPrice price={market.buy.basePrice} decimals={3} />
+            <AssetPrice price={market.buy.basePrice} maxDigits={4} />
           </small>
         </Col>
       )}

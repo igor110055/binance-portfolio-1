@@ -57,7 +57,7 @@ export function MarketCard({
           <AssetPrice
             price={market.lastPrice}
             assetId={market.quoteAsset.assetId}
-            decimals={6}
+            maxDigits={4}
             logo={true}
           />
         </Card.Subtitle>

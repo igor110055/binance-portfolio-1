@@ -67,6 +67,7 @@ export function getTradeValue(market: MarketData, strategy: StrategyData) {
 export function getTradeAmounts(market: MarketData, strategy: StrategyData) {
   const tradeValue = getTradeValue(market, strategy);
   return {
+    tradeValue,
     baseAmount: tradeValue / market.buy.basePrice,
     quoteAmount: tradeValue / market.buy.quotePrice,
   };
