@@ -45,7 +45,7 @@ export function MarketLimitStrategy({ market }: { market: MarketData }) {
         <AssetAmount
           amount={tradeValue}
           assetId={process.env.REACT_APP_CURRENCY as AssetId}
-          maxDigits={0}
+          maxDigits={4}
         />
       </Col>
       <Col className="d-grid text-center">

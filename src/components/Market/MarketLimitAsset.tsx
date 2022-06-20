@@ -13,6 +13,7 @@ export function MarketLimitAsset({ market }: { market: MarketData }) {
     <Row className="g-2">
       {weight.tradeValue < 0 ? (
         <Col className="d-grid text-center">
+          <small>Sell</small>
           <Button variant="danger" disabled={weight.tradeAmount === 0}>
             <AssetAmount
               amount={weight.tradeAmount * -1}
@@ -26,6 +27,7 @@ export function MarketLimitAsset({ market }: { market: MarketData }) {
         </Col>
       ) : (
         <Col className="d-grid text-center">
+          <small>Buy</small>
           <Button variant="success" disabled={weight.tradeAmount === 0}>
             <AssetAmount
               amount={weight.tradeAmount}

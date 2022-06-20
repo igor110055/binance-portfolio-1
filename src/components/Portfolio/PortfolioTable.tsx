@@ -111,18 +111,29 @@ export function PortfolioTable() {
     <Table className="PortfolioTable" hover={true}>
       <thead>
         <tr>
-          <th className="table-sort" onClick={handleSort("assetId")}>
+          <th
+            className="table-sort"
+            onClick={handleSort("assetId")}
+            colSpan={2}
+          >
             Asset
+          </th>
+          <th
+            className="table-sort table-warning"
+            onClick={handleSort("targetValue")}
+            colSpan={1}
+          >
+            Allocation
           </th>
           <th
             className="table-sort"
             onClick={handleSort("currentValue")}
-            colSpan={2}
+            colSpan={3}
           >
             Current
           </th>
           <th
-            className="table-sort"
+            className="table-sort table-secondary"
             onClick={handleSort("targetValue")}
             colSpan={3}
           >
@@ -131,9 +142,9 @@ export function PortfolioTable() {
           <th
             className="table-sort"
             onClick={handleSort("tradeValue")}
-            colSpan={3}
+            colSpan={2}
           >
-            Limit (<abbr title="Not Financial Advice">NFA</abbr>)
+            Trade
           </th>
         </tr>
       </thead>
@@ -155,19 +166,20 @@ export function PortfolioTable() {
       </tbody>
       <tfoot>
         <tr>
-          <th>
+          <th colSpan={2}>
             <AssetDropdown disabled={assetIds} onSelect={handleCreate} />
           </th>
+          <th className="table-warning">{targetUnit}</th>
           <th colSpan={2}></th>
-          <th colSpan={2}>{targetUnit}</th>
           <th>
             <AssetAmount
               assetId={process.env.REACT_APP_CURRENCY as AssetId}
               amount={strategy.totalAmount}
-              maxDigits={0}
+              maxDigits={4}
             />
           </th>
-          <th colSpan={3}></th>
+          <th colSpan={3} className="table-secondary"></th>
+          <th colSpan={2}></th>
         </tr>
       </tfoot>
     </Table>

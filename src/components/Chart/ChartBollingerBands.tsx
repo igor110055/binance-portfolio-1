@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { useMemo } from "react";
 import { Line, XAxis, YAxis } from "recharts";
 import { CategoricalChartProps } from "recharts/types/chart/generateCategoricalChart";

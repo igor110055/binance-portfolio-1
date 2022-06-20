@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback } from "react";
+import { ChangeEvent, useCallback, useMemo } from "react";
 import { Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
@@ -7,7 +7,6 @@ import _ from "lodash";
 import { useAsset } from "../../contexts/Assets/useAssets";
 import { AssetId } from "../../lib/assets";
 import { StrategyWeight } from "../../contexts/Strategy/useStrategy";
-import { roundLength } from "../../lib/round";
 
 export function PortfolioTableRow({
   balance,
@@ -41,6 +40,14 @@ export function PortfolioTableRow({
     [balance, onUpdate]
   );
 
+  const tradeValueColor = useMemo(() => {
+    if (weight) {
+      if (weight.tradeValue > 0) return "table-success";
+      if (weight.tradeValue < 0) return "table-danger";
+    }
+    return undefined;
+  }, [weight]);
+
   if (asset === undefined || weight === undefined) {
     return null;
   }
@@ -58,7 +65,22 @@ export function PortfolioTableRow({
           </span>
         </div>
       </th>
-      <td>{_.round(weight.current * 100, 2) + "%"}</td>
+      <td>
+        <AssetAmount
+          amount={asset.lastPrice}
+          assetId={process.env.REACT_APP_CURRENCY as AssetId}
+          maxDigits={4}
+        />
+      </td>
+      <td className="table-warning">
+        <Form.Control
+          defaultValue={balance.target}
+          type="number"
+          placeholder={percentageTarget}
+          size="sm"
+          onChange={handleChangeTarget}
+        />
+      </td>
       <td>
         <Form.Control
           defaultValue={balance.available}
@@ -68,51 +90,41 @@ export function PortfolioTableRow({
           onChange={handleChangeAvailable}
         />
       </td>
+      <td>{_.round(weight.current * 100, 2) + "%"}</td>
       <td>
-        <Form.Control
-          defaultValue={balance.target}
-          type="number"
-          placeholder={percentageTarget}
-          size="sm"
-          onChange={handleChangeTarget}
+        <AssetAmount
+          amount={balance.available * asset.lastPrice}
+          assetId={process.env.REACT_APP_CURRENCY as AssetId}
+          maxDigits={4}
         />
       </td>
-      <td>{percentageTarget + "%"}</td>
-      <td>
+      <td className="table-secondary">
         <AssetAmount
           amount={weight.targetAmount}
           assetId={balance.assetId}
           maxDigits={4}
         />
       </td>
-      <td className="table-warning">
+      <td className="table-secondary">{percentageTarget + "%"}</td>
+      <td className="table-secondary">
         <AssetAmount
-          amount={weight.tradeAmount}
-          assetId={weight.assetId}
+          amount={weight.targetAmount * asset.lastPrice}
+          assetId={process.env.REACT_APP_CURRENCY as AssetId}
           maxDigits={4}
-          logo={true}
         />
       </td>
-      <td className="table-warning">
-        {weight.tradeValue < 0 ? (
-          <small className="text-danger">
-            {roundLength(asset.limitSell, 5)}
-          </small>
-        ) : (
-          <small className="text-success">
-            {roundLength(asset.limitBuy, 5)}
-          </small>
-        )}
-      </td>
-      <td className="table-warning">
+      <td className={tradeValueColor}>
         <AssetAmount
-          amount={
-            (weight.tradeValue < 0
-              ? weight.tradeAmount * asset.limitSell
-              : weight.tradeAmount * asset.limitBuy) * -1
-          }
+          amount={Math.abs(weight.tradeAmount)}
+          assetId={balance.assetId}
+          maxDigits={4}
+        />
+      </td>
+      <td className={tradeValueColor}>
+        <AssetAmount
+          amount={Math.abs(weight.tradeValue)}
           assetId={process.env.REACT_APP_CURRENCY as AssetId}
-          maxDigits={0}
+          maxDigits={4}
         />
       </td>
     </tr>

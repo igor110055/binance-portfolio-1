@@ -22,11 +22,12 @@ export function MarketCard({
     if (market.buy.ratio <= 1) return "danger";
     return undefined;
   }, [market.buy.ratio, market.sell.ratio]);
+
   const priceChangeColor = useMemo(() => {
-    if (market.priceChangePercent > 0) return "success";
-    if (market.priceChangePercent < 0) return "danger";
+    if (market.priceChangePercent > 0) return "text-success";
+    if (market.priceChangePercent < 0) return "text-danger";
     return undefined;
-  }, [market.priceChangePercent]);
+  }, [market]);
 
   return (
     <Card className="MarketCard" border={distanceColor} {...props}>
@@ -43,13 +44,7 @@ export function MarketCard({
         <Card.Title className="d-flex">
           <AssetIcon className="me-1" assetId={market.baseAsset.assetId} />
           {market.baseAsset.assetId}
-          <span
-            className={classNames(
-              `text-${priceChangeColor}`,
-              "ms-auto",
-              "ps-1"
-            )}
-          >
+          <span className={classNames(priceChangeColor, "ms-auto", "ps-1")}>
             {_.round(market.priceChangePercent, 2)}%
           </span>
         </Card.Title>
@@ -57,7 +52,7 @@ export function MarketCard({
           <AssetPrice
             price={market.lastPrice}
             assetId={market.quoteAsset.assetId}
-            maxDigits={4}
+            maxDigits={7}
             logo={true}
           />
         </Card.Subtitle>
