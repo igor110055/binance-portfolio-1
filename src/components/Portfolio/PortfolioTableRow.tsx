@@ -7,6 +7,8 @@ import _ from "lodash";
 import { useAsset } from "../../contexts/Assets/useAssets";
 import { AssetId } from "../../lib/assets";
 import { StrategyWeight } from "../../contexts/Strategy/useStrategy";
+import { useMarket } from "../../hooks/useMarkets";
+import { roundLength } from "../../lib/round";
 
 export function PortfolioTableRow({
   balance,
@@ -40,19 +42,61 @@ export function PortfolioTableRow({
     [balance, onUpdate]
   );
 
+  const priceChangeColor = useMemo(() => {
+    if (asset) {
+      if (asset.priceChangePercent > 0) return "success";
+      if (asset.priceChangePercent < 0) return "danger";
+    }
+    return "secondary";
+  }, [asset]);
+
   const tradeValueColor = useMemo(() => {
     if (weight) {
-      if (weight.tradeValue > 0) return "table-success";
-      if (weight.tradeValue < 0) return "table-danger";
+      if (weight.tradeValue > 0) return "success";
+      if (weight.tradeValue < 0) return "danger";
     }
-    return undefined;
+    return "secondary";
   }, [weight]);
 
-  if (asset === undefined || weight === undefined) {
+  const market = useMarket(asset?.assetId);
+
+  const [limitPrice, limitAmount] = useMemo(() => {
+    if (asset && market && weight) {
+      if (weight.tradeValue > 0)
+        return [
+          market.buy.basePrice,
+          (weight.tradeAmount / asset.lastPrice) * market.buy.basePrice,
+        ];
+      if (weight.tradeValue < 0)
+        return [
+          market.sell.basePrice,
+          (weight.tradeAmount / asset.lastPrice) * market.sell.basePrice,
+        ];
+    }
+    return [undefined, undefined];
+  }, [asset, market, weight]);
+
+  if (asset === undefined || weight === undefined || market === undefined) {
     return null;
   }
 
   const percentageTarget = String(_.round(weight.target * 100, 2));
+
+  const priceChangePercent = _.round(asset.priceChangePercent, 2);
+  const priceChange =
+    (priceChangePercent <= 0 ? "" : "+") + priceChangePercent + "%";
+
+  const targetAmountRounded = roundLength(weight.tradeAmount, 4);
+  const targetAmountChange =
+    (targetAmountRounded <= 0 ? "" : "+") + targetAmountRounded;
+
+  const targetValueRounded = roundLength(weight.tradeValue, 4);
+  const targetValueChange =
+    (targetValueRounded <= 0 ? "" : "+") + targetValueRounded;
+
+  const percentageRounded = _.round((weight.target - weight.current) * 100, 2);
+  const percentageChange =
+    (percentageRounded <= 0 ? "" : "+") + percentageRounded;
 
   return (
     <tr className="PortfolioTableRow">
@@ -70,7 +114,9 @@ export function PortfolioTableRow({
           amount={asset.lastPrice}
           assetId={process.env.REACT_APP_CURRENCY as AssetId}
           maxDigits={4}
-        />
+        >
+          <span className={"text-" + priceChangeColor}>{priceChange}</span>
+        </AssetAmount>
       </td>
       <td className="table-warning">
         <Form.Control
@@ -98,34 +144,49 @@ export function PortfolioTableRow({
           maxDigits={4}
         />
       </td>
-      <td className="table-secondary">
+      <td className={"table-" + tradeValueColor}>
         <AssetAmount
           amount={weight.targetAmount}
           assetId={balance.assetId}
           maxDigits={4}
-        />
+        >
+          <span className={"text-" + tradeValueColor}>
+            {targetAmountChange}
+          </span>
+        </AssetAmount>
       </td>
-      <td className="table-secondary">{percentageTarget + "%"}</td>
-      <td className="table-secondary">
+      <td className={"table-" + tradeValueColor}>
+        {percentageTarget + "%"}
+        <small className={"ms-1 text-" + tradeValueColor}>
+          {percentageChange + "%"}
+        </small>
+      </td>
+      <td className={"table-" + tradeValueColor}>
         <AssetAmount
           amount={weight.targetAmount * asset.lastPrice}
           assetId={process.env.REACT_APP_CURRENCY as AssetId}
           maxDigits={4}
-        />
+        >
+          <span className={"text-" + tradeValueColor}>{targetValueChange}</span>
+        </AssetAmount>
       </td>
-      <td className={tradeValueColor}>
-        <AssetAmount
-          amount={Math.abs(weight.tradeAmount)}
-          assetId={balance.assetId}
-          maxDigits={4}
-        />
+      <td className={"text-" + tradeValueColor}>
+        {limitAmount ? (
+          <AssetAmount
+            amount={limitAmount}
+            assetId={asset.assetId}
+            maxDigits={4}
+          />
+        ) : null}
       </td>
-      <td className={tradeValueColor}>
-        <AssetAmount
-          amount={Math.abs(weight.tradeValue)}
-          assetId={process.env.REACT_APP_CURRENCY as AssetId}
-          maxDigits={4}
-        />
+      <td className={"text-" + tradeValueColor}>
+        {limitPrice ? (
+          <AssetAmount
+            amount={limitPrice}
+            assetId={process.env.REACT_APP_CURRENCY as AssetId}
+            maxDigits={4}
+          />
+        ) : null}
       </td>
     </tr>
   );

@@ -29,7 +29,7 @@ code {
     margin-top: 0.67em;
     line-height: 1;
     width: 100%;
-    small {
+    .AssetAmount-assetId {
       position: absolute;
       font-size: 0.8em;
       left: 0;
@@ -41,6 +41,9 @@ code {
         text-align: center;
         max-height: 1em;
       }
+    }
+    .AssetAmount-amount {
+      display: inline-block;
     }
   }
 }

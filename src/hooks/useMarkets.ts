@@ -27,3 +27,11 @@ export function useMarkets(
       .flat();
   }, [assets, baseAssetIds, quoteAssetIds]);
 }
+
+export function useMarket(
+  baseAssetId?: AssetId,
+  quoteAssetId: AssetId = process.env.REACT_APP_CURRENCY as AssetId
+) {
+  const markets = useMarkets(baseAssetId ? [baseAssetId] : [], [quoteAssetId]);
+  return markets[0] as MarketData | undefined;
+}
