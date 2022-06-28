@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useMemo } from "react";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { AssetIcon } from "../Asset/AssetIcon";
 import { PortfolioData } from "../../lib/portfolio";
 import { AssetAmount } from "../Asset/AssetAmount";
@@ -9,6 +9,7 @@ import { AssetId } from "../../lib/assets";
 import { StrategyWeight } from "../../contexts/Strategy/useStrategy";
 import { useMarket } from "../../hooks/useMarkets";
 import { roundLength } from "../../lib/round";
+import { getTradeLimit } from "../../lib/markets";
 
 export function PortfolioTableRow({
   balance,
@@ -60,21 +61,11 @@ export function PortfolioTableRow({
 
   const market = useMarket(asset?.assetId);
 
-  const [limitPrice, limitAmount] = useMemo(() => {
-    if (asset && market && weight) {
-      if (weight.tradeValue > 0)
-        return [
-          market.buy.basePrice,
-          (weight.tradeAmount / asset.lastPrice) * market.buy.basePrice,
-        ];
-      if (weight.tradeValue < 0)
-        return [
-          market.sell.basePrice,
-          (weight.tradeAmount / asset.lastPrice) * market.sell.basePrice,
-        ];
+  const limit = useMemo(() => {
+    if (market && weight) {
+      return getTradeLimit(market, weight);
     }
-    return [undefined, undefined];
-  }, [asset, market, weight]);
+  }, [market, weight]);
 
   if (asset === undefined || weight === undefined || market === undefined) {
     return null;
@@ -150,9 +141,9 @@ export function PortfolioTableRow({
           assetId={balance.assetId}
           maxDigits={4}
         >
-          <span className={"text-" + tradeValueColor}>
+          <strong className={"text-" + tradeValueColor}>
             {targetAmountChange}
-          </span>
+          </strong>
         </AssetAmount>
       </td>
       <td className={"table-" + tradeValueColor}>
@@ -170,22 +161,26 @@ export function PortfolioTableRow({
           <span className={"text-" + tradeValueColor}>{targetValueChange}</span>
         </AssetAmount>
       </td>
-      <td className={"text-" + tradeValueColor}>
-        {limitAmount ? (
-          <AssetAmount
-            amount={limitAmount}
-            assetId={asset.assetId}
-            maxDigits={4}
-          />
-        ) : null}
-      </td>
-      <td className={"text-" + tradeValueColor}>
-        {limitPrice ? (
-          <AssetAmount
-            amount={limitPrice}
-            assetId={process.env.REACT_APP_CURRENCY as AssetId}
-            maxDigits={4}
-          />
+      <td>
+        {limit?.amount && limit?.price ? (
+          <Button
+            className="d-flex"
+            size="sm"
+            variant={"outline-" + tradeValueColor}
+          >
+            <AssetAmount
+              amount={limit.price}
+              assetId={process.env.REACT_APP_CURRENCY as AssetId}
+              maxDigits={4}
+            />
+            {/* <AssetAmount
+              amount={limit.amount}
+              assetId={asset.assetId}
+              className="ms-2"
+              logo={true}
+              maxDigits={4}
+            /> */}
+          </Button>
         ) : null}
       </td>
     </tr>

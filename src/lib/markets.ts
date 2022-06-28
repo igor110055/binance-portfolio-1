@@ -1,4 +1,4 @@
-import { StrategyData } from "../contexts/Strategy/useStrategy";
+import { StrategyData, StrategyWeight } from "../contexts/Strategy/useStrategy";
 import { AnalysisData, getAnalysis } from "./analysis";
 import { AssetData } from "./assets";
 import { crossOhlc, OHLCData } from "./ohlc";
@@ -70,5 +70,15 @@ export function getTradeAmounts(market: MarketData, strategy: StrategyData) {
     tradeValue,
     baseAmount: tradeValue / market.buy.basePrice,
     quoteAmount: tradeValue / market.buy.quotePrice,
+  };
+}
+
+export function getTradeLimit(market: MarketData, weight: StrategyWeight) {
+  const price =
+    weight.tradeValue > 0 ? market.buy.basePrice : market.sell.basePrice;
+  const amount = Math.abs(weight.tradeAmount);
+  return {
+    price,
+    amount,
   };
 }

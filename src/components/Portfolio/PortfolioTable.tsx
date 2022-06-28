@@ -139,11 +139,7 @@ export function PortfolioTable() {
           >
             Target
           </th>
-          <th
-            className="table-sort table-secondary"
-            onClick={handleSort("tradeValue")}
-            colSpan={3}
-          >
+          <th className="table-sort" onClick={handleSort("tradeValue")}>
             Limit
           </th>
         </tr>
