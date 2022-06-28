@@ -8,25 +8,23 @@ import { MarketData } from "../../lib/markets";
 import { ChartBollingerBands } from "../Chart/ChartBollingerBands";
 import { ChartMACD } from "../Chart/ChartMACD";
 import { ChartRSI } from "../Chart/ChartRSI";
-import { MarketLimitAsset } from "./MarketLimitAsset";
 import { AssetPrice } from "../Asset/AssetPrice";
 import { MarketLimitStrategy } from "./MarketLimitStrategy";
 
 export function MarketCard({
-  exchange,
   market,
   ...props
-}: CardProps & { market: MarketData; exchange: boolean }) {
+}: CardProps & { market: MarketData }) {
   const distanceColor = useMemo(() => {
-    if (market.sell.ratio <= 1) return "success";
-    if (market.buy.ratio <= 1) return "danger";
+    if (market.sell.ratio >= 1) return "success";
+    if (market.buy.ratio >= 1) return "danger";
     return undefined;
   }, [market.buy.ratio, market.sell.ratio]);
 
   const priceChangeColor = useMemo(() => {
     if (market.priceChangePercent > 0) return "text-success";
     if (market.priceChangePercent < 0) return "text-danger";
-    return undefined;
+    return "text-secondary";
   }, [market]);
 
   return (
@@ -56,11 +54,7 @@ export function MarketCard({
             logo={true}
           />
         </Card.Subtitle>
-        {exchange ? (
-          <MarketLimitStrategy market={market} />
-        ) : (
-          <MarketLimitAsset market={market} />
-        )}
+        <MarketLimitStrategy market={market} />
       </Card.Body>
       <ResponsiveContainer aspect={4}>
         <ChartRSI data={market.rsi} />

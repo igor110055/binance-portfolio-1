@@ -35,14 +35,14 @@ export function toMarketData(
       baseAsset.priceChangePercent - quoteAsset.priceChangePercent,
     ...analysis,
     buy: {
-      ratio: lastPrice / analysis.limitBuy,
+      ratio: analysis.limitBuy / lastPrice,
       basePrice:
         baseAsset.lastPrice / Math.max(1, lastPrice / analysis.limitBuy),
       quotePrice:
         quoteAsset.lastPrice * Math.max(1, lastPrice / analysis.limitBuy),
     },
     sell: {
-      ratio: analysis.limitSell / lastPrice,
+      ratio: lastPrice / analysis.limitSell,
       basePrice:
         baseAsset.lastPrice * Math.max(1, analysis.limitSell / lastPrice),
       quotePrice:
@@ -74,11 +74,13 @@ export function getTradeAmounts(market: MarketData, strategy: StrategyData) {
 }
 
 export function getTradeLimit(market: MarketData, weight: StrategyWeight) {
+  const amount = Math.abs(weight.tradeAmount);
   const price =
     weight.tradeValue > 0 ? market.buy.basePrice : market.sell.basePrice;
-  const amount = Math.abs(weight.tradeAmount);
+  const ratio = weight.tradeValue > 0 ? market.buy.ratio : market.sell.ratio;
   return {
-    price,
     amount,
+    price,
+    ratio,
   };
 }

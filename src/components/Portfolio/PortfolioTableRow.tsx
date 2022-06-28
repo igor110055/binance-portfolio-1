@@ -166,7 +166,9 @@ export function PortfolioTableRow({
           <Button
             className="d-flex"
             size="sm"
-            variant={"outline-" + tradeValueColor}
+            variant={
+              limit.ratio >= 1 ? tradeValueColor : "outline-" + tradeValueColor
+            }
           >
             <AssetAmount
               amount={limit.price}

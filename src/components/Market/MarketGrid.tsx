@@ -10,38 +10,26 @@ const MINIMUM_TRADE_VALUE = 20;
 export type MarketGridProps = {
   baseAssetIds?: AssetId[];
   quoteAssetIds?: AssetId[];
-  exchange: boolean;
 };
 
 function byBuyRatio(a: MarketData, b: MarketData) {
-  return a.buy.ratio - b.buy.ratio;
+  return b.buy.ratio - a.buy.ratio;
 }
 
-function bySellRatio(a: MarketData, b: MarketData) {
-  return a.sell.ratio - b.sell.ratio;
-}
-
-export function MarketGrid({
-  baseAssetIds,
-  quoteAssetIds,
-  exchange,
-}: MarketGridProps) {
+export function MarketGrid({ baseAssetIds, quoteAssetIds }: MarketGridProps) {
   const strategy = useStrategy();
   const markets = useMarkets(baseAssetIds, quoteAssetIds);
   return (
     <Row xs={2} sm={2} md={2} lg={2} xl={3} className="MarketGrid g-4">
       {markets
         .filter((market) => {
-          if (exchange) {
-            const tradeValue = getTradeValue(market, strategy);
-            return Math.abs(tradeValue) > MINIMUM_TRADE_VALUE;
-          }
-          return true;
+          const tradeValue = getTradeValue(market, strategy);
+          return Math.abs(tradeValue) > MINIMUM_TRADE_VALUE;
         })
-        .sort(exchange ? byBuyRatio : bySellRatio)
+        .sort(byBuyRatio)
         .map((market) => (
           <Col key={market.symbol}>
-            <MarketCard exchange={exchange} market={market} />
+            <MarketCard market={market} />
           </Col>
         ))}
     </Row>
